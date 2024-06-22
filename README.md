@@ -1,1 +1,1 @@
-# MotiX
+# MotiX - Team 5 
