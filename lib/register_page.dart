@@ -5,16 +5,17 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xFFEEF5FF),
         body: SingleChildScrollView(
-          // En dıştaki Container'ı sarmalayın
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Container(
                 child: Column(
                   children: [
+                    OkIsareti(),
                     SignUpText(), //SignUpText
                     Title(), // NAME AND SURNAME Title
                     InputArea(), // NAME AND SURNAME InputArea
@@ -26,11 +27,12 @@ class RegisterPage extends StatelessWidget {
                     InputArea4(), // PASSWORD VERIFY InputArea
                     Title5(),
                     InputArea5(),
-                    
                     Padding(
                       padding: const EdgeInsets.all(32.0),
                       child: CombinedButton(),
                     ),
+
+                    SignUp(),
                   ],
                 ),
               ),
@@ -41,7 +43,6 @@ class RegisterPage extends StatelessWidget {
     );
   }
 }
-
 ////////////////////////////////////////////
 
 //KAYIT OL YAZISININ OLDUĞU KODLAR//
@@ -50,7 +51,7 @@ class SignUpText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 100, left: 36),
+      margin: EdgeInsets.only(top: 16, left: 36),
       child: Column(
         children: [
           Container(
@@ -548,6 +549,8 @@ class _InputArea5State extends State<InputArea5> {
 
 //////////////////////////////////////////////////////////////////////////
 
+//KAYIT OL BUTONU//
+
 class CombinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -590,3 +593,87 @@ class CombinedButton extends StatelessWidget {
   }
 }
 /////////////////////////////////////////////////////////////////////////////
+
+//LOGIN EKRANINA YÖNLENDİREN KODLAR//
+
+class SignUp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 327,
+          height: 17,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Zaten bir hesabınız var mı?',
+                style: TextStyle(
+                  color: Color(0xFF6C7278),
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w500,
+                  height: 0.12,
+                  letterSpacing: -0.12,
+                ),
+              ),
+              const SizedBox(width: 6),
+              Text(
+                'Giriş Yap',
+                style: TextStyle(
+                  color: Color(0xFF176B87),
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  height: 0.12,
+                  letterSpacing: -0.12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+class OkIsareti extends StatelessWidget {
+  static const IconData chevron_left = IconData(
+    0xe15e,
+    fontFamily: 'MaterialIcons',
+    matchTextDirection: true,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          margin: EdgeInsets.only(top: 8, right: 329), // Burada margin ekledim
+          padding: EdgeInsets.zero,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                chevron_left,
+                color: Colors.black,
+                size: 36.0,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
