@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:motix_app/login_page.dart';
 import 'package:motix_app/register_page.dart';
 import 'package:motix_app/splash_screen.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: const LoginPage(),
     );
   }
 }
