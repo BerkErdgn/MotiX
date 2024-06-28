@@ -1,483 +1,146 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:motix_app/login_page.dart';
+import 'package:motix_app/onboarding_screen.dart';
+import 'package:motix_app/product/language/product_text.dart';
+
+void main() {
+  runApp(RegisterPage());
+}
 
 class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Color(0xFFEEF5FF),
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Container(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFFEEF5FF),
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    OkIsareti(),
-                    SignUpText(), //SignUpText
-                    Title(), // NAME AND SURNAME Title
-                    InputArea(), // NAME AND SURNAME InputArea
-                    Title2(), // E-MAIL Title
-                    InputArea2(), // E-MAIL InputArea
-                    Title3(), // PASSWORD Title
-                    InputArea3(), // PASSWORD InputArea
-                    Title4(), // PASSWORD VERIFY Title
-                    InputArea4(), // PASSWORD VERIFY InputArea
-                    Title5(),
-                    InputArea5(),
-                    Padding(
-                      padding: const EdgeInsets.all(32.0),
-                      child: CombinedButton(),
+                    const BackButtonIcon(),
+                    const SignUpText(),
+                    const InputField(
+                      textFieldHintText: 'Ad - Soyad',
+                      labelText: 'Ad - Soyad',
                     ),
-
-                    SignUp(),
+                    const InputField(
+                      textFieldHintText: 'E-posta',
+                      labelText: 'E-posta',
+                      customKeyboardTypes: TextInputType.emailAddress,
+                    ),
+                    const InputField(
+                      textFieldHintText: 'Şifre',
+                      labelText: 'Şifre',obscureText: true,
+                    ),
+                    const InputField(
+                      textFieldHintText: 'Şifre Tekrar',
+                      labelText: 'Şifre Tekrar', obscureText: true,
+                    ),
+                    InputArea5(),
+                    const Padding(
+                      padding: EdgeInsets.all(32.0),
+                      child: RegisterButton(),
+                    ),
+                    const AlreadyHaveAccount(),
                   ],
                 ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
-////////////////////////////////////////////
-
-//KAYIT OL YAZISININ OLDUĞU KODLAR//
 
 class SignUpText extends StatelessWidget {
+  const SignUpText({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 16, left: 36),
-      child: Column(
-        children: [
-          Container(
-            width: 527,
-            height: 72,
-            child: const Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 527,
-                  child: Text(
-                    'Kayıt Ol',
-                    style: TextStyle(
-                      color: Color(0xFF1A1C1E),
-                      fontSize: 32,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                      height: 0.995,
-                      letterSpacing: -0.995,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  width: 300,
-                  child: Text(
-                    'Devam etmek için bir hesap oluşturun!',
-                    style: TextStyle(
-                      color: Color(0xFF6C7278),
-                      fontSize: 14,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400, //Yazının kalınlığını ayarlar
-                      height: 0.16,
-                      letterSpacing: -0.16,
-                    ),
-                  ),
-                ),
-              ],
+    return Padding(
+      padding: RegisterPadding.signUpTextPadding,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: RegisterPadding.signUpTextBetweenPadding,
+              child: Text(ProjectText().title,
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      )),
             ),
-          ),
-        ],
+            Text(
+              ProjectText().subTitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Colors.grey[800]),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////
+class InputField extends StatelessWidget {
+  final bool isDropdown;
+  final String textFieldHintText;
+  final TextInputType customKeyboardTypes;
+  final String labelText;
+  final double _textFormFieldSize = 50;
+  final bool obscureText;
 
-// AD VE SOYAD BİLGİSİNİN ALINDIĞI KODLAR//
+  const InputField(
+      {Key? key,
+      this.isDropdown = false,
+      required this.textFieldHintText,
+      this.customKeyboardTypes = TextInputType.name,
+       
+      required this.labelText,  this.obscureText = false})
+      : super(key: key);
 
-class Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 36,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                left: 36,
-                child: Text(
-                  'Ad - Soyad',
-                  style: TextStyle(
-                    color: Color(0xFF6C7278),
-                    fontSize: 16,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: FontWeight.w500,
-                    height: 0.13,
-                    letterSpacing: -0.24,
-                  ),
-                ),
+    return Padding(
+      padding: RegisterPadding.inputPaddingSymmetric,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: _textFormFieldSize,
+            child: TextFormField(
+              obscureText: obscureText,
+              keyboardType: customKeyboardTypes,
+              // controller: _emailController,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: const OutlineInputBorder(),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue)),
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.orange)),
+                labelText: labelText,
               ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class InputArea extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 330,
-          height: 46,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(width: 2, color: Color(0xFFEDF1F3)),
-              borderRadius: BorderRadius.circular(10),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                if (!RegExp(r'^[^@]+@[^@]+.[^@]+').hasMatch(value)) {
+                  return 'Please enter a valid email address';
+                }
+                return null;
+              },
             ),
-            shadows: [
-              BoxShadow(
-                color: Color(0x3DE4E5E7),
-                blurRadius: 2,
-                offset: Offset(0, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-//EPOSTA BİLGİSİNİN ALINDIĞI KODLAR//
-
-class Title2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 36,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                left: 36,
-                child: Text(
-                  'E-Posta',
-                  style: TextStyle(
-                    color: Color(0xFF6C7278),
-                    fontSize: 16,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: FontWeight.w500,
-                    height: 0.13,
-                    letterSpacing: -0.24,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class InputArea2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 330,
-          height: 46,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(width: 2, color: Color(0xFFEDF1F3)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            shadows: [
-              BoxShadow(
-                color: Color(0x3DE4E5E7),
-                blurRadius: 2,
-                offset: Offset(0, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-////////////////////////////////////////////////////////////////////////////////
-
-//ŞİFRE BİLGİLERİNİN ALINDIĞI KODLAR//
-
-class Title3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 36,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                left: 36,
-                child: Text(
-                  'Şifre',
-                  style: TextStyle(
-                    color: Color(0xFF6C7278),
-                    fontSize: 16,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: FontWeight.w500,
-                    height: 0.13,
-                    letterSpacing: -0.24,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class InputArea3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 330,
-          height: 46,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(width: 2, color: Color(0xFFEDF1F3)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            shadows: [
-              BoxShadow(
-                color: Color(0x3DE4E5E7),
-                blurRadius: 2,
-                offset: Offset(0, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-//Doğrulayıcı ikinci şifre//
-
-class Title4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 36,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                left: 36, // Adjust 'left' property to position the text
-                child: Text(
-                  'Şifrenizi Tekrar Giriniz',
-                  style: TextStyle(
-                    color: Color(0xFF6C7278),
-                    fontSize: 16,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: FontWeight.w500,
-                    height: 0.13,
-                    letterSpacing: -0.24,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class InputArea4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 330,
-          height: 46,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(width: 2, color: Color(0xFFEDF1F3)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            shadows: [
-              BoxShadow(
-                color: Color(0x3DE4E5E7),
-                blurRadius: 2,
-                offset: Offset(0, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-//SEÇENEKLERİN YER ALDIĞI KODLAR//
-
-class Title5 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 36,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                left: 36,
-                child: Text(
-                  'Bir Tane Simge Seçiniz',
-                  style: TextStyle(
-                    color: Color(0xFF6C7278),
-                    fontSize: 16,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: FontWeight.w500,
-                    height: 0.13,
-                    letterSpacing: -0.24,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -490,13 +153,7 @@ class InputArea5 extends StatefulWidget {
 class _InputArea5State extends State<InputArea5> {
   String? selectedOption; // Seçilen öğeyi saklamak için
 
-  List<String> dropdownItems = [
-    'Gülücük',
-    'Bulut',
-    'Fırça',
-    'Kalp'
-// Gerektiğinde daha fazla seçenek eklenebilir
-  ];
+  List<String> dropdownItems = ['Gülücük', 'Bulut', 'Fırça', 'Kalp'];
 
   @override
   Widget build(BuildContext context) {
@@ -511,10 +168,10 @@ class _InputArea5State extends State<InputArea5> {
         decoration: ShapeDecoration(
           color: Colors.white,
           shape: RoundedRectangleBorder(
-            side: BorderSide(width: 2, color: Color(0xFFEDF1F3)),
+            side: const BorderSide(width: 2, color: Color(0xFFEDF1F3)),
             borderRadius: BorderRadius.circular(10),
           ),
-          shadows: [
+          shadows: const [
             BoxShadow(
               color: Color(0x3DE4E5E7),
               blurRadius: 2,
@@ -528,7 +185,7 @@ class _InputArea5State extends State<InputArea5> {
             value: selectedOption,
             isExpanded: true,
             // hint: Text('Seçenekler'),
-            icon: Icon(Icons.arrow_drop_down), // Açılır menü simgesi
+            icon: const Icon(Icons.arrow_drop_down), // Açılır menü simgesi
             onChanged: (String? newValue) {
               setState(() {
                 selectedOption = newValue;
@@ -547,133 +204,89 @@ class _InputArea5State extends State<InputArea5> {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////
+class RegisterButton extends StatelessWidget {
+  const RegisterButton({Key? key}) : super(key: key);
 
-//KAYIT OL BUTONU//
-
-class CombinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 32,
-      left: 50,
-      child: Container(
-        width: 330,
-        height: 46,
-        clipBehavior: Clip.antiAlias,
-        decoration: ShapeDecoration(
-          color: const Color(0xFF176B87),
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 2, color: Color(0xFF176B87)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          shadows: const [
-            BoxShadow(
-              color: Color(0x3DE4E5E7),
-              blurRadius: 2,
-              offset: Offset(0, 2),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: TextButton(
-          onPressed: () {
-            // Butona tıklandığında yapılacak işlemler buraya yazılacak
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            textStyle: const TextStyle(fontSize: 16),
-          ),
-          child: const Text('Kayıt Ol'),
-        ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        shadowColor: Colors.blueGrey,
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        minimumSize: const Size(350, 45),
+      ),
+      onPressed: () {
+        
+      },
+      child: Text(ProjectText().buttonText,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: Colors.white)),
+    );
+  }
+}
+
+class AlreadyHaveAccount extends StatelessWidget {
+  const AlreadyHaveAccount({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(ProjectText().alreadyHaveAccountText,
+            style: Theme.of(context).textTheme.bodyMedium),
+        TextButton(
+            onPressed: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context){
+                return LoginPage();
+              }));
+            },
+            child: Text(ProjectText().logIn,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Colors.blue)))
+      ],
+    );
+  }
+}
+
+class BackButtonIcon extends StatelessWidget {
+  const BackButtonIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Column(
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return const OnBoardingScreen();
+                }));
+              },
+              icon: const Icon(
+                Icons.chevron_left_outlined,
+                size: 35,
+              ))
+        ],
       ),
     );
   }
 }
-/////////////////////////////////////////////////////////////////////////////
 
-//LOGIN EKRANINA YÖNLENDİREN KODLAR//
+class RegisterPadding {
+  static EdgeInsets inputPaddingSymmetric =
+      const EdgeInsets.symmetric(horizontal: 10, vertical: 14);
 
-class SignUp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 327,
-          height: 17,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Zaten bir hesabınız var mı?',
-                style: TextStyle(
-                  color: Color(0xFF6C7278),
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w500,
-                  height: 0.12,
-                  letterSpacing: -0.12,
-                ),
-              ),
-              const SizedBox(width: 6),
-              Text(
-                'Giriş Yap',
-                style: TextStyle(
-                  color: Color(0xFF176B87),
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
-                  height: 0.12,
-                  letterSpacing: -0.12,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
+  static EdgeInsets signUpTextPadding =
+      const EdgeInsets.symmetric(vertical: 30, horizontal: 16);
 
-/////////////////////////////////////////////////////////////////////////////
-
-class OkIsareti extends StatelessWidget {
-  static const IconData chevron_left = IconData(
-    0xe15e,
-    fontFamily: 'MaterialIcons',
-    matchTextDirection: true,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 48,
-          height: 48,
-          margin: EdgeInsets.only(top: 8, right: 329), // Burada margin ekledim
-          padding: EdgeInsets.zero,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                chevron_left,
-                color: Colors.black,
-                size: 36.0,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  static EdgeInsets signUpTextBetweenPadding =
+      const EdgeInsets.only(bottom: 10);
 }

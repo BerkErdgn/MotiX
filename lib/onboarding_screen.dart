@@ -3,6 +3,7 @@ import 'package:motix_app/home_page.dart';
 import 'package:motix_app/intro_screens/intro_page1.dart';
 import 'package:motix_app/intro_screens/intro_page2.dart';
 import 'package:motix_app/intro_screens/intro_page3.dart';
+import 'package:motix_app/register_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -55,7 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return HomePage();
+                        return RegisterPage();
                       },
                       ),
                       );
