@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motix_app/register_page.dart';
+import 'package:motix_app/onboarding_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: RegisterPage(),
+      home: OnBoardingScreen(),
     );
   }
 }
