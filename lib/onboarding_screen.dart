@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:motix_app/home_page.dart';
 import 'package:motix_app/intro_screens/intro_page1.dart';
 import 'package:motix_app/intro_screens/intro_page2.dart';
 import 'package:motix_app/intro_screens/intro_page3.dart';
