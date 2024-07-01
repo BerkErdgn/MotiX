@@ -1,18 +1,72 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:motix_app/login_page.dart';
-import 'package:motix_app/onboarding_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:motix_app/data/auth/Auth.dart';
+import 'package:motix_app/data/dropdownMenuData/DropdownMenuData.dart';
+import 'package:motix_app/pages/cubit/registerCubit.dart';
+import 'package:motix_app/pages/home_page.dart';
+import 'package:motix_app/pages/login_page.dart';
+import 'package:motix_app/pages/onBoarding/onboarding_screen.dart';
+import 'package:motix_app/product/components/inputField.dart';
+import 'package:motix_app/product/components/registerButton.dart';
 import 'package:motix_app/product/language/product_text.dart';
 
 void main() {
   runApp(RegisterPage());
 }
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerVerifyPassword = TextEditingController();
+  final TextEditingController _iconController = TextEditingController();
+
+
+  Future<void> signInWithEmailAndPassword() async{
+
+    try{
+      if(_controllerEmail.text.isNotEmpty && _controllerName.text.isNotEmpty && _controllerPassword.text.isNotEmpty && _controllerVerifyPassword.text.isNotEmpty){
+        if(_controllerPassword.text == _controllerVerifyPassword.text){
+          await Auth().createUserWithEmailAndPassword(email: _controllerEmail.text, password: _controllerPassword.text);
+
+          var userId ="";
+          var userName = _controllerName.text;
+          var userEmail = _controllerEmail.text;
+          var profileIcon = _iconController.text;
+          context.read<RegisterCubit>().addUser(userId, userName, userEmail, profileIcon);
+
+          Navigator.push(context, MaterialPageRoute(builder:(context) {return const HomePage();}));
+        }else{
+          setState(() {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Şifreler uyuşmuyor")));
+          });
+        }
+      }else{
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Bütün boşlukları doldurunuz.")));
+        });
+      }
+
+    }on FirebaseAuthException catch(e){
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.message}")));
+        });
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
           backgroundColor: const Color(0xFFEEF5FF),
           body: SingleChildScrollView(
             child: SafeArea(
@@ -22,27 +76,28 @@ class RegisterPage extends StatelessWidget {
                   children: [
                     const BackButtonIcon(),
                     const SignUpText(),
-                    const InputField(
-                      textFieldHintText: 'Ad - Soyad',
+                     InputField(
                       labelText: 'Ad - Soyad',
+                       controller: _controllerName,
                     ),
-                    const InputField(
-                      textFieldHintText: 'E-posta',
+                     InputField(
                       labelText: 'E-posta',
                       customKeyboardTypes: TextInputType.emailAddress,
+                       controller: _controllerEmail,
                     ),
-                    const InputField(
-                      textFieldHintText: 'Şifre',
+                     InputField(
                       labelText: 'Şifre',obscureText: true,
+                       controller: _controllerPassword,
                     ),
-                    const InputField(
-                      textFieldHintText: 'Şifre Tekrar',
+                     InputField(
                       labelText: 'Şifre Tekrar', obscureText: true,
+                       controller: _controllerVerifyPassword,
                     ),
-                    InputArea5(),
-                    const Padding(
+                    InputArea5(controller: _iconController,),
+                     Padding(
                       padding: EdgeInsets.all(32.0),
-                      child: RegisterButton(),
+                      child:
+                       RegisterButton( buttonText: ProjectText().registerButtonText,  functionEmailAndPassword: signInWithEmailAndPassword,)
                     ),
                     const AlreadyHaveAccount(),
                   ],
@@ -50,7 +105,7 @@ class RegisterPage extends StatelessWidget {
               ),
             ),
           ),
-        ));
+        );
   }
 }
 
@@ -88,146 +143,73 @@ class SignUpText extends StatelessWidget {
   }
 }
 
-class InputField extends StatelessWidget {
-  final bool isDropdown;
-  final String textFieldHintText;
-  final TextInputType customKeyboardTypes;
-  final String labelText;
-  final double _textFormFieldSize = 50;
-  final bool obscureText;
-
-  const InputField(
-      {Key? key,
-      this.isDropdown = false,
-      required this.textFieldHintText,
-      this.customKeyboardTypes = TextInputType.name,
-       
-      required this.labelText,  this.obscureText = false})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: RegisterPadding.inputPaddingSymmetric,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: _textFormFieldSize,
-            child: TextFormField(
-              obscureText: obscureText,
-              keyboardType: customKeyboardTypes,
-              // controller: _emailController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: const OutlineInputBorder(),
-                enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue)),
-                focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange)),
-                labelText: labelText,
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                if (!RegExp(r'^[^@]+@[^@]+.[^@]+').hasMatch(value)) {
-                  return 'Please enter a valid email address';
-                }
-                return null;
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
 
 class InputArea5 extends StatefulWidget {
+  final TextEditingController controller;
+
+  const InputArea5(
+      {Key? key, required this.controller})
+      : super(key: key);
+
   @override
   _InputArea5State createState() => _InputArea5State();
 }
 
 class _InputArea5State extends State<InputArea5> {
-  String? selectedOption; // Seçilen öğeyi saklamak için
 
-  List<String> dropdownItems = ['Gülücük', 'Bulut', 'Fırça', 'Kalp'];
+  ProfileLable? selectedIcon;
+
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 32,
-      left: 36,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: 330,
-        height: 46,
-        padding: const EdgeInsets.symmetric(horizontal: 14),
+        padding: const EdgeInsets.only(top: 8.0),
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: Colors.white,
+          color: Color(0xFFEEF5FF),
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 2, color: Color(0xFFEDF1F3)),
             borderRadius: BorderRadius.circular(10),
           ),
           shadows: const [
             BoxShadow(
-              color: Color(0x3DE4E5E7),
+              color: Color(0xFFEEECEC),
               blurRadius: 2,
               offset: Offset(0, 2),
               spreadRadius: 0,
             )
           ],
         ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: selectedOption,
-            isExpanded: true,
-            // hint: Text('Seçenekler'),
-            icon: const Icon(Icons.arrow_drop_down), // Açılır menü simgesi
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedOption = newValue;
-              });
-            },
-            items: dropdownItems.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
+        child: DropdownMenu<ProfileLable>(
+          initialSelection: ProfileLable.bear,
+          controller: widget.controller,
+          requestFocusOnTap: true,
+          leadingIcon: const Icon(Icons.search),
+          label: const Text('Select Profile Image'),
+          onSelected: (ProfileLable? icon) {
+            setState(() {
+              selectedIcon = icon;
+            });
+          },
+          dropdownMenuEntries:
+          ProfileLable.values.map<DropdownMenuEntry<ProfileLable>>(
+                (ProfileLable icon) {
+              return DropdownMenuEntry<ProfileLable>(
+                value: icon,
+                label: icon.label,
+                leadingIcon: SvgPicture.asset(icon.icon, width: 25, height: 25,),
               );
-            }).toList(),
-          ),
+            },
+          ).toList(),
         ),
       ),
     );
   }
 }
 
-class RegisterButton extends StatelessWidget {
-  const RegisterButton({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
-        shadowColor: Colors.blueGrey,
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        minimumSize: const Size(350, 45),
-      ),
-      onPressed: () {
-        
-      },
-      child: Text(ProjectText().buttonText,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(color: Colors.white)),
-    );
-  }
-}
 
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({Key? key}) : super(key: key);
