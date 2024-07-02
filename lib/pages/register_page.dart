@@ -67,14 +67,13 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: const Color(0xFFEEF5FF),
+
           body: SingleChildScrollView(
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    const BackButtonIcon(),
                     const SignUpText(),
                      InputField(
                       labelText: 'Ad - Soyad',
@@ -237,30 +236,6 @@ class AlreadyHaveAccount extends StatelessWidget {
   }
 }
 
-class BackButtonIcon extends StatelessWidget {
-  const BackButtonIcon({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Column(
-        children: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return const OnBoardingScreen();
-                }));
-              },
-              icon: const Icon(
-                Icons.chevron_left_outlined,
-                size: 35,
-              ))
-        ],
-      ),
-    );
-  }
-}
 
 class RegisterPadding {
   static EdgeInsets inputPaddingSymmetric =
