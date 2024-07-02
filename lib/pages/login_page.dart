@@ -40,37 +40,36 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-      ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _HeadLineText(signText: signText),
-
-                InputField(controller: _controllerEmail, labelText: "E-mail"),
-
-                InputField(controller: _controllerPassword, labelText: "Şifre"),
-
-                const SizedBox(
-                  height: 25,
-                ),
-                RegisterButton(functionEmailAndPassword: signInWithEmailAndPassword, buttonText: ProjectText().enteringButtonText),
-                const SizedBox(
-                  height: 25,
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 25,
-                ),
-                const SignUpText(),
-              ],
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              "assets/backgroundImages.jpg",
+              fit: BoxFit.cover,
             ),
           ),
-        ),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _HeadLineText(signText: signText),
+                    InputField(controller: _controllerEmail, labelText: "E-mail"),
+                    InputField(controller: _controllerPassword, labelText: "Şifre"),
+                    const SizedBox(height: 25),
+                    RegisterButton(functionEmailAndPassword: signInWithEmailAndPassword, buttonText: ProjectText().enteringButtonText),
+                    const SizedBox(height: 25),
+                    const Divider(),
+                    const SizedBox(height: 25),
+                    const SignUpText(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
