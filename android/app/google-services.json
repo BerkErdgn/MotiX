@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440463202315",
+    "project_id": "motix-98c8f",
+    "storage_bucket": "motix-98c8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440463202315:android:971849e379abed37660f0e",
+        "android_client_info": {
+          "package_name": "com.example.motix_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7fD3qKKyhczzkI3RcNhHLE4Yddnrkz8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

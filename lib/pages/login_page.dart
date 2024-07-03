@@ -1,6 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:motix_app/register_page.dart';
+import 'package:motix_app/data/auth/Auth.dart';
+import 'package:motix_app/pages/home_page.dart';
+import 'package:motix_app/pages/register_page.dart';
+import 'package:motix_app/product/components/inputField.dart';
+import 'package:motix_app/product/components/registerButton.dart';
+import 'package:motix_app/product/language/product_text.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,42 +17,59 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   final String signText = 'Hesabınıza Giriş Yapın';
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  Future<void> signInWithEmailAndPassword ()async {
+    try{
+      await Auth().signInWithEmailAndPassword(email: _controllerEmail.text, password: _controllerPassword.text);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    }on FirebaseAuthException catch(e){
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.message}")));
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFEEF5FF),
-      ),
-      backgroundColor: const Color(0xFFEEF5FF),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _HeadLineText(signText: signText),
-                const Title6(),
-                const InputArea6(),
-                const Title7(),
-                const InputArea7(),
-                const SizedBox(
-                  height: 25,
-                ),
-                const LoginButton(),
-                const SizedBox(
-                  height: 25,
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 25,
-                ),
-                const SignUpText(),
-              ],
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              "assets/backgroundImages.jpg",
+              fit: BoxFit.cover,
             ),
           ),
-        ),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _HeadLineText(signText: signText),
+                    InputField(controller: _controllerEmail, labelText: "E-mail"),
+                    InputField(controller: _controllerPassword, labelText: "Şifre"),
+                    const SizedBox(height: 25),
+                    RegisterButton(functionEmailAndPassword: signInWithEmailAndPassword, buttonText: ProjectText().enteringButtonText),
+                    const SizedBox(height: 25),
+                    const Divider(),
+                    const SizedBox(height: 25),
+                    const SignUpText(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
