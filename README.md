@@ -1,3 +1,4 @@
+
 # MotiX - Project Overview
 
 ## Takım Üyeleri
@@ -5,14 +6,14 @@
 |   | İsim           | Ünvan         | Sosyal Medya |
 |---|----------------|---------------|--------------|
 | <img src="https://blush.design/api/download?shareUri=5pCt-LLo7H5HFs0S&c=Skin_0%7Effdbb4&bg=b9a2ef&w=800&h=800&fm=png" width="50" height="70" /> | Azize Dirilik | Scrum Master | [<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="20" height="20"/>](https://github.com/azizexb) [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="20" height="20"/>](https://www.linkedin.com/in/azizedirilik/) |
-| <img src="https://cdn.discordapp.com/attachments/1257399205786419250/1257649832978284606/Open_Peeps_-_Sitting.png?ex=66852d2e&is=6683dbae&hm=f088a48487f0a41ae53391b76261342b9179364c427adfb72e54930239cb8dae&" width="50" height="70" /> | Berk Erdoğan   | Product Owner | [<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="20" height="20"/>](https://github.com/BerkErdgn) [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="20" height="20"/>](https://www.linkedin.com/in/berk-erdgn/) |
+| <img src="https://cdn.discordapp.com/attachments/1257399205786419250/1257649832978284606/Open_Peeps_-_Sitting.png?ex=6687d02e&is=66867eae&hm=6b53a842a794b835bf710f1e925f2fe9a717da3268f469381e23262d99d6b5d7&" width="50" height="70" /> | Berk Erdoğan   | Product Owner | [<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="20" height="20"/>](https://github.com/BerkErdgn) [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="20" height="20"/>](https://www.linkedin.com/in/berk-erdgn/) |
 | <img src="https://blush.design/api/download?shareUri=tD6hyOemR&c=Skin_0%7Effdbb4&bg=f4ff00&w=800&h=800&fm=png" width="50" height="70" /> | Azra Arslan    | Developer     | [<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="20" height="20"/>](https://github.com/azrars) [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="20" height="20"/>](https://www.linkedin.com/in/azra-arslan-0b54082a2/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app) |
 | <img src="https://blush.design/api/download?shareUri=jovGJWoj74f5wfHm&c=Skin_0%7Eedb98a&bg=ec1c5e&w=800&h=800&fm=png" width="50" height="70" /> | Beraat Öztorun | Developer     | [<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="20" height="20"/>](https://github.com/beraatoztorun) [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="20" height="20"/>](https://www.linkedin.com/in/beraatoztorun/) |
 |<img src="https://cdn.discordapp.com/attachments/1255570164280201309/1258356579250602014/Open_Peeps_-_Bust_1.png?ex=6687bf63&is=66866de3&hm=7a2be5825c1064951c9ced875653648703f5a463a8462ca4709f0e63df0c11c2&" width="50" height="70"/> | Berke Atahan   | Developer     | [<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="20" height="20"/>](https://github.com/berkecibir) [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="20" height="20"/>](https://www.linkedin.com/in/berke-atahan/) |
 
 ## Ürün İsmi
 
-<img src="https://cdn.discordapp.com/attachments/1255570164280201309/1258361613833211985/d.gif?ex=6687c413&is=66867293&hm=3879026e82b94466589bc66a576275c2dffa9567bd50f64757d2e0d1c10cd38b&" width="250" height="250" /> 
+<img src="https://cdn.discordapp.com/attachments/1255570164280201309/1258361613833211985/d.gif?ex=6687c413&is=66867293&hm=3879026e82b94466589bc66a576275c2dffa9567bd50f64757d2e0d1c10cd38b&" width="250" height="200" /> 
 
 ## Backlog Url
 
