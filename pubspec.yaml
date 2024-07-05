@@ -40,6 +40,7 @@ dependencies:
   cloud_firestore:
   firebase_auth:
   flutter_svg:
+  shared_preferences:
 
 
 
