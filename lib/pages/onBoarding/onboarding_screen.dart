@@ -40,7 +40,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ],
           ),
           Container(
-              alignment: Alignment(0, 0.75),
+              alignment: Alignment(0, 0.90),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -51,7 +51,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         MaterialPageRoute(builder: (context) =>  LoginPage()),
                       );
                     },
-                    child: Text('skip'),
+                    child: Text('Geç'),
                   ),
                   SmoothPageIndicator(controller: _controller, count: 3),
 
@@ -63,7 +63,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         MaterialPageRoute(builder: (context) =>  LoginPage()),
                       );
                     },
-                    child: Text('done'),
+                    child: Text('Bitti'),
                   )
                       : GestureDetector(
                     onTap: () {
@@ -72,7 +72,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Text('next'),
+                    child: Text('Devam'),
                   ),
                 ],
               )
