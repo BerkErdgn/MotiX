@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:motix_app/pages/login_page.dart';
 import 'package:motix_app/pages/onBoarding/intro_screens/intro_page1.dart';
 import 'package:motix_app/pages/onBoarding/intro_screens/intro_page2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'intro_screens/intro_page3.dart';
@@ -19,6 +20,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
 
   bool onLastPage = false;
+
+  _storeOnBoardingInfo()async{
+    bool isViewed = true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("onBoard", isViewed);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      await _storeOnBoardingInfo();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) =>  LoginPage()),
@@ -57,7 +65,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
                   onLastPage ?
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      await _storeOnBoardingInfo();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) =>  LoginPage()),
