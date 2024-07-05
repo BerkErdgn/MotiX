@@ -6,26 +6,49 @@ class IntroPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Kendi Koçunuz Olun'),
-      ),
-      body:Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Yapay zeka destekli koçluk sistemimizle sorunlarınıza çözüm bulun ve hedeflerinize ulaşın',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 20),
-        Center(
-           child: Lottie.network(
-          'https://lottie.host/68842393-f892-4250-bd24-bfd2af985b00/NDAMAb21zx.json'
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            child: Center(
+              child: Lottie.asset('assets/animations/ucuncu.json'),
               ),
-             ),
-           ],
           ),
-        );
-      }
-    }
+          const SizedBox(height: 20),
+           const Text(
+            'Kendi Koçunuz Olun',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text.rich(
+              TextSpan(
+                text: 'Yapay zeka',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.orange,
+                ),
+                children: [
+                  TextSpan(
+                    text: ' destekli koçluk sistemimizle sorunlarınıza çözüm bulun ve hedeflerinize ulaşın',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
