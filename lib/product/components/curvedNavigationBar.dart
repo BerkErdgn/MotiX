@@ -8,6 +8,7 @@ CurvedNavigationBar genericCurvedNavigationBar() {
   const int animationDuration = 300;
 
   return CurvedNavigationBar(
+    
       height: 57,
       index: 2,
       backgroundColor: backgroundColor,

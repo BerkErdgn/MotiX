@@ -95,6 +95,6 @@ class TodoItemContainer extends StatelessWidget {
 
 class TodoItemPadding {
   static const EdgeInsets itemPadding =
-      EdgeInsets.symmetric(vertical: 10, horizontal: 15);
+      EdgeInsets.symmetric(vertical: 8, horizontal: 15);
   static const EdgeInsets containerPadding = EdgeInsets.all(20);
 }

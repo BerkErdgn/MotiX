@@ -36,7 +36,6 @@ dependencies:
   lottie: ^3.1.2
   curved_navigation_bar: ^1.0.6
   flutter_slidable: ^3.1.0
-  shared_preferences: ^2.0.6
 
 
   flutter_bloc:
