@@ -1,6 +1,8 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/pages/login_page.dart';
+import 'package:motix_app/product/components/curvedNavigationBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,10 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  Future<void> signout()async{
+  Future<void> signout() async {
     await Auth().signOut();
-    Navigator.push(context, MaterialPageRoute(builder:(context) {return const LoginPage();}));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const LoginPage();
+    }));
   }
 
   @override
@@ -24,14 +27,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Text('Home Page'),
-            ElevatedButton(
-                onPressed: signout,
-                child: Text("Çıkış yap")
-            )
+            ElevatedButton(onPressed: signout, child: Text("Çıkış yap")),
           ],
         ),
-
       ),
+      bottomNavigationBar: genericCurvedNavigationBar(),
     );
   }
 }
