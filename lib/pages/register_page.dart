@@ -183,29 +183,30 @@ class _InputArea5State extends State<InputArea5> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: Container(
         padding: const EdgeInsets.only(top: 8.0),
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: Color(0xFFEEF5FF),
+          color: Colors.transparent,
           shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 4, color: Color(0xFFEDF1F3)),
+            side: const BorderSide(width: 4, color: Colors.transparent),
             borderRadius: BorderRadius.circular(8),
           ),
-          shadows: const [
-            BoxShadow(
-              color: Color(0xFFEEECEC),
-              blurRadius: 2,
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-            )
-          ],
+          // shadows: const [
+          //   BoxShadow(
+          //     color: Colors.white,
+          //     blurRadius: 2,
+          //     offset: Offset(0, 4),
+          //     spreadRadius: 0,
+          //   )
+          // ],
         ),
         child: DropdownMenu<ProfileLable>(
+          menuHeight: 200,
           initialSelection: ProfileLable.bear,
           controller: widget.controller,
-          requestFocusOnTap: true,
+          requestFocusOnTap: false,
           leadingIcon: const Icon(Icons.search),
           label: const Text('Profil Resmi Seçiniz'),
           onSelected: (ProfileLable? icon) {
@@ -214,6 +215,7 @@ class _InputArea5State extends State<InputArea5> {
             });
           },
           dropdownMenuEntries:
+
               ProfileLable.values.map<DropdownMenuEntry<ProfileLable>>(
             (ProfileLable icon) {
               return DropdownMenuEntry<ProfileLable>(

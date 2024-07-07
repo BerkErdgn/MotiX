@@ -56,8 +56,8 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     _HeadLineText(signText: signText),
-                    InputField(controller: _controllerEmail, labelText: "E-mail"),
-                    InputField(controller: _controllerPassword, labelText: "Şifre"),
+                    InputField(controller: _controllerEmail, labelText: "E-mail", customKeyboardTypes: TextInputType.emailAddress,),
+                    InputField(controller: _controllerPassword, labelText: "Şifre", obscureText: true,),
                     const SizedBox(height: 25),
                     RegisterButton(functionEmailAndPassword: signInWithEmailAndPassword, buttonText: ProjectText().enteringButtonText),
                     const SizedBox(height: 25),
