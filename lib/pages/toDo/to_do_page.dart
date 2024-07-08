@@ -149,7 +149,7 @@ class _TodoPageState extends State<TodoPage> {
           ),
         ],
       ),
-      
+      bottomNavigationBar: genericCurvedNavigationBar(),
     );
   }
 }
