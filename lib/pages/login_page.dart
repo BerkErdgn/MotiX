@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:motix_app/data/auth/Auth.dart';
+import 'package:motix_app/main_screen.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/register_page.dart';
 import 'package:motix_app/product/components/inputField.dart';
 import 'package:motix_app/product/components/registerButton.dart';
 import 'package:motix_app/product/language/product_text.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,25 +17,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final String signText = 'Hesabınıza Giriş Yapın';
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  Future<void> signInWithEmailAndPassword ()async {
-    try{
-      await Auth().signInWithEmailAndPassword(email: _controllerEmail.text, password: _controllerPassword.text);
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+          email: _controllerEmail.text, password: _controllerPassword.text);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => MainScreen()),
       );
-    }on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       setState(() {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.message}")));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("${e.message}")));
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +56,20 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     _HeadLineText(signText: signText),
-                    InputField(controller: _controllerEmail, labelText: "E-mail", customKeyboardTypes: TextInputType.emailAddress,),
-                    InputField(controller: _controllerPassword, labelText: "Şifre", obscureText: true,),
+                    InputField(
+                      controller: _controllerEmail,
+                      labelText: "E-mail",
+                      customKeyboardTypes: TextInputType.emailAddress,
+                    ),
+                    InputField(
+                      controller: _controllerPassword,
+                      labelText: "Şifre",
+                      obscureText: true,
+                    ),
                     const SizedBox(height: 25),
-                    RegisterButton(functionEmailAndPassword: signInWithEmailAndPassword, buttonText: ProjectText().enteringButtonText),
+                    RegisterButton(
+                        functionEmailAndPassword: signInWithEmailAndPassword,
+                        buttonText: ProjectText().enteringButtonText),
                     const SizedBox(height: 25),
                     const Divider(),
                     const SizedBox(height: 25),
@@ -326,7 +336,7 @@ class SignUpText extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
               return RegisterPage();
             }));
           },

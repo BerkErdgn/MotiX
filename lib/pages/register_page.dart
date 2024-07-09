@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/data/dropdownMenuData/DropdownMenuData.dart';
+import 'package:motix_app/main_screen.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/login_page.dart';
@@ -48,7 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
               .addUser(userId, userName, userEmail, profileIcon);
 
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const HomePage();
+            return MainScreen();
           }));
         } else {
           setState(() {
@@ -215,7 +216,6 @@ class _InputArea5State extends State<InputArea5> {
             });
           },
           dropdownMenuEntries:
-
               ProfileLable.values.map<DropdownMenuEntry<ProfileLable>>(
             (ProfileLable icon) {
               return DropdownMenuEntry<ProfileLable>(

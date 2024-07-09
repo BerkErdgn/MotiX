@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/pages/login_page.dart';
-import 'package:motix_app/product/components/curvedNavigationBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,7 +30,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: genericCurvedNavigationBar(),
     );
   }
 }
