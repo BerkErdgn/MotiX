@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:motix_app/data/auth/Auth.dart';
+import 'package:motix_app/main_screen.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/login_page.dart';
 import 'package:motix_app/pages/onBoarding/onboarding_screen.dart';
@@ -16,7 +17,7 @@ class SplashScreen extends StatelessWidget {
     if (!hasSeenOnboarding) {
       return const OnBoardingScreen();
     } else if (authenticated) {
-      return HomePage();
+      return MainScreen();
     } else {
       return const LoginPage();
     }

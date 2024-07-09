@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:motix_app/pages/toDo/todo_list.dart';
-import 'package:motix_app/product/components/curvedNavigationBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -108,9 +107,7 @@ class _TodoPageState extends State<TodoPage> {
                         },
                       ),
               ),
-              SizedBox(
-                  height:
-                      70), 
+              SizedBox(height: 70),
             ],
           ),
           Positioned(
@@ -149,7 +146,6 @@ class _TodoPageState extends State<TodoPage> {
           ),
         ],
       ),
-      bottomNavigationBar: genericCurvedNavigationBar(),
     );
   }
 }
