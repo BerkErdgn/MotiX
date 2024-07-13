@@ -2,17 +2,24 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motix_app/notes_page/note_provider.dart';
 import 'package:motix_app/pages/coach_page.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/profile.dart';
 import 'package:motix_app/pages/social_media_page.dart';
 import 'package:motix_app/pages/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NoteProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
