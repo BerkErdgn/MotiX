@@ -6,12 +6,25 @@ import 'package:motix_app/pages/cubit/imageCubit.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
 import 'package:motix_app/pages/splash_screen.dart';
 import 'package:motix_app/product/util/consts.dart';
+import 'package:motix_app/notes_page/note_provider.dart';
+import 'package:motix_app/pages/coach_page.dart';
+import 'package:motix_app/pages/cubit/registerCubit.dart';
+import 'package:motix_app/pages/home_page.dart';
+import 'package:motix_app/pages/profile.dart';
+import 'package:motix_app/pages/social_media_page/social_media_page.dart';
+import 'package:provider/provider.dart';
+
 
 void main() async {
   Gemini.init(apiKey: GEMINI_API_KEY);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NoteProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

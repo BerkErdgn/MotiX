@@ -2,9 +2,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/pages/coachPage/coach_page.dart';
 import 'package:motix_app/pages/home_page.dart';
-import 'package:motix_app/pages/notes_page.dart';
+import 'package:motix_app/notes_page/notes_page.dart';
 import 'package:motix_app/pages/profile.dart';
-import 'package:motix_app/pages/social_media_page.dart';
+import 'package:motix_app/pages/social_media_page/social_media_page.dart';
 import 'package:motix_app/pages/toDo/to_do_page.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     const NotesPage(),
     const CoachPage(),
     const TodoPage(),
-    const SocialMediaPage(),
+     SocialMediaPage(),
     const ProfilePage(),
   ];
 
