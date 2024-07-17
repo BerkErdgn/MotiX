@@ -1,4 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:motix_app/data/auth/Auth.dart';
+import 'package:motix_app/data/entity/userImageEntity.dart';
+import 'package:motix_app/pages/cubit/imageCubit.dart';
 import 'package:motix_app/pages/social_media_page/add_blog_post_page.dart';
 import 'package:motix_app/pages/social_media_page/blog_post.dart';
 import 'package:motix_app/pages/social_media_page/category_item.dart';
@@ -14,19 +20,30 @@ class SocialMediaPage extends StatefulWidget {
 
 class _SocialMediaPageState extends State<SocialMediaPage> {
   List<Map<String, dynamic>> categories = [
-    {'label': 'Kültür', 'icon': Icons.ac_unit_rounded},
-    {'label': 'Dizayn', 'icon': Icons.design_services},
-    {'label': 'Trend', 'icon': Icons.trending_up},
-    {'label': 'Tarih', 'icon': Icons.history},
-    {'label': 'Gezi', 'icon': Icons.travel_explore},
+    {'label': 'Trend', 'icon': ""},
+    {'label': 'Başarı', 'icon':'assets/categoryIcons/success.png'},
+    {'label': 'Kariyer', 'icon': ""},
+    {'label': 'Motivasyon', 'icon': ""},
+    {'label': 'Gelişim', 'icon': ""},
+    {'label': 'Kitaplar', 'icon': ""},
+    {'label': 'Eğitim', 'icon': ""},
+    {'label': 'Zaman', 'icon': ""},
+    {'label': 'Hedefler', 'icon': ""},
+    {'label': 'İlham', 'icon': ""},
+    {'label': 'Özgüven', 'icon': ""},
+
   ];
   String selectedCategory = 'Trend';
   List<BlogPost> blogPosts = [];
+
+  //İmage için
+  final User? user = Auth().currentUser;
 
   @override
   void initState() {
     super.initState();
     _loadBlogPosts();
+    context.read<Imagecubit>().getUserImage(user?.email ?? "");
   }
 
   void _loadBlogPosts() async {
@@ -69,6 +86,8 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     List<BlogPost> filteredPosts = selectedCategory == 'Trend'
@@ -77,25 +96,29 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             return post.categories.contains(selectedCategory);
           }).toList();
 
-    late String imageAbcUrl;
-    setState(() {
-      imageAbcUrl =
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/220px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg';
-    });
-
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
             Container(
               margin: const EdgeInsets.only(top: 5),
-              child: ClipOval(
-                child: Image.network(
-                  imageAbcUrl,
-                  fit: BoxFit.cover,
-                  width: 40,
-                  height: 40,
-                ),
+              child: BlocBuilder<Imagecubit, List<UserImageEntity>>(
+                builder: (context, userImageList) {
+                  String imageName;
+                  if (userImageList.isNotEmpty) {
+                    imageName = userImageList.first.profileIcon;
+                  } else {
+                    imageName = "chick";
+                  }
+                  return ClipOval(
+                    child: SvgPicture.asset(
+                      "assets/animalIcon/$imageName.svg",
+                      fit: BoxFit.cover,
+                      width: 50,
+                      height: 50,
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 8),
