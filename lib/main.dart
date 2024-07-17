@@ -7,7 +7,7 @@ import 'package:motix_app/pages/coach_page.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/profile.dart';
-import 'package:motix_app/pages/social_media_page.dart';
+import 'package:motix_app/pages/social_media_page/social_media_page.dart';
 import 'package:motix_app/pages/splash_screen.dart';
 import 'package:provider/provider.dart';
 
