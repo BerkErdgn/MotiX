@@ -35,7 +35,7 @@ class _CoachPageState extends State<CoachPage> {
   @override
   void initState() {
     super.initState();
-    context.read<Imagecubit>().getUserImage(user?.email ?? "user email");
+    context.read<Imagecubit>().getUserImage(user?.email ?? "");
     print(user?.email);
   }
 
@@ -43,41 +43,40 @@ class _CoachPageState extends State<CoachPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: Stack(
           children: [
-            BlocBuilder<Imagecubit, List<UserImageEntity>>(
-              builder: (context, userImageList) {
-                String imageName;
-                if (userImageList.isNotEmpty) {
-                  imageName = userImageList.first.profileIcon;
-                  print("cıktı");
-                  print(imageName);
-                } else {
-                  imageName = "bear";
-                }
-
-                return Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  child: ClipOval(
-                    child: SvgPicture.asset(
-                      "assets/animalIcon/$imageName.svg",
-                      fit: BoxFit.cover,
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                );
-              },
+            Align(
+              alignment: Alignment.center,
+              child: Image.asset('assets/logo/yeniMotix.png', width: 90),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Center(
-                child: Image.asset('assets/logo/yeniMotix.png', width: 90),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(top: 22.0),
+                child: BlocBuilder<Imagecubit, List<UserImageEntity>>(
+                  builder: (context, userImageList) {
+                    String imageName;
+                    if (userImageList.isNotEmpty) {
+                      imageName = userImageList.first.profileIcon;
+                    } else {
+                      imageName = "chick";
+                    }
+                    return ClipOval(
+                      child: SvgPicture.asset(
+                        "assets/animalIcon/$imageName.svg",
+                        fit: BoxFit.cover,
+                        width: 50,
+                        height: 50,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],
         ),
       ),
+
       body: _builUI(),
     );
   }

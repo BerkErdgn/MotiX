@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
   final String label;
-  final IconData icon;
+  final String  icon;
   final bool isSelected;
 
   const CategoryItem({super.key, 
@@ -29,11 +29,11 @@ class CategoryItem extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
+              ImageIcon(
+                AssetImage(icon),
                 color: isSelected ? Colors.white : Colors.black,
                 size: 34,
-              ),
+              )
             ],
           ),
         ),

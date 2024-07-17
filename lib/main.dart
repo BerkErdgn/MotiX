@@ -4,14 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:motix_app/pages/cubit/imageCubit.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
+import 'package:motix_app/pages/cubit/socialMediaCubit.dart';
 import 'package:motix_app/pages/splash_screen.dart';
 import 'package:motix_app/product/util/consts.dart';
 import 'package:motix_app/notes_page/note_provider.dart';
-import 'package:motix_app/pages/coach_page.dart';
-import 'package:motix_app/pages/cubit/registerCubit.dart';
-import 'package:motix_app/pages/home_page.dart';
-import 'package:motix_app/pages/profile.dart';
-import 'package:motix_app/pages/social_media_page/social_media_page.dart';
 import 'package:provider/provider.dart';
 
 
@@ -36,6 +32,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => Imagecubit()),
+        BlocProvider(create: (context) => SocialMediaCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
