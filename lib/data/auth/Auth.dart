@@ -5,6 +5,7 @@ class Auth{
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  User? get currentUser => _firebaseAuth.currentUser;
 
   bool checkIfUserSignIn(){
     return _firebaseAuth.currentUser != null;

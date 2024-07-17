@@ -44,6 +44,9 @@ dependencies:
   firebase_auth:
   flutter_svg:
   shared_preferences:
+  flutter_gemini:
+  dash_chat_2:
+  image_picker:
 
 
 

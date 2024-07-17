@@ -7,3 +7,6 @@ class ProjectText {
   String registerButtonText = "Kayıt Ol ";
 }
 
+
+
+

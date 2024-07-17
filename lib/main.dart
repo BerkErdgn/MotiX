@@ -1,15 +1,14 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motix_app/pages/coach_page.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:motix_app/pages/cubit/imageCubit.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
-import 'package:motix_app/pages/home_page.dart';
-import 'package:motix_app/pages/profile.dart';
-import 'package:motix_app/pages/social_media_page.dart';
 import 'package:motix_app/pages/splash_screen.dart';
+import 'package:motix_app/product/util/consts.dart';
 
 void main() async {
+  Gemini.init(apiKey: GEMINI_API_KEY);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -23,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(create: (context) => Imagecubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:motix_app/pages/coach_page.dart';
+import 'package:motix_app/pages/coachPage/coach_page.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/notes_page.dart';
 import 'package:motix_app/pages/profile.dart';
