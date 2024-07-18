@@ -14,7 +14,19 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final List<String> _selectedCategories = [];
+  String? _selectedCategory;
+  final List<String> _categories = [
+    'Başarı',
+    'Kariyer',
+    'Motivasyon',
+    'Gelişim',
+    'Kitaplar',
+    'Eğitim',
+    'Zaman',
+    'Hedefler',
+    'İlham',
+    'Özgüven',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +50,14 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Başlık',
+                decoration: InputDecoration(
+                  labelText: 'Başlık', 
                   hintText: 'Gönderi başlığı girin',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(color: Colors.orange, width: 2.0),
                   ),
                 ),
@@ -56,11 +71,14 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Açıklama',
                   hintText: 'Gönderi açıklaması girin',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(color: Colors.orange, width: 2.0),
                   ),
                 ),
@@ -73,34 +91,34 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                 },
               ),
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: ['Kültür', 'Dizayn', 'Tarih', 'Gezi'].map((category) {
-                  bool isSelected = _selectedCategories.contains(category);
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: ChoiceChip(
-                      label: Text(
-                        category,
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
-                      ),
-                      selected: isSelected,
-                      backgroundColor: const Color.fromARGB(255, 193, 229, 247),
-                      selectedColor: Colors.orange.shade400,
-                      onSelected: (selected) {
-                        setState(() {
-                          if (selected) {
-                            _selectedCategories.add(category);
-                          } else {
-                            _selectedCategories.remove(category);
-                          }
-                        });
-                      },
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
+                hint: Text('Kategori seçin'),
+                icon: Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedCategory = newValue!;
+                  });
+                },
+                items: _categories
+                    .map<DropdownMenuItem<String>>((String category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(
+                      category,
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   );
                 }).toList(),
+                dropdownColor: Colors.black,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -109,7 +127,7 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                     BlogPost newPost = BlogPost(
                       title: _titleController.text,
                       description: _descriptionController.text,
-                      categories: _selectedCategories,
+                      categories: [_selectedCategory!],
                     );
                     widget.onAdd(newPost);
                     Navigator.pop(context);
@@ -132,7 +150,7 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                 ),
                 child: const Text(
                   'Gönderiyi Ekle',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
             ],

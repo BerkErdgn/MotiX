@@ -28,28 +28,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
-      title: Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 5),
-            child: ClipOval(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: 40,
-                height: 40,
+      title: Center(
+        child: Row(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              margin: const EdgeInsets.only(top: 5),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(imageUrl),
+                radius: 25,
               ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Center(
-              child: Image.asset('assets/logo/yeniMotix.png', width: 90),
+            Expanded(
+              child: Center(
+                child: Image.asset('assets/logo/MotiX.png', width: 70),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      actions: actions,
+      actions: actions.isEmpty ? null : actions,
+      automaticallyImplyLeading: false,
     );
   }
 
