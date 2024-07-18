@@ -8,6 +8,7 @@ import 'package:motix_app/pages/cubit/imageCubit.dart';
 import 'package:motix_app/pages/social_media_page/add_blog_post_page.dart';
 import 'package:motix_app/pages/social_media_page/blog_post.dart';
 import 'package:motix_app/pages/social_media_page/category_item.dart';
+import 'package:motix_app/product/components/custom_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -20,18 +21,17 @@ class SocialMediaPage extends StatefulWidget {
 
 class _SocialMediaPageState extends State<SocialMediaPage> {
   List<Map<String, dynamic>> categories = [
-    {'label': 'Trend', 'icon': ""},
-    {'label': 'Başarı', 'icon':'assets/categoryIcons/success.png'},
-    {'label': 'Kariyer', 'icon': ""},
-    {'label': 'Motivasyon', 'icon': ""},
-    {'label': 'Gelişim', 'icon': ""},
-    {'label': 'Kitaplar', 'icon': ""},
-    {'label': 'Eğitim', 'icon': ""},
-    {'label': 'Zaman', 'icon': ""},
-    {'label': 'Hedefler', 'icon': ""},
-    {'label': 'İlham', 'icon': ""},
-    {'label': 'Özgüven', 'icon': ""},
-
+    {'label': 'Trend', 'icon': "assets/categoryIcons/trending.png"},
+    {'label': 'Başarı', 'icon': 'assets/categoryIcons/success.png'},
+    {'label': 'Kariyer', 'icon': "assets/categoryIcons/career.png"},
+    {'label': 'Motivasyon', 'icon': "assets/categoryIcons/motivation.png"},
+    {'label': 'Gelişim', 'icon': "assets/categoryIcons/hard-work.png"},
+    {'label': 'Kitaplar', 'icon': "assets/categoryIcons/books.png"},
+    {'label': 'Eğitim', 'icon': "assets/categoryIcons/education.png"},
+    {'label': 'Zaman', 'icon': "assets/categoryIcons/time.png"},
+    {'label': 'Hedefler', 'icon': "assets/categoryIcons/goal.png"},
+    {'label': 'İlham', 'icon': "assets/categoryIcons/inspiration.png"},
+    {'label': 'Özgüven', 'icon': "assets/categoryIcons/self-confidence.png"},
   ];
   String selectedCategory = 'Trend';
   List<BlogPost> blogPosts = [];
@@ -86,8 +86,6 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     List<BlogPost> filteredPosts = selectedCategory == 'Trend'
@@ -97,47 +95,10 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
           }).toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 5),
-              child: BlocBuilder<Imagecubit, List<UserImageEntity>>(
-                builder: (context, userImageList) {
-                  String imageName;
-                  if (userImageList.isNotEmpty) {
-                    imageName = userImageList.first.profileIcon;
-                  } else {
-                    imageName = "chick";
-                  }
-                  return ClipOval(
-                    child: SvgPicture.asset(
-                      "assets/animalIcon/$imageName.svg",
-                      fit: BoxFit.cover,
-                      width: 50,
-                      height: 50,
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Center(
-                child: Image.asset('assets/logo/yeniMotix.png', width: 90),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 38,
-            ),
-            onPressed: _navigateToAddBlogPostPage,
-          ),
-        ],
+      appBar: CustomAppBar(
+        imageUrl: 'https://picsum.photos/200/300',
+        onPressed: _navigateToAddBlogPostPage,
+        showAddButton: true,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -189,9 +150,3 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
     );
   }
 }
-
-
-
-
-
-
