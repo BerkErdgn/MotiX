@@ -25,47 +25,52 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String logoGif = "assets/motix_logo.gif";
-    double iconSize = 200;
+    String logoGif = "assets/logo/MotiXBeyaz.gif";
+    double iconSize = 300;
     int iconDuration = 5000;
 
     return FutureBuilder<Widget>(
-        future: _getNextScreen(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
+      future: _getNextScreen(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: Center(
+              child: Text("Bir hata oluştu, lütfen uygulamayı tekrar açınız"),
+            ),
+          );
+        } else if (snapshot.hasData) {
+          return AnimatedSplashScreen(
+            splash: Container(
+              alignment: Alignment.center,
+              child: Image.asset(
+                logoGif,
+                fit: BoxFit.contain,
               ),
-            );
-          } else if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Text("Bir hata oluştu lütfen uyglamayı tekrar acınız"),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            return AnimatedSplashScreen(
-              splash: Container(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  logoGif,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              splashIconSize: iconSize,
-              centered: true,
-              splashTransition: SplashTransition.fadeTransition,
-              duration: iconDuration,
-              nextScreen: snapshot.data!,
-            );
-          } else {
-            return Scaffold(
-              body: Center(
-                child: Text("Yükleniyor..."),
-              ),
-            );
-          }
-        });
+            ),
+            splashIconSize: iconSize,
+            centered: true,
+            splashTransition: SplashTransition.fadeTransition,
+            duration: iconDuration,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            nextScreen: snapshot.data!,
+          );
+        } else {
+          return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: Center(
+              child: Text("Yükleniyor..."),
+            ),
+          );
+        }
+      },
+    );
   }
 }
