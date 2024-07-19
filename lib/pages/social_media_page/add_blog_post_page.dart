@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:motix_app/pages/social_media_page/blog_post.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motix_app/data/entity/post.dart';
+import 'package:motix_app/pages/cubit/addPostCubit.dart';
+import 'package:uuid/uuid.dart'; // Benzersiz postId için
 
 class AddBlogPostPage extends StatefulWidget {
-  final Function(BlogPost) onAdd;
+  final Function(Post) onAdd;
+  final String postOwnerEmail;
+  final String postOwnerName;
+  final String postOwnerProfileIcon;
 
-  const AddBlogPostPage({super.key, required this.onAdd});
+  const AddBlogPostPage({super.key, required this.onAdd, required this.postOwnerEmail, required this.postOwnerName, required this.postOwnerProfileIcon});
 
   @override
   _AddBlogPostPageState createState() => _AddBlogPostPageState();
@@ -16,6 +22,7 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
   final _descriptionController = TextEditingController();
   String? _selectedCategory;
   final List<String> _categories = [
+    'Trend',
     'Başarı',
     'Kariyer',
     'Motivasyon',
@@ -25,7 +32,7 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
     'Zaman',
     'Hedefler',
     'İlham',
-    'Özgüven',
+    'Özgüven'
   ];
 
   @override
@@ -51,14 +58,14 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
               TextFormField(
                 controller: _titleController,
                 decoration: InputDecoration(
-                  labelText: 'Başlık', 
+                  labelText: 'Başlık',
                   hintText: 'Gönderi başlığı girin',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.orange, width: 2.0),
                   ),
                 ),
                 validator: (value) {
@@ -79,7 +86,7 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.orange, width: 2.0),
                   ),
                 ),
                 maxLines: 3,
@@ -93,11 +100,11 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
               const SizedBox(height: 20),
               DropdownButtonFormField<String>(
                 value: _selectedCategory,
-                hint: Text('Kategori seçin'),
-                icon: Icon(Icons.arrow_downward),
+                hint: const Text('Kategori seçin'),
+                icon: const Icon(Icons.arrow_downward),
                 iconSize: 24,
                 elevation: 16,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -108,43 +115,62 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                     _selectedCategory = newValue!;
                   });
                 },
-                items: _categories
-                    .map<DropdownMenuItem<String>>((String category) {
+                items: _categories.map<DropdownMenuItem<String>>((String category) {
                   return DropdownMenuItem<String>(
                     value: category,
                     child: Text(
                       category,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: const TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   );
                 }).toList(),
-                dropdownColor: Colors.black,
+                dropdownColor: Colors.white,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    BlogPost newPost = BlogPost(
-                      title: _titleController.text,
-                      description: _descriptionController.text,
-                      categories: [_selectedCategory!],
+                    var postId = Uuid().v4();
+                    var postDate = DateTime.now().toIso8601String();
+
+                    Post newPost = Post(
+                      postId: postId,
+                      postOwnerName: widget.postOwnerName,
+                      postOwnerEmail: widget.postOwnerEmail,
+                      postTitle: _titleController.text,
+                      postDescription: _descriptionController.text,
+                      postOwnerProfileIcon: widget.postOwnerProfileIcon,
+                      postDate: postDate,
+                      postCategories: [_selectedCategory!],
                     );
+
+                    context.read<AddPostCubit>().addPost(
+                      newPost.postId,
+                      newPost.postOwnerName,
+                      newPost.postOwnerEmail,
+                      newPost.postTitle,
+                      newPost.postDescription,
+                      newPost.postOwnerProfileIcon,
+                      newPost.postDate,
+                      newPost.postCategories,
+                    );
+
                     widget.onAdd(newPost);
                     Navigator.pop(context);
                   }
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      WidgetStateProperty.all<Color>(Colors.orange),
-                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  MaterialStateProperty.all<Color>(Colors.orange),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  minimumSize: WidgetStateProperty.all<Size>(
+                  minimumSize: MaterialStateProperty.all<Size>(
                     const Size(double.infinity, 50),
                   ),
                 ),

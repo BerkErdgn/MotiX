@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:motix_app/data/entity/post.dart';
 
 class BlogPostCard extends StatelessWidget {
-  final BlogPost post;
+  final Post post;
 
   const BlogPostCard({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = '${now.day}/${now.month}/${now.year}';
+    DateTime postDate = DateTime.parse(post.postDate);
+    String formattedDate = '${postDate.day}/${postDate.month}/${postDate.year}';
 
-    String profileImageUrl = 'https://picsum.photos/200/300';
-    String profileName = 'Kullanıcı Adı';
 
     return GestureDetector(
       onTap: () {
@@ -29,11 +29,16 @@ class BlogPostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(profileImageUrl),
+              leading: ClipOval(
+                child: SvgPicture.asset(
+                  "assets/animalIcon/${post.postOwnerProfileIcon}.svg",
+                  fit: BoxFit.cover,
+                  width: 50,
+                  height: 50,
+                ),
               ),
               title: Text(
-                profileName,
+                post.postOwnerName,
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -47,7 +52,7 @@ class BlogPostCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                post.title,
+                post.postTitle,
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -57,9 +62,9 @@ class BlogPostCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                post.description.length > 100
-                    ? '${post.description.substring(0, 100)}...'
-                    : post.description,
+                post.postDescription.length > 100
+                    ? '${post.postDescription.substring(0, 100)}...'
+                    : post.postDescription,
                 style: const TextStyle(color: Colors.white),
               ),
             ),
@@ -67,7 +72,7 @@ class BlogPostCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
                 spacing: 6.0,
-                children: post.categories
+                children: post.postCategories
                     .map((category) => Chip(
                           label: Text(category),
                           backgroundColor: Colors.grey[800],
@@ -84,7 +89,7 @@ class BlogPostCard extends StatelessWidget {
 }
 
 class BlogPostDetailPage extends StatelessWidget {
-  final BlogPost post;
+  final Post post;
 
   const BlogPostDetailPage({super.key, required this.post});
 
@@ -92,7 +97,7 @@ class BlogPostDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(post.title),
+        title: Text(post.postTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -100,7 +105,7 @@ class BlogPostDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              post.title,
+              post.postTitle,
               style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -108,40 +113,12 @@ class BlogPostDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              post.description,
+              post.postDescription,
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class BlogPost {
-  final String title;
-  final String description;
-  final List<String> categories;
-
-  BlogPost({
-    required this.title,
-    required this.description,
-    required this.categories,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'description': description,
-      'categories': categories,
-    };
-  }
-
-  factory BlogPost.fromJson(Map<String, dynamic> json) {
-    return BlogPost(
-      title: json['title'],
-      description: json['description'],
-      categories: List<String>.from(json['categories']),
     );
   }
 }

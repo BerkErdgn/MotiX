@@ -27,7 +27,7 @@ class Post {
       postDescription: json["postDescription"] as String? ?? "",
       postOwnerProfileIcon: json["postOwnerProfileIcon"] as String? ?? "",
       postDate: json["postDate"] as String? ?? "",
-      postCategories: json["postCategories"] as List<String>? ?? [],
+      postCategories: List<String>.from(json['postCategories'] ?? []),
     );
   }
 }
