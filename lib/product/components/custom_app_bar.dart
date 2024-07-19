@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String imageUrl;
@@ -35,9 +36,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               width: 50,
               height: 50,
               margin: const EdgeInsets.only(top: 5),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(imageUrl),
-                radius: 25,
+              child: ClipOval(
+                child: SvgPicture.asset(
+                  "assets/animalIcon/$imageUrl.svg",
+                  fit: BoxFit.cover,
+                  width: 50,
+                  height: 50,
+                ),
               ),
             ),
             Expanded(

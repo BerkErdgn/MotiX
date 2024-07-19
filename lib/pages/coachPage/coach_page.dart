@@ -4,14 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/pages/cubit/imageCubit.dart';
+import 'package:motix_app/product/components/custom_app_bar.dart';
 
 import '../../data/entity/userImageEntity.dart';
-
 
 class CoachPage extends StatefulWidget {
   const CoachPage({super.key});
@@ -41,43 +40,26 @@ class _CoachPageState extends State<CoachPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Image.asset('assets/logo/yeniMotix.png', width: 90),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 22.0),
-                child: BlocBuilder<Imagecubit, List<UserImageEntity>>(
-                  builder: (context, userImageList) {
-                    String imageName;
-                    if (userImageList.isNotEmpty) {
-                      imageName = userImageList.first.profileIcon;
-                    } else {
-                      imageName = "chick";
-                    }
-                    return ClipOval(
-                      child: SvgPicture.asset(
-                        "assets/animalIcon/$imageName.svg",
-                        fit: BoxFit.cover,
-                        width: 50,
-                        height: 50,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return BlocBuilder<Imagecubit, List<UserImageEntity>>(
+      builder: (context, userImageList) {
+        String imageUrl;
+        if (userImageList.isNotEmpty) {
+          imageUrl = userImageList.first.profileIcon;
+        } else {
+          imageUrl = 'chick';
+        }
 
-      body: _builUI(),
+        return Scaffold(
+          appBar: CustomAppBar(
+            imageUrl: imageUrl,
+            showAddButton: false,
+            onPressed: () {
+              // Define what happens when the add button is pressed
+            },
+          ),
+          body: _builUI(),
+        );
+      },
     );
   }
 
