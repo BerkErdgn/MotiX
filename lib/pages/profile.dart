@@ -28,30 +28,42 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildHeader(double screenHeight) {
-    return Container(
-      height: screenHeight * 0.3,
-      color: const Color.fromARGB(255, 251, 207, 173),
-      child: Center(
-        child: Transform.translate(
-          offset: Offset(0, screenHeight * 0.1),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF141414).withOpacity(0.3),
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                ),
-              ],
-            ),
-            child: const Ellipse3(),
+Widget _buildHeader(double screenHeight) {
+  return Container(
+    height: screenHeight * 0.3,
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Color(0xFFFBCFAD),
+          Color.fromARGB(0, 254, 138, 71),
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
+    ),
+    child: Center(
+      child: Transform.translate(
+        offset: Offset(0, screenHeight * 0.1),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF141414).withOpacity(0.3),
+                spreadRadius: 5,
+                blurRadius: 15,
+              ),
+            ],
           ),
+          child: const Ellipse3(),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+
+
 
   Widget _buildPostList(double screenHeight) {
     return ListView.builder(
