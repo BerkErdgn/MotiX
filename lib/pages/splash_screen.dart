@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/main_screen.dart';
-import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/login_page.dart';
 import 'package:motix_app/pages/onBoarding/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,8 +24,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String logoGif = "assets/logo/MotixGif.gif";
-    double iconSize = 200;
+    String logoGif = "assets/logo/motixxx.gif";
+    double iconSize = 300;
     int iconDuration = 6000;
 
     return FutureBuilder<Widget>(
@@ -35,14 +34,14 @@ class SplashScreen extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Center(
-              child: CircularProgressIndicator(),
+            body: const Center(
+              child: const CircularProgressIndicator(),
             ),
           );
         } else if (snapshot.hasError) {
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Center(
+            body: const Center(
               child: Text("Bir hata oluştu, lütfen uygulamayı tekrar açınız"),
             ),
           );
@@ -65,7 +64,7 @@ class SplashScreen extends StatelessWidget {
         } else {
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Center(
+            body: const Center(
               child: Text("Yükleniyor..."),
             ),
           );
