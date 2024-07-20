@@ -161,16 +161,16 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.orange),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  WidgetStateProperty.all<Color>(Colors.orange),
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                     const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  minimumSize: MaterialStateProperty.all<Size>(
+                  minimumSize: WidgetStateProperty.all<Size>(
                     const Size(double.infinity, 50),
                   ),
                 ),
