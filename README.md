@@ -68,6 +68,9 @@
 
 MotiX offers a comprehensive solution for users to stay organized in their daily lives and focus on personal development. With `note-taking` and `organizing features`, users can easily plan their tasks and steps towards their goals with `AI-powered coaching services`. Additionally, the application provides a `blog platform` for sharing success stories and motivational content, allowing users to inspire and support each other. MotiX also includes `social media features` that enable interaction within the community, helping users take more motivated and conscious steps every day.
 
+<img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/mock_up/mockup1_kavisli.png?raw=true"  >
+
+
 ## 🌟 Application Features
 
 ### 🤖 AI-Powered Coaching Services
@@ -94,9 +97,13 @@ MotiX provides the opportunity for users to earn `coupons` based on their activi
 
 MotiX offers a platform for users to `ask questions` and `share their experiences`. With community support, users can inspire and motivate each other to achieve their goals.
 
+## Why MotiX?
+
+MotiX offers a comprehensive solution to help users organize their daily lives and focus on personal development. With features like **`note-taking and organization`**, **`AI-powered coaching services`**, a **`blog platform`** containing success stories and motivational content, **`social media capabilities`**, and **`coupons from partner brands`**, MotiX enables users to manage their lives more efficiently and purposefully. This article aims to explain the benefits provided by MotiX and how it adds value to users' lives.
 
 
 
+<img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/mock_up/mockup2_kavisli.png?raw=true" >
 
 
  
