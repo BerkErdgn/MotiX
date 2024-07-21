@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:motix_app/notes_page/note_add.dart';
 import 'package:provider/provider.dart';
+import '../product/components/custom_app_bar.dart';
 import 'note_provider.dart';
 
 class NotesPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
+  String imageUrl = 'aaa';
   @override
   void initState() {
     super.initState();
@@ -22,24 +24,16 @@ class _NotesPageState extends State<NotesPage> {
     final notes = context.watch<NoteProvider>().notes;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notlarım'),
-        actions: [
-          FloatingActionButton(
-            backgroundColor: Color(0xFFD4FAFC),
-            child: const Icon(
-              Icons.add,
-              color: Colors.black,
+      appBar: CustomAppBar(
+        imageUrl: imageUrl,
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddNotePage(),
             ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AddNotePage(),
-                ),
-              );
-            },
-          ),
-        ],
+          );
+        },
+        showAddButton: true,
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 30.0),
