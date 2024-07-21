@@ -72,7 +72,8 @@ class _TodoPageState extends State<TodoPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: const Color.fromARGB(255, 21, 21, 21),
-        content: Text(message, style: const TextStyle(color: Colors.white)),
+        content: Text(message,
+            style: const TextStyle(color: Colors.white, fontSize: 16)),
       ),
     );
   }
@@ -115,7 +116,8 @@ class _TodoPageState extends State<TodoPage> {
             right: 90,
             bottom: 20,
             child: TextField(
-              controller: _controller,
+              controller: _controller, 
+              style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Yeni not ekle',
                 hintStyle: const TextStyle(color: Colors.black38),

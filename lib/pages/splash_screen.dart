@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String logoGif = "assets/logo/motixxx.gif";
+    String logoGif = "assets/logo/MotixGif.gif";
     double iconSize = 300;
     int iconDuration = 6000;
 
