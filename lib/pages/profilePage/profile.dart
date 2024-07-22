@@ -1,4 +1,14 @@
+import 'dart:js_interop';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:motix_app/data/entity/post.dart';
+import 'package:motix_app/data/entity/userImageEntity.dart';
+import 'package:motix_app/pages/cubit/profileCubit.dart';
+import '../../data/auth/Auth.dart';
+import '../cubit/imageCubit.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -8,27 +18,76 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    final User? user = Auth().currentUser;
+    context.read<Imagecubit>().getUserImage(user?.email ?? "");
+    context.read<ProfileCubit>().getAllPostByEmail(user?.email ?? "");
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final User? user = Auth().currentUser;
 
     return Scaffold(
       body: Column(
         children: [
-          _buildHeader(screenHeight),
-          SizedBox(height: screenHeight * 0.07),
-          const UserName(),
-          SizedBox(height: screenHeight * 0.01),
-          const UserMail(),
-          SizedBox(height: screenHeight * 0.03),
-          const PostLine(),
-          Expanded(child: _buildPostList(screenHeight)),
+          BlocBuilder<Imagecubit, List<UserImageEntity>>(
+            builder: (context, userImageList) {
+              if (userImageList.isNotEmpty) {
+                return Column(
+                  children: [
+                    _buildHeader(screenHeight, userImageList.first.profileIcon),
+                    SizedBox(height: screenHeight * 0.07),
+                    UserName(name: userImageList.first.userName),
+                    SizedBox(height: screenHeight * 0.01),
+                    UserMail(email: userImageList.first.userEmail),
+                    SizedBox(height: screenHeight * 0.03),
+                  ],
+                );
+              } else if (userImageList.isEmpty) {
+                return const Expanded(
+                  child: Center(
+                    child: SizedBox(
+                      width: 100.0,
+                      height: 100.0,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 8.0,
+                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFed7d32)),
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return Container();
+            },
+          ),
+          BlocBuilder<ProfileCubit, List<Post>>(
+            builder: (context, postList) {
+              if (postList.isNotEmpty) {
+                return Expanded(
+                  child: Column(
+                    children: [
+                      PostLine(postCount: postList.length),
+                      Expanded(child: _buildPostList(screenHeight, postList)),
+                    ],
+                  ),
+                );
+              } else if (postList.isEmpty) {
+                return Container();
+              }
+              return Container();
+            },
+          ),
         ],
       ),
     );
   }
 
-Widget _buildHeader(double screenHeight) {
+Widget _buildHeader(double screenHeight, String imageUrl) {
   return Container(
     height: screenHeight * 0.3,
     decoration: BoxDecoration(
@@ -55,7 +114,7 @@ Widget _buildHeader(double screenHeight) {
               ),
             ],
           ),
-          child: const Ellipse3(),
+          child: Ellipse3(imageUrl:imageUrl),
         ),
       ),
     ),
@@ -65,18 +124,19 @@ Widget _buildHeader(double screenHeight) {
 
 
 
-  Widget _buildPostList(double screenHeight) {
+  Widget _buildPostList(double screenHeight, List<Post> postList) {
     return ListView.builder(
-      itemCount: 12, // Number of items in the list
+      itemCount: postList.length,
       itemBuilder: (context, index) {
-        return PostCard(index: index);
+        return PostCard(post: postList[index]);
       },
     );
   }
 }
 
 class Ellipse3 extends StatelessWidget {
-  const Ellipse3({super.key});
+  final String imageUrl;
+  const Ellipse3({required this.imageUrl, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +150,9 @@ class Ellipse3 extends StatelessWidget {
           side: BorderSide(width: 6, color: Colors.white),
         ),
       ),
-      child: ClipOval(
-        child: Image.network(
-          'https://pbs.twimg.com/profile_images/1446636619/saaaagoooppaaaa_400x400.jpg',
+      child:  ClipOval(
+        child: SvgPicture.asset(
+          "assets/animalIcon/$imageUrl.svg",
           fit: BoxFit.cover,
         ),
       ),
@@ -101,7 +161,8 @@ class Ellipse3 extends StatelessWidget {
 }
 
 class UserName extends StatelessWidget {
-  const UserName({super.key});
+  final String name;
+  const UserName({required this.name, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +173,7 @@ class UserName extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Text(
-          'Sagopa Kajmer',
+          name,
           style: TextStyle(
             color: Colors.white,
             fontSize: screenWidth * 0.05,
@@ -126,7 +187,8 @@ class UserName extends StatelessWidget {
 }
 
 class UserMail extends StatelessWidget {
-  const UserMail({super.key});
+  final String email;
+  const UserMail({required this.email, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +199,7 @@ class UserMail extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Text(
-          'sagokafkef@gmail.com',
+          email,
           style: TextStyle(
             color: const Color(0xFFE38343),
             fontSize: screenWidth * 0.033,
@@ -151,7 +213,8 @@ class UserMail extends StatelessWidget {
 }
 
 class PostLine extends StatelessWidget {
-  const PostLine({super.key});
+  final int postCount;
+  const PostLine({required this.postCount, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -181,8 +244,10 @@ class PostLine extends StatelessWidget {
 }
 
 class PostCard extends StatelessWidget {
-  final int index;
-  const PostCard({required this.index, super.key});
+  final Post post;
+  const PostCard({required this.post , super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -199,13 +264,19 @@ class PostCard extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.delete),color: Color (0xFFed7d32), ),
+              IconButton(
+                onPressed: (){
+                  context.read<ProfileCubit>().delete(post.postId);
+                },
+                icon: Icon(Icons.delete),
+                color: Color (0xFFed7d32),
+              ),
               SizedBox(width: screenWidth * 0.05),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Post $index',
+                    post.postTitle,
                     style: TextStyle(
                       fontSize: screenWidth * 0.045,
                       fontWeight: FontWeight.bold,
@@ -213,7 +284,7 @@ class PostCard extends StatelessWidget {
                   ),
                   SizedBox(height: screenWidth * 0.01),
                   Text(
-                    'This is the detail of post $index.',
+                    post.postDescription,
                     style: TextStyle(
                       fontSize: screenWidth * 0.035,
                       color: Colors.grey[700],

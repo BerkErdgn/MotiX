@@ -40,4 +40,10 @@ class MotixRepository {
     collectionPosts.add(newPost);
     
   }
+
+  Future<void> delete (String post_id) async{
+    collectionPosts.doc(post_id).delete();
+  }
+
+
 }

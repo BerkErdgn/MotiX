@@ -98,7 +98,7 @@ class _CoachPageState extends State<CoachPage> {
                 borderSide: BorderSide.none,
               ),
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             ),
             inputTextStyle: const TextStyle(color: Colors.black),
           ),
@@ -138,7 +138,7 @@ class _CoachPageState extends State<CoachPage> {
         if (lastMassage != null && lastMassage.user == geminiUser) {
           lastMassage = messages.removeAt(0);
           String response = event.content?.parts?.fold(
-                  "", (previous, current) => "$previous ${current.text}") ??
+              "", (previous, current) => "$previous ${current.text}") ??
               "";
           lastMassage.text += response;
           setState(() {
@@ -146,7 +146,7 @@ class _CoachPageState extends State<CoachPage> {
           });
         } else {
           String response = event.content?.parts?.fold(
-                  "", (previous, current) => "$previous ${current.text}") ??
+              "", (previous, current) => "$previous ${current.text}") ??
               "";
           ChatMessage message = ChatMessage(
               user: geminiUser, createdAt: DateTime.now(), text: response);

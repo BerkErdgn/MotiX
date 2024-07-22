@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:motix_app/pages/coachPage/coach_page.dart';
 import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/notes_page/notes_page.dart';
-import 'package:motix_app/pages/profile.dart';
+import 'package:motix_app/pages/profilePage/profile.dart';
 import 'package:motix_app/pages/social_media_page/social_media_page.dart';
 import 'package:motix_app/pages/toDo/to_do_page.dart';
 
