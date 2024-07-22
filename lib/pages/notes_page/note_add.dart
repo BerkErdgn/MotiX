@@ -21,6 +21,7 @@ class _AddNotePageState extends State<AddNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< Updated upstream:lib/notes_page/note_add.dart
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -126,6 +127,41 @@ class _AddNotePageState extends State<AddNotePage> {
               ),
             ],
           ),
+=======
+      appBar: AppBar(
+        title: Text('Not Ekleyin'),
+          actions: <Widget>[
+      IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    ),]
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: InputDecoration(labelText: 'Başlık'),
+            ),
+            TextField(
+              controller: _subtitleController,
+              decoration: InputDecoration(labelText: 'Alt başlık'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                final title = _titleController.text;
+                final subtitle = _subtitleController.text;
+                context.read<NoteProvider>().addNote(title, subtitle);
+                Navigator.of(context).pop();
+              },
+              child: Text('Kaydet'),
+            ),
+          ],
+>>>>>>> Stashed changes:lib/pages/notes_page/note_add.dart
         ),
       ),
     );

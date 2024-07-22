@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:motix_app/pages/cubit/addPostCubit.dart';
 import 'package:motix_app/pages/cubit/imageCubit.dart';
+import 'package:motix_app/pages/cubit/profileCubit.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
 import 'package:motix_app/pages/cubit/socialMediaCubit.dart';
 import 'package:motix_app/pages/splash_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => Imagecubit()),
         BlocProvider(create: (context) => SocialMediaCubit()),
         BlocProvider(create: (context) => AddPostCubit()),
+        BlocProvider(create: (context) => ProfileCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
