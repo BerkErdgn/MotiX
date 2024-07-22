@@ -2,7 +2,7 @@
 
 
 
-![MotiX Cover](https://cdn.discordapp.com/attachments/1255570164280201309/1264338274361806948/motix_cover_1.png?ex=669d8246&is=669c30c6&hm=80cb25d3e65fa785c1b1eb490b1c505a9f4fc1f5a4bce172d9fb9534a87ef34b&)
+![MotiX Cover](https://github.com/azizexb/MotiX/blob/main/bootcampFiles/cover/motix_cover.png?raw=true)
 # 🧑‍💻👩‍💻MotiX - Project Overview
 
 ## 🫂 Team Members
@@ -62,7 +62,7 @@
 </table>
 
 ## 📦 Product Name
-<img src="https://cdn.discordapp.com/attachments/1255570164280201309/1264343406952452176/github_product_name_2.png?ex=669d870e&is=669c358e&hm=dee9b39c4aaf909e565053658352037df52616ac6c02d8fed3a639c5948f416a&"  height= "100" >
+<img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/logo/github_product_name.png?raw=true"  height= "100" >
 
 ## 📖 Product Description
 
