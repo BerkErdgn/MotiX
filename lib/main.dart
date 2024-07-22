@@ -7,9 +7,9 @@ import 'package:motix_app/pages/cubit/imageCubit.dart';
 import 'package:motix_app/pages/cubit/profileCubit.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
 import 'package:motix_app/pages/cubit/socialMediaCubit.dart';
+import 'package:motix_app/pages/notes_page/note_provider.dart';
 import 'package:motix_app/pages/splash_screen.dart';
 import 'package:motix_app/product/util/consts.dart';
-import 'package:motix_app/notes_page/note_provider.dart';
 import 'package:provider/provider.dart';
 
 

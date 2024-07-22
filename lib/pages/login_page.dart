@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/main_screen.dart';
-import 'package:motix_app/pages/home_page.dart';
 import 'package:motix_app/pages/register_page.dart';
 import 'package:motix_app/product/components/inputField.dart';
 import 'package:motix_app/product/components/registerButton.dart';
@@ -45,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/backgroundImages.jpg",
+              "assets/background1.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -71,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
                         functionEmailAndPassword: signInWithEmailAndPassword,
                         buttonText: ProjectText().enteringButtonText),
                     const SizedBox(height: 25),
-                    const Divider(),
                     const SizedBox(height: 25),
                     const SignUpText(),
                   ],

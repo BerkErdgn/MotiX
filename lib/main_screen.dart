@@ -1,8 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/pages/coachPage/coach_page.dart';
-import 'package:motix_app/pages/home_page.dart';
-import 'package:motix_app/notes_page/notes_page.dart';
+import 'package:motix_app/pages/notes_page/notes_page.dart';
 import 'package:motix_app/pages/profilePage/profile.dart';
 import 'package:motix_app/pages/social_media_page/social_media_page.dart';
 import 'package:motix_app/pages/toDo/to_do_page.dart';
@@ -28,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
       body: _pages[_currentIndex],
       bottomNavigationBar: _shouldShowNavBar()
           ? CurvedNavigationBar(
-              height: 57,
+              height: 60,
               index: _currentIndex,
               backgroundColor: Colors.transparent,
               color: Color(0xFFED7D31),

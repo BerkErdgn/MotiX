@@ -12,7 +12,6 @@ class BlogPostCard extends StatelessWidget {
     DateTime postDate = DateTime.parse(post.postDate);
     String formattedDate = '${postDate.day}/${postDate.month}/${postDate.year}';
 
-
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -29,12 +28,14 @@ class BlogPostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              leading: ClipOval(
-                child: SvgPicture.asset(
-                  "assets/animalIcon/${post.postOwnerProfileIcon}.svg",
-                  fit: BoxFit.cover,
-                  width: 50,
-                  height: 50,
+              leading: Container(
+                width: 50,
+                height: 50,
+                child: ClipOval(
+                  child: SvgPicture.asset(
+                    "assets/animalIcon/${post.postOwnerProfileIcon}.svg",
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               title: Text(
