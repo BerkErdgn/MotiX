@@ -265,6 +265,44 @@ We held Daily Scrum meetings via `written communication` on WhatsApp, considerin
 
 This method allowed team members to stay in touch flexibly and quickly share updates.
 
+<table>
+  <tr>
+    <th>Daily Scrum 1</th>
+    <th>Daily Scrum 2</th>
+    <th>Daily Scrum 3</th>
+    <th>Daily Scrum 4</th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/1.jpg?raw=true" width="200" alt="Daily Scrum 1" /></td>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/2.jpg?raw=true" width="200" alt="Daily Scrum 2" /></td>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/3.jpg?raw=true" width="200" alt="Daily Scrum 3" /></td>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/4.jpg?raw=true" width="200" alt="Daily Scrum 4" /></td>
+  </tr>
+  <tr>
+    <th>Daily Scrum 5</th>
+    <th>Daily Scrum 6</th>
+    <th>Daily Scrum 7</th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/5.jpg?raw=true" width="200" alt="Daily Scrum 5" /></td>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/6.jpg?raw=true" width="200" alt="Daily Scrum 6" /></td>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/daily_scrum/7.jpg?raw=true" width="200" alt="Daily Scrum 7" /></td>
+  </tr>
+</table>
+
+## 🖼️ Sprint Board Screenshots
+
+<table>
+  <tr>
+    <th>Sprint Board 1</th>
+    <th>Sprint Board 2</th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/sprint_board_screenshot/sprint_board_1.png?raw=true" width="400" alt="Sprint Board 1" /></td>
+    <td><img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint2/sprint_board_screenshot/sprint_board_2.png?raw=true" width="400" alt="Sprint Board 2" /></td>
+  </tr>
+</table>
+
 
 ## 🖼️ Sprint Board Screenshots
 
