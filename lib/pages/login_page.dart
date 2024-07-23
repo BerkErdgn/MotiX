@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("${e.message}")));
+            .showSnackBar(SnackBar(content: Text("E-mail yada şifreniz yanlış girilmiştir. Lütfen doğru giriniz.")));
       });
     }
   }

@@ -264,11 +264,31 @@ class PostCard extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                onPressed: (){
-                  context.read<ProfileCubit>().delete(post.postId);
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: const Color(0xFF1c1c22),
+                      content: const Text('Bu postu silmek istiyor musunuz ?',style: TextStyle(color: Colors.white)),
+                      action: SnackBarAction(
+                        label: 'Evet',
+                        textColor: Color(0xFFed7d32),
+                        onPressed: () {
+                          context.read<ProfileCubit>().delete(post.postId);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Color(0xFF1c1c22),
+                              content: Text('Post silindi',style: TextStyle(color: Colors.white)),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        },
+                      ),
+                      duration: Duration(seconds: 4), // Kullanıcının onay vermesi için yeterli süre
+                    ),
+                  );
                 },
                 icon: Icon(Icons.delete),
-                color: Color (0xFFed7d32),
+                color: Color(0xFFed7d32),
               ),
               SizedBox(width: screenWidth * 0.05),
               Column(
