@@ -15,6 +15,20 @@ class Note {
     required this.color,
   });
 
+  Note copyWith({
+    String? title,
+    String? subtitle,
+    DateTime? date,
+    Color? color,
+  }) {
+    return Note(
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      date: date ?? this.date,
+      color: color ?? this.color,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'title': title,
@@ -36,8 +50,6 @@ class Note {
 
 class NoteProvider with ChangeNotifier {
   List<Note> _notes = [];
-  int _colorIndex = 0;
-
   List<Note> get notes => _notes;
 
   Future<void> loadNotes() async {
@@ -53,23 +65,40 @@ class NoteProvider with ChangeNotifier {
   Future<void> saveNotes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<Map<String, dynamic>> notesMapList =
-        _notes.map((note) => note.toMap()).toList();
+    _notes.map((note) => note.toMap()).toList();
     String notesJson = json.encode(notesMapList);
     await prefs.setString('notes', notesJson);
   }
 
-  void addNote(String title, String subtitle) {
-    final colors = [Color(0xFFFC9149), Color(0xFFB9FF69), Color(0xFF8BCEFA)];
-    final color = colors[_colorIndex % colors.length];
-    _colorIndex++;
-
+  void addNote(String title, String subtitle, Color color) {
     final note = Note(
       title: title,
       subtitle: subtitle,
       date: DateTime.now(),
       color: color,
     );
-    _notes.add(note);
+    _notes.insert(0,note);
+    saveNotes();
+    notifyListeners();
+  }
+
+  void updateNote(Note updatedNote) {
+    final index = _notes.indexWhere((note) => note.date == updatedNote.date);
+    if (index != -1) {
+      _notes[index] = updatedNote;
+      saveNotes();
+      notifyListeners();
+    }
+  }
+
+  void removeNote(Note note) {
+    _notes.removeWhere((n) => n.date == note.date);
+    saveNotes();
+    notifyListeners();
+  }
+
+  void removeAllNotes() {
+    _notes.clear();
     saveNotes();
     notifyListeners();
   }

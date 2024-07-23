@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
 import 'note_provider.dart';
 
 class AddNotePage extends StatefulWidget {
+  final Note? note;
+
+  AddNotePage({this.note});
+
   @override
   _AddNotePageState createState() => _AddNotePageState();
 }
@@ -13,40 +18,66 @@ class _AddNotePageState extends State<AddNotePage> {
   final _titleController = TextEditingController();
   final _subtitleController = TextEditingController();
   final _noteController = TextEditingController();
-  final String _todayDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
+  Color _currentColor = Colors.grey; // Default color
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  @override
+  void initState() {
+    super.initState();
+    if (widget.note != null) {
+      _titleController.text = widget.note!.title;
+      _subtitleController.text = widget.note!.subtitle;
+      _noteController.text = widget.note!.subtitle; // Note content
+      _currentColor = widget.note!.color; // Load color
+    }
+  }
+
+  void _pickColor() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Renk Seçin'),
+        content: BlockPicker(
+          pickerColor: _currentColor,
+          onColorChanged: (color) {
+            setState(() {
+              _currentColor = color;
+            });
+          },
+        ),
+        actions: [
+          TextButton(
+            child: Text('Tamam'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.note == null ? 'Yeni Not' : 'Notu Düzenle'),
+        actions: [
+          if (widget.note != null)
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () async {
+                final provider = context.read<NoteProvider>();
+                provider.removeNote(widget.note!);
+                Navigator.pop(context);
+              },
+            ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey, width: 2),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.chevron_left,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
               TextField(
                 maxLines: null,
                 style: const TextStyle(fontSize: 24),
@@ -58,11 +89,15 @@ class _AddNotePageState extends State<AddNotePage> {
               ),
               const SizedBox(height: 10),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Tarih: $_todayDate',
+                    'Tarih: ${DateFormat('dd MMMM yyyy').format(DateTime.now())}',
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.color_lens),
+                    onPressed: _pickColor,
                   ),
                 ],
               ),
@@ -70,7 +105,7 @@ class _AddNotePageState extends State<AddNotePage> {
               Container(
                 constraints: const BoxConstraints(minHeight: 185),
                 child: Card(
-                  color: Colors.grey,
+                  color: _currentColor,
                   elevation: 4.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -95,22 +130,29 @@ class _AddNotePageState extends State<AddNotePage> {
                 child: ElevatedButton(
                   onPressed: () async {
                     final title = _titleController.text;
-                    final subtitle = _subtitleController.text;
-                    final note = _noteController.text;
+                    final subtitle = _noteController.text;
 
-                    final prefs = await _prefs;
-
-                    await prefs.setString('note_title', title);
-                    await prefs.setString('note_subtitle', subtitle);
-                    await prefs.setString('note_content', note);
+                    if (widget.note == null) {
+                      context.read<NoteProvider>().addNote(
+                        title,
+                        subtitle,
+                        _currentColor,
+                      );
+                    } else {
+                      context.read<NoteProvider>().updateNote(
+                        widget.note!.copyWith(
+                          title: title,
+                          subtitle: subtitle,
+                          color: _currentColor,
+                        ),
+                      );
+                    }
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Not kaydedildi'),
                       ),
                     );
-
-                    context.read<NoteProvider>().addNote(title, note);
 
                     Navigator.pop(context);
                   },
