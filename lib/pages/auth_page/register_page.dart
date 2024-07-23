@@ -62,10 +62,25 @@ class _RegisterPageState extends State<RegisterPage> {
         });
       }
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("${e.message}")));
-      });
+      print(e.message);
+      if(e.message == "The email address is badly formatted."){
+        setState(() {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Lütfen e-maili doğru formatta giriniz.")));
+        });
+      }else if(e.message == "Password should be at least 6 characters"){
+        setState(() {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Şifre en az 6 karakterden oluşturulmalıdır.")));
+        });
+      }else if(e.message == "The email address is already in use by another account."){
+        setState(() {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Bu e-mail ile zaten kaydolunmuş.")));
+        });
+      }
+
+
     }
   }
 

@@ -37,9 +37,6 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   flutter_slidable: ^3.1.0
   flutter_colorpicker: ^1.0.3
-  
-
-
   flutter_bloc:
   firebase_core:
   cloud_firestore:
@@ -59,9 +56,27 @@ dependencies:
   
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/logo/logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/logo/logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/logo/logo.png"
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
