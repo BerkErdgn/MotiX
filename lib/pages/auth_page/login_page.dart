@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/main_screen.dart';
-import 'package:motix_app/pages/register_page.dart';
+import 'package:motix_app/pages/auth_page/register_page.dart';
 import 'package:motix_app/product/components/inputField.dart';
 import 'package:motix_app/product/components/registerButton.dart';
 import 'package:motix_app/product/language/product_text.dart';
+
+import 'forgotPassword.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,8 +31,9 @@ class _LoginPageState extends State<LoginPage> {
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("E-mail yada şifreniz yanlış girilmiştir. Lütfen doğru giriniz.")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                "E-mail yada şifreniz yanlış girilmiştir. Lütfen doğru giriniz.")));
       });
     }
   }
@@ -63,6 +66,21 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _controllerPassword,
                       labelText: "Şifre",
                       obscureText: true,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 18),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ForgetPassword(),
+                                  ));
+                            },
+                            child: Text("Şifremi unuttum")),
+                      ),
                     ),
                     const SizedBox(height: 25),
                     RegisterButton(
