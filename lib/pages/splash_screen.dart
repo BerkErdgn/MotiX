@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/main_screen.dart';
-import 'package:motix_app/pages/login_page.dart';
+import 'package:motix_app/pages/auth_page/login_page.dart';
 import 'package:motix_app/pages/onBoarding/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

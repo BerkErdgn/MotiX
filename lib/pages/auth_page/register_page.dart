@@ -6,7 +6,7 @@ import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/data/dropdownMenuData/DropdownMenuData.dart';
 import 'package:motix_app/main_screen.dart';
 import 'package:motix_app/pages/cubit/registerCubit.dart';
-import 'package:motix_app/pages/login_page.dart';
+import 'package:motix_app/pages/auth_page/login_page.dart';
 import 'package:motix_app/product/components/inputField.dart';
 import 'package:motix_app/product/components/registerButton.dart';
 import 'package:motix_app/product/language/product_text.dart';
