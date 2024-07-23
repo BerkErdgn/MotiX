@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../pages/register_page.dart';
+import '../../pages/auth_page/register_page.dart';
 
 class InputField extends StatelessWidget {
   final bool isDropdown;
