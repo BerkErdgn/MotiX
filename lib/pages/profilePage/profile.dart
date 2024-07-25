@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   void initState() {
     super.initState();
@@ -26,102 +24,122 @@ class _ProfilePageState extends State<ProfilePage> {
     context.read<ProfileCubit>().getAllPostByEmail(user?.email ?? "");
   }
 
+  void _logout() async {
+    await Auth().signOut();
+    // Oturumu kapattıktan sonra oturum açmaya veya başka bir uygun sayfaya yönlendir
+    Navigator.of(context).pushReplacementNamed('/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     final User? user = Auth().currentUser;
 
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          BlocBuilder<Imagecubit, List<UserImageEntity>>(
-            builder: (context, userImageList) {
-              if (userImageList.isNotEmpty) {
-                return Column(
-                  children: [
-                    _buildHeader(screenHeight, userImageList.first.profileIcon),
-                    SizedBox(height: screenHeight * 0.07),
-                    UserName(name: userImageList.first.userName),
-                    SizedBox(height: screenHeight * 0.01),
-                    UserMail(email: userImageList.first.userEmail),
-                    SizedBox(height: screenHeight * 0.03),
-                  ],
-                );
-              } else if (userImageList.isEmpty) {
-                return const Expanded(
-                  child: Center(
-                    child: SizedBox(
-                      width: 100.0,
-                      height: 100.0,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 8.0,
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFed7d32)),
+          Column(
+            children: [
+              BlocBuilder<Imagecubit, List<UserImageEntity>>(
+                builder: (context, userImageList) {
+                  if (userImageList.isNotEmpty) {
+                    return Column(
+                      children: [
+                        _buildHeader(screenHeight, userImageList.first.profileIcon),
+                        SizedBox(height: screenHeight * 0.07),
+                        UserName(name: userImageList.first.userName),
+                        SizedBox(height: screenHeight * 0.01),
+                        UserMail(email: userImageList.first.userEmail),
+                        SizedBox(height: screenHeight * 0.03),
+                      ],
+                    );
+                  } else if (userImageList.isEmpty) {
+                    return const Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          width: 100.0,
+                          height: 100.0,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 8.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFed7d32)),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }
-              return Container();
-            },
+                    );
+                  }
+                  return Container();
+                },
+              ),
+              BlocBuilder<ProfileCubit, List<Post>>(
+                builder: (context, postList) {
+                  if (postList.isNotEmpty) {
+                    return Expanded(
+                      child: Column(
+                        children: [
+                          PostLine(postCount: postList.length),
+                          Expanded(child: _buildPostList(screenHeight, postList)),
+                        ],
+                      ),
+                    );
+                  } else if (postList.isEmpty) {
+                    return Container();
+                  }
+                  return Container();
+                },
+              ),
+            ],
           ),
-          BlocBuilder<ProfileCubit, List<Post>>(
-            builder: (context, postList) {
-              if (postList.isNotEmpty) {
-                return Expanded(
-                  child: Column(
-                    children: [
-                      PostLine(postCount: postList.length),
-                      Expanded(child: _buildPostList(screenHeight, postList)),
-                    ],
-                  ),
-                );
-              } else if (postList.isEmpty) {
-                return Container();
-              }
-              return Container();
-            },
+          Positioned(
+            top: screenHeight * 0.04,
+            right: screenWidth * 0.04,
+            child: IconButton(
+              icon: Icon(
+                Icons.exit_to_app, 
+                color: const Color.fromARGB(255, 0, 0, 0),
+              ),
+              iconSize: screenWidth * 0.08, // Ekran genişliğine göre boyut
+              onPressed: _logout,
+            ),
           ),
         ],
       ),
     );
   }
 
-Widget _buildHeader(double screenHeight, String imageUrl) {
-  return Container(
-    height: screenHeight * 0.3,
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [
-          Color(0xFFFBCFAD),
-          Color.fromARGB(0, 254, 138, 71),
-        ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
-    ),
-    child: Center(
-      child: Transform.translate(
-        offset: Offset(0, screenHeight * 0.1),
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF141414).withOpacity(0.3),
-                spreadRadius: 5,
-                blurRadius: 15,
-              ),
-            ],
-          ),
-          child: Ellipse3(imageUrl:imageUrl),
+  Widget _buildHeader(double screenHeight, String imageUrl) {
+    return Container(
+      height: screenHeight * 0.3,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFFFFC396),
+            Color.fromARGB(0, 254, 138, 71),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
       ),
-    ),
-  );
-}
-
-
-
+      child: Center(
+        child: Transform.translate(
+          offset: Offset(0, screenHeight * 0.1),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF141414).withOpacity(0.3),
+                  spreadRadius: 5,
+                  blurRadius: 15,
+                ),
+              ],
+            ),
+            child: Ellipse3(imageUrl: imageUrl),
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _buildPostList(double screenHeight, List<Post> postList) {
     return ListView.builder(
@@ -149,7 +167,7 @@ class Ellipse3 extends StatelessWidget {
           side: BorderSide(width: 6, color: Colors.white),
         ),
       ),
-      child:  ClipOval(
+      child: ClipOval(
         child: SvgPicture.asset(
           "assets/animalIcon/$imageUrl.svg",
           fit: BoxFit.cover,
@@ -244,77 +262,88 @@ class PostLine extends StatelessWidget {
 
 class PostCard extends StatelessWidget {
   final Post post;
-  const PostCard({required this.post , super.key});
-
-
+  const PostCard({required this.post, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double screenWidth = constraints.maxWidth;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 5,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: const Color(0xFF1c1c22),
-                      content: const Text('Bu postu silmek istiyor musunuz ?',style: TextStyle(color: Colors.white)),
-                      action: SnackBarAction(
-                        label: 'Evet',
-                        textColor: Color(0xFFed7d32),
-                        onPressed: () {
-                          context.read<ProfileCubit>().delete(post.postId);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor: Color(0xFF1c1c22),
-                              content: Text('Post silindi',style: TextStyle(color: Colors.white)),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        },
-                      ),
-                      duration: Duration(seconds: 4), // Kullanıcının onay vermesi için yeterli süre
-                    ),
-                  );
-                },
-                icon: Icon(Icons.delete),
-                color: Color(0xFFed7d32),
-              ),
-              SizedBox(width: screenWidth * 0.05),
-              Column(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    post.postTitle,
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.045,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  IconButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: const Color(0xFF1c1c22),
+                          content: const Text(
+                            'Bu postu silmek istiyor musunuz ?',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          action: SnackBarAction(
+                            label: 'Evet',
+                            textColor: Color(0xFFed7d32),
+                            onPressed: () {
+                              context.read<ProfileCubit>().delete(post.postId);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: Color(0xFF1c1c22),
+                                  content: Text('Post silindi', style: TextStyle(color: Colors.white)),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                          ),
+                          duration: Duration(seconds: 4),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.delete),
+                    color: Color(0xFFed7d32),
                   ),
-                  SizedBox(height: screenWidth * 0.01),
-                  Text(
-                    post.postDescription,
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.035,
-                      color: Colors.grey[700],
+                  SizedBox(width: screenWidth * 0.05),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          post.postTitle,
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.045,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis, // Prevent overflow
+                        ),
+                        SizedBox(height: screenWidth * 0.01),
+                        Text(
+                          post.postDescription,
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.035,
+                            color: Colors.grey[700],
+                          ),
+                          overflow: TextOverflow.ellipsis, // Prevent overflow
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
+
