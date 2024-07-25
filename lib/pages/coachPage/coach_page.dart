@@ -24,7 +24,7 @@ class _CoachPageState extends State<CoachPage> {
   List<ChatMessage> messages = [];
 
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
-  ChatUser geminiUser = ChatUser(id: "1", firstName: "MotAI");
+  ChatUser geminiUser = ChatUser(id: "1", firstName: "MotAI", profileImage: "assets/motixProfile.jpeg");
 
   //GeminiUser progileimage ile resim verilebilir., Aynı şekilde current user'a da
 
