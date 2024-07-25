@@ -8,28 +8,29 @@ class SocialMediaCubit extends Cubit<List<Post>> {
   var collectionPosts = FirebaseFirestore.instance.collection("Posts");
 
 
-  Future<void> getAllPost() async{
-    collectionPosts.snapshots().listen((event){
+  Future<void> getAllPost() async {
+    collectionPosts.orderBy('postDate', descending: true).snapshots().listen((event) {
       var postsList = <Post>[];
 
       var documents = event.docs;
-      for(var document in documents){
+      for (var document in documents) {
         var key = document.id;
         var data = document.data();
-        var post = Post.froJson(data, key);
+        var post = Post.fromJson(data, key);
         postsList.add(post);
       }
 
       emit(postsList);
-
     });
   }
 
   Future<void> getPostsByCategory(String category) async {
     if (category == 'Trend') {
-      getAllPost(); // Tüm postları getirmesi için;
+      // Trend kategorisinde, tüm postları getirmesi için
+      await getAllPost();
     } else {
       collectionPosts
+          .orderBy('postDate', descending: true)
           .where('postCategories', arrayContains: category)
           .snapshots()
           .listen((event) {
@@ -39,7 +40,7 @@ class SocialMediaCubit extends Cubit<List<Post>> {
         for (var document in documents) {
           var key = document.id;
           var data = document.data();
-          var post = Post.froJson(data, key);
+          var post = Post.fromJson(data, key);
           postsList.add(post);
         }
 

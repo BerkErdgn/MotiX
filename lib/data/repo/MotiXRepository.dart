@@ -18,28 +18,26 @@ class MotixRepository {
   }
 
   Future<void> addPost(
-    String postId,
-    String postOwnerName,
-    String postOwnerEmail,
-    String postTitle,
-    String postDescription,
-    String postOwnerProfileIcon,
-    String postDate,
-    List<String> postCategories,
+  String postOwnerName,
+  String postOwnerEmail,
+  String postTitle,
+  String postDescription,
+  String postOwnerProfileIcon,
+  List<String> postCategories,
   ) async {
-    var newPost = HashMap<String,dynamic>();
-    newPost["postId"]= "";
-    newPost["postOwnerName"]= postOwnerName;
-    newPost["postOwnerEmail"]= postOwnerEmail;
-    newPost["postTitle"]= postTitle;
-    newPost["postDescription"]= postDescription;
-    newPost["postOwnerProfileIcon"]= postOwnerProfileIcon;
-    newPost["postDate"]= postDate;
-    newPost["postCategories"]= postCategories;
+  var newPost = HashMap<String, dynamic>();
+  newPost["postId"] = "";
+  newPost["postOwnerName"] = postOwnerName;
+  newPost["postOwnerEmail"] = postOwnerEmail;
+  newPost["postTitle"] = postTitle;
+  newPost["postDescription"] = postDescription;
+  newPost["postOwnerProfileIcon"] = postOwnerProfileIcon;
+  newPost["postDate"] = FieldValue.serverTimestamp();
+  newPost["postCategories"] = postCategories;
 
-    collectionPosts.add(newPost);
-    
+  await collectionPosts.add(newPost);
   }
+
 
   Future<void> delete (String post_id) async{
     collectionPosts.doc(post_id).delete();

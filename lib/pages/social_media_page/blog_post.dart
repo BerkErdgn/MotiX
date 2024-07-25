@@ -9,7 +9,7 @@ class BlogPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime postDate = DateTime.parse(post.postDate);
+    DateTime postDate = post.postDate.toDate();
     String formattedDate = '${postDate.day}/${postDate.month}/${postDate.year}';
 
     return GestureDetector(
