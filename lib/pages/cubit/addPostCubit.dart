@@ -7,16 +7,20 @@ class AddPostCubit extends Cubit<void> {
   var mrepo = MotixRepository();
 
   Future<void> addPost(
-      String postId,
       String postOwnerName,
       String postOwnerEmail,
       String postTitle,
       String postDescription,
       String postOwnerProfileIcon,
-      String postDate,
       List<String> postCategories,
       ) async {
-    await mrepo.addPost(postId, postOwnerName, postOwnerEmail, postTitle,
-        postDescription, postOwnerProfileIcon, postDate, postCategories);
+    await mrepo.addPost(
+      postOwnerName,
+      postOwnerEmail,
+      postTitle,
+      postDescription,
+      postOwnerProfileIcon,
+      postCategories,
+    );
   }
 }

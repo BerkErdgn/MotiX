@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motix_app/data/entity/post.dart';
@@ -22,7 +23,6 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
   final _descriptionController = TextEditingController();
   String? _selectedCategory;
   final List<String> _categories = [
-    'Trend',
     'Başarı',
     'Kariyer',
     'Motivasyon',
@@ -120,40 +120,38 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                     value: category,
                     child: Text(
                       category,
-                      style: const TextStyle(color: Colors.black, fontSize: 18),
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   );
                 }).toList(),
-                dropdownColor: Colors.white,
+                dropdownColor: Colors.black,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     var postId = Uuid().v4();
-                    var postDate = DateTime.now().toIso8601String();
 
                     Post newPost = Post(
-                      postId: postId,
+                      postId: Uuid().v4(),
                       postOwnerName: widget.postOwnerName,
                       postOwnerEmail: widget.postOwnerEmail,
                       postTitle: _titleController.text,
                       postDescription: _descriptionController.text,
                       postOwnerProfileIcon: widget.postOwnerProfileIcon,
-                      postDate: postDate,
+                      postDate: Timestamp.now(), // Temporary value, actual value will be set by Firestore
                       postCategories: [_selectedCategory!],
                     );
 
                     context.read<AddPostCubit>().addPost(
-                      newPost.postId,
                       newPost.postOwnerName,
                       newPost.postOwnerEmail,
                       newPost.postTitle,
                       newPost.postDescription,
                       newPost.postOwnerProfileIcon,
-                      newPost.postDate,
                       newPost.postCategories,
                     );
+
 
                     widget.onAdd(newPost);
                     Navigator.pop(context);
