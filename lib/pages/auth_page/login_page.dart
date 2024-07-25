@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/main_screen.dart';
 import 'package:motix_app/pages/auth_page/register_page.dart';
@@ -17,7 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String signText = 'Hesabınıza Giriş Yapın';
+  final String signText = 'Hesabınıza Giriş Yapınız';
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
@@ -33,7 +34,8 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
-                "E-mail yada şifreniz yanlış girilmiştir. Lütfen doğru giriniz.")));
+              "E-mail yada şifreniz yanlış girilmiştir. Lütfen doğru giriniz.",
+            ),));
       });
     }
   }
@@ -111,13 +113,14 @@ class _HeadLineText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 65, bottom: 150, left: 20),
+      padding: const EdgeInsets.only(right: 120, bottom: 150, left: 20),
       child: Text(
         signText,
-        style: const TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
+        style: GoogleFonts.quicksand(
+          textStyle: TextStyle(
+            color: Colors.deepOrange,
+            fontSize: 36,
+            fontWeight: FontWeight.bold,),
         ),
       ),
     );

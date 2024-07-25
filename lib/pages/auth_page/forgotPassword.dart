@@ -64,7 +64,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         height: 20,
                       ),
                       RegisterButton(
-                        buttonText: "Send Email",
+                        buttonText: "Email gönder",
                         functionEmailAndPassword: sendEmail,
                       ),
                     ],
