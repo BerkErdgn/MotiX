@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:motix_app/data/entity/post.dart';
 import 'package:motix_app/data/entity/userImageEntity.dart';
+import 'package:motix_app/pages/auth_page/login_page.dart';
 import 'package:motix_app/pages/cubit/profileCubit.dart';
 import '../../data/auth/Auth.dart';
 import '../cubit/imageCubit.dart';
@@ -27,7 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
   void _logout() async {
     await Auth().signOut();
     // Oturumu kapattıktan sonra oturum açmaya veya başka bir uygun sayfaya yönlendir
-    Navigator.of(context).pushReplacementNamed('/login');
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const LoginPage();
+    }));
   }
 
   @override
@@ -83,9 +86,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     );
                   } else if (postList.isEmpty) {
-                    return Container();
+                    return Column(
+                      children: [
+                        PostLine(postCount: postList.length),
+                      ],
+                    );
                   }
-                  return Container();
+                  return Column(
+                    children: [
+                      PostLine(postCount: postList.length),
+                    ],
+                  );
                 },
               ),
             ],
