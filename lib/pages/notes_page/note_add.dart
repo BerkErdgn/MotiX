@@ -92,7 +92,7 @@ class _AddNotePageState extends State<AddNotePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Tarih: ${DateFormat('dd MMMM yyyy').format(DateTime.now())}',
+                    'Tarih: ${DateFormat('dd MMMM yyyy', 'tr_TR').format(DateTime.now())}',
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   IconButton(
