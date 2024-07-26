@@ -3,7 +3,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:motix_app/pages/toDo/todo_list.dart';
+import 'package:motix_app/pages/toDo/todo_list.dart';  // Kendi TodoItem widget'ınızı içe aktarın
 import 'package:shared_preferences/shared_preferences.dart';
 import 'add_todo_page.dart';
 
@@ -47,16 +47,12 @@ class _TodoPageState extends State<TodoPage> {
     prefs.setString('toDoList', json.encode(_tasks));
   }
 
-  void _addTask(String title) {
+  void _addTask(Map<String, dynamic> task) {
     setState(() {
-      _tasks.add({
-        'title': title,
-        'completed': false,
-        'date': DateFormat('yyyy-MM-dd').format(_selectedDate),
-      });
-      _controller.clear();
+      _tasks.add(task);
     });
     _saveToDoList();
+    _showSnackbar('Görev başarıyla eklendi!');
   }
 
   void _deleteTask(int index) {
@@ -96,38 +92,34 @@ class _TodoPageState extends State<TodoPage> {
       MaterialPageRoute(
         builder: (context) => AddTodoPage(
           onAddTask: (task) {
-            setState(() {
-              _tasks.add(task);
-              _saveToDoList();
-            });
-            _showSnackbar('Görev başarıyla eklendi!');
+            _addTask(task);
           },
         ),
       ),
     );
 
     if (result != null) {
-      setState(() {
-        _tasks.add(result);
-        _saveToDoList();
-      });
+      _addTask(result);
     }
   }
 
   String getGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour < 12) {
-      return 'Günaydın';
-    } else if (hour < 18) {
-      return 'İyi Günler';
-    } else {
-      return 'İyi Akşamlar';
-    }
+  final hour = DateTime.now().hour;
+  if (hour >= 6 && hour < 12) {
+    return 'Günaydın';
+  } else if (hour >= 12 && hour < 18) {
+    return 'İyi Günler';
+  } else if (hour >= 18 && hour < 24) {
+    return 'İyi Akşamlar';
+  } else {
+    return 'İyi Geceler';
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
-    final selectedDateFormatted = DateFormat('dd-MM-yyyy').format(_selectedDate);
+    final selectedDateFormatted = DateFormat('yyyy-MM-dd').format(_selectedDate);
 
     List<Map<String, dynamic>> filteredTasks = _tasks
         .where((task) {

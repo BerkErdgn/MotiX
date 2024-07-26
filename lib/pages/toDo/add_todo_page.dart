@@ -45,8 +45,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
 
   String _formatTime(TimeOfDay time) {
     final now = DateTime.now();
-    final dateTime =
-        DateTime(now.year, now.month, now.day, time.hour, time.minute);
+    final dateTime = DateTime(now.year, now.month, now.day, time.hour, time.minute);
     return DateFormat('HH:mm').format(dateTime);
   }
 
@@ -330,10 +329,16 @@ class _AddTodoPageState extends State<AddTodoPage> {
     return ElevatedButton(
       onPressed: _submitTask,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.orange, // Turuncu renk
-        minimumSize: Size(double.infinity, 50), // Büyük boyut
+        backgroundColor: Color(0xFFED7D31),
+        padding: EdgeInsets.symmetric(vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
       ),
-      child: const Text('Görevi Ekle'),
+      child: Text(
+        'Görevi Ekle',
+        style: TextStyle(fontSize: 18),
+      ),
     );
   }
 }
