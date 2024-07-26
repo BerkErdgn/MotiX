@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:motix_app/pages/toDo/edit_todo_page.dart';
 
 class TodoItem extends StatelessWidget {
   const TodoItem({
@@ -8,12 +9,14 @@ class TodoItem extends StatelessWidget {
     required this.taskCompleted,
     required this.onChanged,
     required this.deleteFunction,
+    required this.editFunction,
   }) : super(key: key);
 
   final String taskName;
   final bool taskCompleted;
   final ValueChanged<bool?>? onChanged;
   final Function(BuildContext)? deleteFunction;
+  final Function(BuildContext, String)? editFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class TodoItem extends StatelessWidget {
           taskCompleted: taskCompleted,
           onChanged: onChanged,
           taskName: taskName,
+          editFunction: editFunction,
         ),
       ),
     );
@@ -47,11 +51,13 @@ class TodoItemContainer extends StatelessWidget {
     required this.taskCompleted,
     required this.onChanged,
     required this.taskName,
+    required this.editFunction,
   }) : super(key: key);
 
   final bool taskCompleted;
   final ValueChanged<bool?>? onChanged;
   final String taskName;
+  final Function(BuildContext, String)? editFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +92,20 @@ class TodoItemContainer extends StatelessWidget {
                 decorationThickness: 2,
               ),
             ),
+          ),
+          IconButton(
+            onPressed: () async {
+              final editedTaskName = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditTodoPage(initialTaskName: taskName),
+                ),
+              );
+              if (editedTaskName != null && editFunction != null) {
+                editFunction!(context, editedTaskName);
+              }
+            },
+            icon: Icon(Icons.edit),
           ),
         ],
       ),
