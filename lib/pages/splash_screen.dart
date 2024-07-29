@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     bool hasSeenOnboarding = prefs.getBool('onBoard') ?? false;
     final authenticated = Auth().checkIfUserSignIn();
     if (!hasSeenOnboarding) {
-      return const OnBoardingScreen();
+      return const ConcentricAnimationOnboarding();
     } else if (authenticated) {
       return MainScreen();
     } else {
