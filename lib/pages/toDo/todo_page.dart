@@ -1,10 +1,12 @@
-import 'dart:convert';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:motix_app/pages/toDo/todo_list.dart';  // Kendi TodoItem widget'ınızı içe aktarın
+import 'package:motix_app/pages/toDo/todo_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:lottie/lottie.dart';
 import 'add_todo_page.dart';
 
 class TodoPage extends StatefulWidget {
@@ -104,125 +106,141 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   String getGreeting() {
-  final hour = DateTime.now().hour;
-  if (hour >= 6 && hour < 12) {
-    return 'Günaydın';
-  } else if (hour >= 12 && hour < 18) {
-    return 'İyi Günler';
-  } else if (hour >= 18 && hour < 24) {
-    return 'İyi Akşamlar';
-  } else {
-    return 'İyi Geceler';
+    final hour = DateTime.now().hour;
+    if (hour >= 6 && hour < 12) {
+      return 'Günaydın';
+    } else if (hour >= 12 && hour < 18) {
+      return 'İyi Günler';
+    } else if (hour >= 18 && hour < 24) {
+      return 'İyi Akşamlar';
+    } else {
+      return 'İyi Geceler';
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
-    final selectedDateFormatted = DateFormat('yyyy-MM-dd').format(_selectedDate);
+    final selectedDateFormatted =
+        DateFormat('yyyy-MM-dd').format(_selectedDate);
 
-    List<Map<String, dynamic>> filteredTasks = _tasks
-        .where((task) {
-          final taskDate = task['date'] as String?;
-          return taskDate != null && taskDate == selectedDateFormatted;
-        })
-        .toList();
+    List<Map<String, dynamic>> filteredTasks = _tasks.where((task) {
+      final taskDate = task['date'] as String?;
+      return taskDate != null && taskDate == selectedDateFormatted;
+    }).toList();
 
     return Scaffold(
       body: Column(
         children: [
-          _buildHeader(),
-          _buildDatePicker(),
-          _buildTaskList(filteredTasks),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      height: 140,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Color(0xFFED7D31),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(20.0),
-          bottomRight: Radius.circular(20.0),
-        ),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 40),
-              child: Center(
-                child: Text(
-                  getGreeting(),
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+          const SizedBox(height: 35),
+          Container(
+            height: 90,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Color(0xFFED7D31),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(20.0),
+                bottomRight: Radius.circular(20.0),
               ),
             ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 40),
+                    child: Center(
+                      child: Text(
+                        getGreeting(),
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFAF8ED),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: _navigateToAddTodoPage,
+                  icon: const Icon(
+                    Icons.add,
+                    color: Color(0xFFFAF8ED),
+                    size: 34,
+                  ),
+                ),
+              ],
+            ),
           ),
-          IconButton(
-            onPressed: _navigateToAddTodoPage,
-            icon: const Icon(Icons.add, color: Colors.white),
+          DatePicker(
+            DateTime.now(),
+            height: 100,
+            width: 80,
+            initialSelectedDate: DateTime.now(),
+            selectionColor: const Color(0xFFFAF8ED),
+            selectedTextColor: Colors.black,
+            dateTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
+            dayTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
+            monthTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
+            locale: 'tr_TR',
+            onDateChange: (date) {
+              setState(() {
+                _selectedDate = date;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: filteredTasks.isEmpty
+                ? Column(
+                    children: [
+                      Center(
+                        child: Lottie.asset(
+                          'assets/animations/lottie4.json',
+                          width: 300,
+                          height: 300,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Text('Görev Ekle')
+                    ],
+                  )
+                : ListView.builder(
+                    itemCount: filteredTasks.length,
+                    itemBuilder: (context, index) {
+                      final task = filteredTasks[index];
+                      final taskName = task['title'] as String;
+                      final taskCompleted = task['completed'] as bool? ?? false;
+                      final taskDate = DateTime.parse(task['date']);
+                      final startTimeString = task['startTime'] as String;
+                      final endTimeString = task['endTime'] as String;
+
+                      final startTime = TimeOfDay(
+                        hour: int.parse(startTimeString.split(':')[0]),
+                        minute: int.parse(startTimeString.split(':')[1]),
+                      );
+                      final endTime = TimeOfDay(
+                        hour: int.parse(endTimeString.split(':')[0]),
+                        minute: int.parse(endTimeString.split(':')[1]),
+                      );
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                        child: TodoItem(
+                          taskName: taskName,
+                          taskCompleted: taskCompleted,
+                          onChanged: (value) => _toggleTaskComplete(index, value),
+                          deleteFunction: (context) => _deleteTask(index),
+                          editFunction: (context, newTaskName) =>
+                              _editTask(index, newTaskName),
+                          date: taskDate,
+                          startTime: startTime,
+                          endTime: endTime,
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDatePicker() {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      height: 100,
-      child: DatePicker(
-        DateTime.now(),
-        initialSelectedDate: _selectedDate,
-        selectionColor: Colors.blue.shade300,
-        locale: 'tr',
-        onDateChange: (date) {
-          setState(() {
-            _selectedDate = date;
-          });
-        },
-        dateTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-        dayTextStyle: const TextStyle(color: Colors.white),
-        monthTextStyle: const TextStyle(color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _buildTaskList(List<Map<String, dynamic>> tasks) {
-    return Expanded(
-      child: tasks.isEmpty
-          ? const Center(
-              child: Text(
-              'Henüz yapılacak bir görev eklenmedi.',
-              style: TextStyle(fontSize: 16),
-            ))
-          : ListView.builder(
-              itemCount: tasks.length,
-              itemBuilder: (context, index) {
-                return TodoItem(
-                  taskName: tasks[index]['title'],
-                  taskCompleted: tasks[index]['completed'] ?? false,
-                  onChanged: (bool? value) {
-                    _toggleTaskComplete(index, value);
-                  },
-                  deleteFunction: (BuildContext context) {
-                    _deleteTask(index);
-                  },
-                  editFunction: (BuildContext context, String newTaskName) {
-                    _editTask(index, newTaskName);
-                  },
-                );
-              },
-            ),
     );
   }
 }

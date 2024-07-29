@@ -197,7 +197,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Color(0xFFFF7043)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -220,13 +220,14 @@ class _AddTodoPageState extends State<AddTodoPage> {
       onTap: _pickDate,
       decoration: InputDecoration(
         labelText: 'Tarih',
-        suffixIcon: Icon(Icons.calendar_today),
+        labelStyle: TextStyle(color: Color(0xFFFAF8ED)),
+        suffixIcon: Icon(Icons.calendar_today, color: Color(0xFFFFFD95),),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Color(0xFFFF7043)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -252,7 +253,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
             onTap: () => _pickTime(_startTimeController),
             decoration: InputDecoration(
               labelText: 'Başlangıç Saati',
-              suffixIcon: Icon(Icons.access_time),
+              suffixIcon: Icon(Icons.access_time, color: Color(0xFFFFFD95)),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
@@ -275,7 +276,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
             onTap: () => _pickTime(_endTimeController),
             decoration: InputDecoration(
               labelText: 'Bitiş Saati',
-              suffixIcon: Icon(Icons.access_time),
+              suffixIcon: Icon(Icons.access_time, color: Color(0xFFFFFD95),),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
