@@ -16,18 +16,22 @@ class AddNotePage extends StatefulWidget {
 
 class _AddNotePageState extends State<AddNotePage> {
   final _titleController = TextEditingController();
-  final _subtitleController = TextEditingController();
   final _noteController = TextEditingController();
-  Color _currentColor = Colors.grey; // Default color
+  Color _currentColor = Colors.grey;
+  String? _selectedCategory;
+
+  final List<String> _categories = ['İş', 'Kişisel', 'Ders', 'Spor'];
 
   @override
   void initState() {
     super.initState();
     if (widget.note != null) {
       _titleController.text = widget.note!.title;
-      _subtitleController.text = widget.note!.subtitle;
-      _noteController.text = widget.note!.subtitle; // Note content
-      _currentColor = widget.note!.color; // Load color
+      _noteController.text = widget.note!.subtitle;
+      _currentColor = widget.note!.color;
+      _selectedCategory = widget.note!.category;
+    } else {
+      _selectedCategory = _categories[0];
     }
   }
 
@@ -74,98 +78,120 @@ class _AddNotePageState extends State<AddNotePage> {
         ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(
-                maxLines: null,
-                style: const TextStyle(fontSize: 24),
-                controller: _titleController,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Başlık Girin...',
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                TextField(
+                  maxLines: null,
+                  style: const TextStyle(fontSize: 24),
+                  controller: _titleController,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Başlık Girin...',
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Tarih: ${DateFormat('dd MMMM yyyy', 'tr_TR').format(DateTime.now())}',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Tarih: ${DateFormat('dd MMMM yyyy', 'tr_TR').format(DateTime.now())}',
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.color_lens),
+                      onPressed: _pickColor,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                DropdownButtonFormField<String>(
+                  value: _selectedCategory,
+                  items: _categories.map((String category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedCategory = newValue;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Kategori',
                   ),
-                  IconButton(
-                    icon: Icon(Icons.color_lens),
-                    onPressed: _pickColor,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Container(
-                constraints: const BoxConstraints(minHeight: 185),
-                child: Card(
-                  color: _currentColor,
-                  elevation: 4.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      maxLines: null,
-                      controller: _noteController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Notunuzu buraya yazın...',
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  constraints: const BoxConstraints(minHeight: 185),
+                  child: Card(
+                    color: _currentColor,
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                        maxLines: null,
+                        controller: _noteController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Notunuzu buraya yazın...',
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    final title = _titleController.text;
-                    final subtitle = _noteController.text;
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final title = _titleController.text;
+                      final subtitle = _noteController.text;
 
-                    if (widget.note == null) {
-                      context.read<NoteProvider>().addNote(
-                        title,
-                        subtitle,
-                        _currentColor,
-                      );
-                    } else {
-                      context.read<NoteProvider>().updateNote(
-                        widget.note!.copyWith(
-                          title: title,
-                          subtitle: subtitle,
-                          color: _currentColor,
+                      if (widget.note == null) {
+                        context.read<NoteProvider>().addNote(
+                              title,
+                              subtitle,
+                              _currentColor,
+                              _selectedCategory ?? 'Others',
+                            );
+                      } else {
+                        context.read<NoteProvider>().updateNote(
+                              widget.note!.copyWith(
+                                title: title,
+                                subtitle: subtitle,
+                                color: _currentColor,
+                                category: _selectedCategory ?? 'Others',
+                              ),
+                            );
+                      }
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Not kaydedildi'),
                         ),
                       );
-                    }
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Not kaydedildi'),
-                      ),
-                    );
-
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey,
-                  ),
-                  child: const Text(
-                    'Kaydet',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                    ),
+                    child: const Text(
+                      'Kaydet',
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

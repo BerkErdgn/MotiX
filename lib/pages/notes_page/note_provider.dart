@@ -7,12 +7,14 @@ class Note {
   final String subtitle;
   final DateTime date;
   final Color color;
+  final String category;
 
   Note({
     required this.title,
     required this.subtitle,
     required this.date,
     required this.color,
+    required this.category,
   });
 
   Note copyWith({
@@ -20,12 +22,14 @@ class Note {
     String? subtitle,
     DateTime? date,
     Color? color,
+    String? category,
   }) {
     return Note(
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       date: date ?? this.date,
       color: color ?? this.color,
+      category: category ?? this.category,
     );
   }
 
@@ -35,6 +39,7 @@ class Note {
       'subtitle': subtitle,
       'date': date.millisecondsSinceEpoch,
       'color': color.value,
+      'category': category,
     };
   }
 
@@ -44,6 +49,7 @@ class Note {
       subtitle: map['subtitle'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       color: Color(map['color']),
+      category: map['category'],
     );
   }
 }
@@ -65,19 +71,20 @@ class NoteProvider with ChangeNotifier {
   Future<void> saveNotes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<Map<String, dynamic>> notesMapList =
-    _notes.map((note) => note.toMap()).toList();
+        _notes.map((note) => note.toMap()).toList();
     String notesJson = json.encode(notesMapList);
     await prefs.setString('notes', notesJson);
   }
 
-  void addNote(String title, String subtitle, Color color) {
+  void addNote(String title, String subtitle, Color color, String category) {
     final note = Note(
       title: title,
       subtitle: subtitle,
       date: DateTime.now(),
       color: color,
+      category: category,
     );
-    _notes.insert(0,note);
+    _notes.insert(0, note);
     saveNotes();
     notifyListeners();
   }
