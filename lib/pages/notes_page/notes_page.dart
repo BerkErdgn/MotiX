@@ -17,6 +17,7 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> {
   final User? user = Auth().currentUser;
+  String _selectedCategory = 'Hepsi';
 
   @override
   void initState() {
@@ -27,129 +28,160 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final notes = context.watch<NoteProvider>().notes;
+    final notes = context
+        .watch<NoteProvider>()
+        .notes
+        .where((note) =>
+            _selectedCategory == 'Hepsi' || note.category == _selectedCategory)
+        .toList();
 
     return BlocBuilder<Imagecubit, List<UserImageEntity>>(
         builder: (context, userImageList) {
-          String imageUrl;
-          if (userImageList.isNotEmpty) {
-            imageUrl = userImageList.first.profileIcon;
-          } else {
-            imageUrl = 'chick';
-          }
+      String imageUrl;
+      if (userImageList.isNotEmpty) {
+        imageUrl = userImageList.first.profileIcon;
+      } else {
+        imageUrl = 'chick';
+      }
 
-          return Scaffold(
-            appBar: CustomAppBar(
-              imageUrl: imageUrl,
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddNotePage(),
-                  ),
-                );
-              },
-              showAddButton: true,
-            ),
-            body: Padding(
-              padding: const EdgeInsets.only(top: 30.0),
-              child: Column(
+      return Scaffold(
+        appBar: CustomAppBar(
+          imageUrl: imageUrl,
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AddNotePage(),
+              ),
+            );
+          },
+          showAddButton: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 30.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FilterChip(
-                          label: const Text('Hepsi'),
-                          onSelected: (bool value) {}),
-                      FilterChip(
-                          label: const Text('İş'), onSelected: (bool value) {}),
-                      FilterChip(
-                          label: const Text('Kişisel'),
-                          onSelected: (bool value) {}),
-                      FilterChip(
-                          label: const Text('Ders'),
-                          onSelected: (bool value) {}),
-                      FilterChip(
-                          label: const Text('Spor'),
-                          onSelected: (bool value) {}),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: notes.length,
-                      itemBuilder: (context, index) {
-                        final note = notes[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => AddNotePage(note: note),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: note.color,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  note.title,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  note.subtitle,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: IconButton(
-                                    color: Colors.black,
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddNotePage(note: note),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Text(
-                                    '${note.date.day}/${note.date.month}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                  FilterChip(
+                      label: const Text('Hepsi'),
+                      selected: _selectedCategory == 'Hepsi',
+                      onSelected: (bool value) {
+                        setState(() {
+                          _selectedCategory = 'Hepsi';
+                        });
+                      }),
+                  FilterChip(
+                      label: const Text('İş'),
+                      selected: _selectedCategory == 'İş',
+                      onSelected: (bool value) {
+                        setState(() {
+                          _selectedCategory = 'İş';
+                        });
+                      }),
+                  FilterChip(
+                      label: const Text('Kişisel'),
+                      selected: _selectedCategory == 'Kişisel',
+                      onSelected: (bool value) {
+                        setState(() {
+                          _selectedCategory = 'Kişisel';
+                        });
+                      }),
+                  FilterChip(
+                      label: const Text('Ders'),
+                      selected: _selectedCategory == 'Ders',
+                      onSelected: (bool value) {
+                        setState(() {
+                          _selectedCategory = 'Ders';
+                        });
+                      }),
+                  FilterChip(
+                      label: const Text('Spor'),
+                      selected: _selectedCategory == 'Spor',
+                      onSelected: (bool value) {
+                        setState(() {
+                          _selectedCategory = 'Spor';
+                        });
+                      }),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: notes.length,
+                  itemBuilder: (context, index) {
+                    final note = notes[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => AddNotePage(note: note),
                           ),
                         );
                       },
-                    ),
-                  ),
-                ],
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: note.color,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              note.title,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 21,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              note.subtitle,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                color: Colors.black,
+                                icon: const Icon(Icons.edit),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddNotePage(note: note),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                '${note.date.day}/${note.date.month}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      );
+    });
   }
 }
