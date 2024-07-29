@@ -1,11 +1,12 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:motix_app/pages/toDo/todo_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:lottie/lottie.dart';  // Lottie paketini import edin
+import 'package:lottie/lottie.dart';
 import 'add_todo_page.dart';
 
 class TodoPage extends StatefulWidget {
@@ -119,21 +120,20 @@ class _TodoPageState extends State<TodoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedDateFormatted = DateFormat('yyyy-MM-dd').format(_selectedDate);
+    final selectedDateFormatted =
+        DateFormat('yyyy-MM-dd').format(_selectedDate);
 
-    List<Map<String, dynamic>> filteredTasks = _tasks
-        .where((task) {
-          final taskDate = task['date'] as String?;
-          return taskDate != null && taskDate == selectedDateFormatted;
-        })
-        .toList();
+    List<Map<String, dynamic>> filteredTasks = _tasks.where((task) {
+      final taskDate = task['date'] as String?;
+      return taskDate != null && taskDate == selectedDateFormatted;
+    }).toList();
 
     return Scaffold(
       body: Column(
         children: [
           const SizedBox(height: 35),
           Container(
-            height: 120,
+            height: 90,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Color(0xFFED7D31),
@@ -153,7 +153,7 @@ class _TodoPageState extends State<TodoPage> {
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Color(0xFFFAF8ED),
                         ),
                       ),
                     ),
@@ -161,7 +161,11 @@ class _TodoPageState extends State<TodoPage> {
                 ),
                 IconButton(
                   onPressed: _navigateToAddTodoPage,
-                  icon: const Icon(Icons.add, color: Colors.white),
+                  icon: const Icon(
+                    Icons.add,
+                    color: Color(0xFFFAF8ED),
+                    size: 34,
+                  ),
                 ),
               ],
             ),
@@ -171,11 +175,11 @@ class _TodoPageState extends State<TodoPage> {
             height: 100,
             width: 80,
             initialSelectedDate: DateTime.now(),
-            selectionColor: const Color(0xFF6EACDA),
-            selectedTextColor: Colors.white,
-            dateTextStyle: TextStyle(color: Colors.white),
-            dayTextStyle: TextStyle(color: Colors.white),
-            monthTextStyle: TextStyle(color: Colors.white),
+            selectionColor: const Color(0xFFFAF8ED),
+            selectedTextColor: Colors.black,
+            dateTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
+            dayTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
+            monthTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
             locale: 'tr_TR',
             onDateChange: (date) {
               setState(() {
@@ -187,18 +191,18 @@ class _TodoPageState extends State<TodoPage> {
           Expanded(
             child: filteredTasks.isEmpty
                 ? Column(
-                  children: [
-                    Center(
+                    children: [
+                      Center(
                         child: Lottie.asset(
-                          'assets/animations/lottie3.json',
+                          'assets/animations/lottie4.json',
                           width: 300,
                           height: 300,
                           fit: BoxFit.fill,
                         ),
                       ),
-                    Text('Görev Ekle')
-                  ],
-                )
+                      Text('Görev Ekle')
+                    ],
+                  )
                 : ListView.builder(
                     itemCount: filteredTasks.length,
                     itemBuilder: (context, index) {
@@ -218,17 +222,19 @@ class _TodoPageState extends State<TodoPage> {
                         minute: int.parse(endTimeString.split(':')[1]),
                       );
 
-                      return TodoItem(
-                        taskName: taskName,
-                        taskCompleted: taskCompleted,
-                        onChanged: (value) =>
-                            _toggleTaskComplete(index, value),
-                        deleteFunction: (context) => _deleteTask(index),
-                        editFunction: (context, newTaskName) =>
-                            _editTask(index, newTaskName),
-                        date: taskDate,
-                        startTime: startTime,
-                        endTime: endTime,
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                        child: TodoItem(
+                          taskName: taskName,
+                          taskCompleted: taskCompleted,
+                          onChanged: (value) => _toggleTaskComplete(index, value),
+                          deleteFunction: (context) => _deleteTask(index),
+                          editFunction: (context, newTaskName) =>
+                              _editTask(index, newTaskName),
+                          date: taskDate,
+                          startTime: startTime,
+                          endTime: endTime,
+                        ),
                       );
                     },
                   ),

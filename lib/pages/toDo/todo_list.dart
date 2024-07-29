@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:motix_app/pages/toDo/edit_todo_page.dart';
 
 class TodoItem extends StatefulWidget {
   const TodoItem({
@@ -44,6 +45,18 @@ class _TodoItemState extends State<TodoItem> {
     widget.onChanged?.call(value);
   }
 
+  Future<void> _editTask(BuildContext context) async {
+    final editedTaskName = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditTodoPage(initialTaskName: widget.taskName),
+      ),
+    );
+    if (editedTaskName != null && editedTaskName is String) {
+      widget.editFunction?.call(context, editedTaskName);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,10 +78,22 @@ class _TodoItemState extends State<TodoItem> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                backgroundColor: Color(0xFFCDE8E5),
-                title: const Text(
-                  'Task Details',
-                  style: TextStyle(color: Colors.black),
+                backgroundColor: const Color(0xFFCDE8E5),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Görev Detayları',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.black),
+                      onPressed: () {
+                        Navigator.pop(context);  // Close the dialog before navigating
+                        _editTask(context);
+                      },
+                    ),
+                  ],
                 ),
                 content: TodoItemDialog(
                   taskCompleted: _taskCompleted,
@@ -130,11 +155,11 @@ class TodoItemContainer extends StatelessWidget {
     return Container(
       padding: TodoItemPadding.containerPadding,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFFAF8ED),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.pink.withOpacity(0.4),
             blurRadius: 5,
             offset: const Offset(0, 3),
           ),
@@ -259,3 +284,4 @@ class TodoItemPadding {
   static const EdgeInsets itemPadding = EdgeInsets.symmetric(vertical: 5.0);
   static const EdgeInsets containerPadding = EdgeInsets.all(15.0);
 }
+
