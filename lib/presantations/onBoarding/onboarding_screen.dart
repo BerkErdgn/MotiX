@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../authPage/login_page.dart';
 
@@ -30,7 +31,9 @@ class ConcentricAnimationOnboarding extends StatelessWidget {
           ),
           itemCount: pages.length,
           scaleFactor: 2,
-          onFinish: () {
+          onFinish: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('onBoard', true);
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
