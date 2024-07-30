@@ -30,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void _logout() async {
     await Auth().signOut();
     // Oturumu kapattıktan sonra oturum açmaya veya başka bir uygun sayfaya yönlendir
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return const LoginPage();
     }));
   }
