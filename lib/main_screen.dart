@@ -1,10 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:motix_app/pages/coachPage/coach_page.dart';
-import 'package:motix_app/pages/notes_page/notes_page.dart';
-import 'package:motix_app/pages/profilePage/profile.dart';
-import 'package:motix_app/pages/social_media_page/social_media_page.dart';
-import 'package:motix_app/pages/toDo/todo_page.dart';
+import 'package:motix_app/presantations/coachPage/coach_page.dart';
+import 'package:motix_app/presantations/notesPage/notes_page.dart';
+import 'package:motix_app/presantations/profilePage/profile.dart';
+import 'package:motix_app/presantations/socialMediaPage/social_media_page.dart';
+import 'package:motix_app/presantations/toDo/todo_page.dart';
 
 class MainScreen extends StatefulWidget {
   @override

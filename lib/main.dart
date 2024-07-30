@@ -2,15 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:motix_app/pages/cubit/addPostCubit.dart';
-import 'package:motix_app/pages/cubit/imageCubit.dart';
-import 'package:motix_app/pages/cubit/profileCubit.dart';
-import 'package:motix_app/pages/cubit/registerCubit.dart';
-import 'package:motix_app/pages/cubit/socialMediaCubit.dart';
-import 'package:motix_app/pages/notes_page/note_provider.dart';
-import 'package:motix_app/pages/splash_screen.dart';
-import 'package:motix_app/pages/toDo/local_notifications.dart';
-import 'package:motix_app/product/util/consts.dart';
+import 'package:motix_app/cubit/addPostCubit.dart';
+import 'package:motix_app/cubit/imageCubit.dart';
+import 'package:motix_app/cubit/profileCubit.dart';
+import 'package:motix_app/cubit/registerCubit.dart';
+import 'package:motix_app/cubit/socialMediaCubit.dart';
+import 'package:motix_app/presantations/notesPage/note_provider.dart';
+import 'package:motix_app/presantations/splashScreen/splash_screen.dart';
+import 'package:motix_app/presantations/toDo/local_notification_service.dart';
+import 'package:motix_app/util/consts/consts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -18,7 +18,7 @@ void main() async {
   Gemini.init(apiKey: GEMINI_API_KEY);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await LocalNotifications.init();  
+  await LocalNotificationService.init();  
   runApp(
     ChangeNotifierProvider(
       create: (context) => NoteProvider(),
