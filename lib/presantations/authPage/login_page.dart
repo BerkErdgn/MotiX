@@ -143,7 +143,6 @@ class SignUpText extends StatelessWidget {
           child: Text(
             LoginStrings.noAccountText,
             style: TextStyle(
-              fontFamily: 'Inter',
               fontSize: 15,
               fontWeight: FontWeight.normal,
               color: MotixColor.mainColorWhite,
@@ -159,7 +158,6 @@ class SignUpText extends StatelessWidget {
           child: const Text(
             LoginStrings.signUpText,
             style: TextStyle(
-              fontFamily: 'Inter',
               fontSize: 15,
               fontWeight: FontWeight.bold,
               color: MotixColor.mainColorOrange,
