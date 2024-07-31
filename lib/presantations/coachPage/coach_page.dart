@@ -38,7 +38,17 @@ class _CoachPageState extends State<CoachPage> {
   void initState() {
     super.initState();
     context.read<Imagecubit>().getUserImage(user?.email ?? "");
-    print(user?.email);
+
+    ChatMessage initalMessage = ChatMessage(
+      user: geminiUser ,
+      createdAt: DateTime.now(),
+      text: "Bugün neler yapıyorsun ? Yardım edebileceğim bir şey var mı ?"
+    );
+    setState(() {
+      messages =[initalMessage,...messages];
+    });
+
+
   }
 
   @override
