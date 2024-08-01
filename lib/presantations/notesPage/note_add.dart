@@ -189,8 +189,8 @@ class _AddNotePageState extends State<AddNotePage> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 60),
                                   child: TextField(
-                                    style: TextStyle(
-                                        color: MotixColor.mainColorDarkGrey),
+                                    
+                                    style: TextStyle(color: MotixColor.mainColorWhite),
                                     maxLines: null,
                                     controller: _noteController,
                                     decoration: const InputDecoration(
@@ -213,7 +213,7 @@ class _AddNotePageState extends State<AddNotePage> {
                                   IconButton(
                                     icon: Icon(
                                       Icons.color_lens,
-                                      color: MotixColor.mainColorOrange,
+                                      color: MotixColor.mainColorWhite,
                                       size: 34,
                                     ),
                                     onPressed: _pickColor,
@@ -222,7 +222,7 @@ class _AddNotePageState extends State<AddNotePage> {
                                     "${DateFormat('dd MMMM yyyy', 'tr_TR').format(DateTime.now())}",
                                     style: const TextStyle(
                                       fontSize: 14,
-                                      color: MotixColor.mainColorDarkGrey,
+                                      color: MotixColor.mainColorWhite,
                                     ),
                                   ),
                                 ],

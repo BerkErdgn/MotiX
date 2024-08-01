@@ -24,7 +24,7 @@ class RegisterStrings {
 
 class ForgetPasswordStrings {
   static const String promptText =
-      'Şifrenizi sıfırlamak için lütfen E-mail giriniz.';
+      'E-mail ile şifrenizi sıfırlayın.';
   static const String emailLabel = 'E-mail';
   static const String sendEmailButtonText = 'Email gönder';
 }
