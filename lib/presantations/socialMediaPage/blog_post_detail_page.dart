@@ -28,11 +28,12 @@ class BlogPostDetailPage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               post.postDescription,
-              style: const TextStyle(fontSize: 16, color: MotixColor.mainColorWhite),
+              style: const TextStyle(
+                  fontSize: 16, color: MotixColor.mainColorWhite),
             ),
           ],
         ),
       ),
     );
   }
-}
+} // end class BlogPostDetailPage

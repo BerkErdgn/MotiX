@@ -6,6 +6,7 @@ class CustomButton extends StatelessWidget {
   final Future<void> Function() functionEmailAndPassword;
   final Color buttonBackgroundColor;
   final Color saveButtonTextColor;
+
   const CustomButton(
       {Key? key,
       required this.functionEmailAndPassword,
@@ -34,4 +35,4 @@ class CustomButton extends StatelessWidget {
               .copyWith(color: saveButtonTextColor)),
     );
   }
-}
+} //end class CustomButton

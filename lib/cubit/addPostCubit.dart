@@ -7,13 +7,14 @@ class AddPostCubit extends Cubit<void> {
   var mrepo = MotixRepository();
 
   Future<void> addPost(
-      String postOwnerName,
-      String postOwnerEmail,
-      String postTitle,
-      String postDescription,
-      String postOwnerProfileIcon,
-      List<String> postCategories,
-      ) async {
+    String postOwnerName,
+    String postOwnerEmail,
+    String postTitle,
+    String postDescription,
+    String postOwnerProfileIcon,
+    List<String> postCategories,
+  ) async {
+    //To save the user's post;
     await mrepo.addPost(
       postOwnerName,
       postOwnerEmail,
@@ -22,5 +23,5 @@ class AddPostCubit extends Cubit<void> {
       postOwnerProfileIcon,
       postCategories,
     );
-  }
-}
+  } // end Future addPost
+} // end class AddPostCubit

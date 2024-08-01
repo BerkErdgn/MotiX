@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 
   @override
   State<LoginPage> createState() => _LoginPageState();
-}
+} // end class LoginPage
 
 class _LoginPageState extends State<LoginPage> {
   final String signText = LoginStrings.loginPrompt;
@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerPassword = TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
+    // To Login with Email and Password
     try {
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
@@ -33,13 +34,14 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => MainScreen()),
       );
     } on FirebaseAuthException {
+      // Error message displayed
       setState(() {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(MotixAlertMessages().wrongEmailorPasswordMessage),
         ));
       });
     }
-  }
+  } //end Future signInWithEmailAndPassword
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 25),
                     CustomButton(
-                      buttonBackgroundColor: MotixColor.mainColorLightGray,
+                        buttonBackgroundColor: MotixColor.mainColorLightGray,
                         functionEmailAndPassword: signInWithEmailAndPassword,
                         buttonText: LoginStrings.loginButtonText),
                     const SizedBox(height: 50),
@@ -107,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
+} // end class _LoginPageState
 
 class _HeadLineText extends StatelessWidget {
   const _HeadLineText({
@@ -133,7 +135,7 @@ class _HeadLineText extends StatelessWidget {
       ),
     );
   }
-}
+} // end class _HeadLineText
 
 class SignUpText extends StatelessWidget {
   const SignUpText({super.key});
@@ -173,4 +175,4 @@ class SignUpText extends StatelessWidget {
       ],
     );
   }
-}
+} // end class SignUpText

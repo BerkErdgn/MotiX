@@ -9,15 +9,17 @@ import 'package:motix_app/presantations/toDo/todo_page.dart';
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
-}
+} //end class MainScreen
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 2;
+
+  //Data of the screens to be displayed
   final List<Widget> _pages = [
     const NotesPage(),
     const CoachPage(),
     const TodoPage(),
-     SocialMediaPage(),
+    SocialMediaPage(),
     const ProfilePage(),
   ];
 
@@ -50,10 +52,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   bool _shouldShowNavBar() {
+    //navBar index data
     return _currentIndex == 0 ||
         _currentIndex == 1 ||
         _currentIndex == 2 ||
         _currentIndex == 3 ||
         _currentIndex == 4;
-  }
-}
+  } //end bool _shouldShowNavBar
+} //end class _MainScreenState

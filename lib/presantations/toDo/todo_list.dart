@@ -29,7 +29,7 @@ class TodoItem extends StatefulWidget {
 
   @override
   _TodoItemState createState() => _TodoItemState();
-}
+} // end class TodoItem
 
 class _TodoItemState extends State<TodoItem> {
   late bool _taskCompleted;
@@ -169,9 +169,10 @@ class TodoItemContainer extends StatelessWidget {
             value: taskCompleted,
             onChanged: onChanged,
 
-            checkColor: MotixColor.mainColorWhite, // Okey işareti rengi beyaz
-            activeColor: MotixColor
-                .mainColorOrange, // Kutunun işaretleninceki rengi turuncu
+            checkColor: MotixColor.mainColorWhite,
+            // Okey işareti rengi beyaz
+            activeColor: MotixColor.mainColorOrange,
+            // Kutunun işaretleninceki rengi turuncu
             fillColor: WidgetStateProperty.resolveWith<Color?>(
                 (Set<WidgetState> states) {
               if (states.contains(WidgetState.selected)) {
@@ -213,7 +214,7 @@ class TodoItemContainer extends StatelessWidget {
       ),
     );
   }
-}
+} // end class _TodoItemState
 
 class TodoItemDialog extends StatefulWidget {
   const TodoItemDialog({
@@ -235,7 +236,7 @@ class TodoItemDialog extends StatefulWidget {
 
   @override
   _TodoItemDialogState createState() => _TodoItemDialogState();
-}
+} //end class TodoItemDialog
 
 class _TodoItemDialogState extends State<TodoItemDialog> {
   late bool _taskCompleted;
@@ -247,11 +248,12 @@ class _TodoItemDialogState extends State<TodoItemDialog> {
   }
 
   void _handleCheckboxChange(bool? value) {
+    //For checkbox change
     setState(() {
       _taskCompleted = value ?? false;
     });
     widget.onChanged?.call(value);
-  }
+  } //end void _handleCheckboxChange
 
   @override
   Widget build(BuildContext context) {
@@ -263,15 +265,14 @@ class _TodoItemDialogState extends State<TodoItemDialog> {
             Checkbox(
               value: _taskCompleted,
               onChanged: _handleCheckboxChange,
-              checkColor: MotixColor.mainColorWhite, // Okey işareti rengi beyaz
-              activeColor: MotixColor
-                  .mainColorOrange, // Kutunun işaretleninceki rengi turuncu
+              checkColor: MotixColor.mainColorWhite,
+              activeColor: MotixColor.mainColorOrange,
               fillColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
                 if (states.contains(WidgetState.selected)) {
-                  return MotixColor.mainColorOrange; // İşaretlenmişse turuncu
+                  return MotixColor.mainColorOrange;
                 }
-                return MotixColor.mainColorWhite; // İşaretlenmemişse beyaz
+                return MotixColor.mainColorWhite;
               }),
             ),
             Expanded(
@@ -298,9 +299,9 @@ class _TodoItemDialogState extends State<TodoItemDialog> {
       ],
     );
   }
-}
+} // end class _TodoItemDialogState
 
 class TodoItemPadding {
   static const EdgeInsets itemPadding = EdgeInsets.symmetric(vertical: 5.0);
   static const EdgeInsets containerPadding = EdgeInsets.all(15.0);
-}
+} // end class TodoItemPadding

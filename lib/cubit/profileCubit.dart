@@ -3,31 +3,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motix_app/data/repo/MotiXRepository.dart';
 import '../data/entity/post.dart';
 
-class ProfileCubit extends Cubit<List<Post>>{
+class ProfileCubit extends Cubit<List<Post>> {
   ProfileCubit() : super(<Post>[]);
 
   var collectionPosts = FirebaseFirestore.instance.collection("Posts");
   var motiXRepository = MotixRepository();
 
-  Future<void> getAllPostByEmail(String email) async{
-    collectionPosts.where("postOwnerEmail", isEqualTo: email).snapshots().listen((event){
+  Future<void> getAllPostByEmail(String email) async {
+    // To retrieve all posts made by the user's own post,
+    collectionPosts
+        .where("postOwnerEmail", isEqualTo: email)
+        .snapshots()
+        .listen((event) {
       var postList = <Post>[];
-
       var documents = event.docs;
-      for(var document in documents){
+      for (var document in documents) {
         var key = document.id;
         var data = document.data();
         var post = Post.fromJson(data, key);
         postList.add(post);
       }
-
       emit(postList);
     });
-  }
+  } // Future getAllPostByEmail
 
-  Future<void> delete(String post_id) async{
-      await motiXRepository.delete(post_id);
-  }
-
-}
-
+  Future<void> delete(String post_id) async {
+    // For the user to delete his own post,
+    await motiXRepository.delete(post_id);
+  } // end Future delete
+} // end class ProfileCubit

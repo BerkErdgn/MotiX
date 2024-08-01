@@ -11,15 +11,15 @@ import 'package:motix_app/presantations/socialMediaPage/blog_post.dart';
 import 'package:motix_app/presantations/socialMediaPage/category_item.dart';
 import 'package:motix_app/util/components/custom_app_bar.dart';
 
-
 class SocialMediaPage extends StatefulWidget {
   const SocialMediaPage({Key? key}) : super(key: key);
 
   @override
   _SocialMediaPageState createState() => _SocialMediaPageState();
-}
+} // end class _SocialMediaPageState
 
 class _SocialMediaPageState extends State<SocialMediaPage> {
+  //Category data
   List<Map<String, dynamic>> categories = [
     {'label': 'Trend', 'icon': "assets/categoryIcons/trending.png"},
     {'label': 'Başarı', 'icon': 'assets/categoryIcons/success.png'},
@@ -35,7 +35,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   ];
   String selectedCategory = 'Trend';
 
-  //İmage için
+  //for image
   final User? user = Auth().currentUser;
 
   @override
@@ -46,105 +46,107 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   }
 
   void _navigateToAddBlogPostPage() {
-
+    //Going to the post screen on the add screen,
     final imageCubit = context.read<Imagecubit>();
 
-    String postOwnerEmail = imageCubit.state.isNotEmpty ? imageCubit.state.first.userEmail : '';
-    String postOwnerName = imageCubit.state.isNotEmpty ? imageCubit.state.first.userName : 'Anonymous';
-    String postOwnerProfileIcon = imageCubit.state.isNotEmpty ? imageCubit.state.first.profileIcon : 'cat';
-
+    String postOwnerEmail =
+        imageCubit.state.isNotEmpty ? imageCubit.state.first.userEmail : '';
+    String postOwnerName = imageCubit.state.isNotEmpty
+        ? imageCubit.state.first.userName
+        : 'Anonymous';
+    String postOwnerProfileIcon = imageCubit.state.isNotEmpty
+        ? imageCubit.state.first.profileIcon
+        : 'cat';
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            AddBlogPostPage(
-              postOwnerEmail: postOwnerEmail,
-              postOwnerName: postOwnerName,
-              postOwnerProfileIcon: postOwnerProfileIcon,
-              onAdd: (post) {
-                context.read<SocialMediaCubit>()
-                    .getAllPost(); //Burası yeni ekleme yapıldığı zaman tekrardan güncellemesi için,
-              },
-            ),
+        builder: (context) => AddBlogPostPage(
+          postOwnerEmail: postOwnerEmail,
+          postOwnerName: postOwnerName,
+          postOwnerProfileIcon: postOwnerProfileIcon,
+          onAdd: (post) {
+            context
+                .read<SocialMediaCubit>()
+                .getAllPost(); //Burası yeni ekleme yapıldığı zaman tekrardan güncellemesi için,
+          },
+        ),
       ),
     );
-  }
+  } // end void _navigateToAddBlogPostPage
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<Imagecubit, List<UserImageEntity>>(
         builder: (context, userImageList) {
-          String imageUrl;
-          if (userImageList.isNotEmpty) {
-            imageUrl = userImageList.first.profileIcon;
-          } else {
-            imageUrl = 'chick';
-          }
+      String imageUrl;
+      if (userImageList.isNotEmpty) {
+        imageUrl = userImageList.first.profileIcon;
+      } else {
+        imageUrl = 'chick';
+      }
 
-          return Scaffold(
-            appBar: CustomAppBar(
-              imageUrl: imageUrl,
-              showAddButton: true,
-              onPressed: () {
-                _navigateToAddBlogPostPage();
-              },
-            ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: categories.map((category) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedCategory = category['label'];
-                            });
-                            context.read<SocialMediaCubit>().getPostsByCategory(
-                                selectedCategory);
-                          },
-                          child: CategoryItem(
-                            label: category['label'],
-                            icon: category['icon'],
-                            isSelected: selectedCategory == category['label'],
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Text(
-                    selectedCategory,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: BlocBuilder<SocialMediaCubit, List<Post>>(
-                      builder: (context, posts) {
-                        return ListView.builder(
-                          itemCount: posts.length,
-                          itemBuilder: (context, index) {
-                            Post post = posts[index];
-                            return BlogPostCard(post: post);
-                          },
-                        );
+      return Scaffold(
+        appBar: CustomAppBar(
+          imageUrl: imageUrl,
+          showAddButton: true,
+          onPressed: () {
+            _navigateToAddBlogPostPage();
+          },
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 18),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: categories.map((category) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedCategory = category['label'];
+                        });
+                        context
+                            .read<SocialMediaCubit>()
+                            .getPostsByCategory(selectedCategory);
                       },
-                    )
+                      child: CategoryItem(
+                        label: category['label'],
+                        icon: category['icon'],
+                        isSelected: selectedCategory == category['label'],
+                      ),
+                    );
+                  }).toList(),
                 ),
-              ],
+              ),
             ),
-          );
-        }
-    );
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                selectedCategory,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Expanded(child: BlocBuilder<SocialMediaCubit, List<Post>>(
+              builder: (context, posts) {
+                return ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    Post post = posts[index];
+                    return BlogPostCard(post: post);
+                  },
+                );
+              },
+            )),
+          ],
+        ),
+      );
+    });
   }
-}
+} // end class _SocialMediaPageState

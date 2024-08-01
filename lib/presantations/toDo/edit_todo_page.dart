@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motix_app/util/consts/motix_text_consts.dart'; 
+import 'package:motix_app/util/consts/motix_text_consts.dart';
 
 class EditTodoPage extends StatefulWidget {
   const EditTodoPage({
@@ -9,10 +9,9 @@ class EditTodoPage extends StatefulWidget {
 
   final String initialTaskName;
 
-
   @override
   _EditTodoPageState createState() => _EditTodoPageState();
-}
+} // end class EditTodoPage
 
 class _EditTodoPageState extends State<EditTodoPage> {
   late TextEditingController _controller;
@@ -30,12 +29,12 @@ class _EditTodoPageState extends State<EditTodoPage> {
   }
 
   void _saveEdit() {
-
+    // To save the edited
     Navigator.pop(
       context,
       _controller.text,
     );
-  }
+  } // end void _saveEdit
 
   @override
   Widget build(BuildContext context) {
@@ -101,4 +100,4 @@ class _EditTodoPageState extends State<EditTodoPage> {
       ),
     );
   }
-}
+} // end class _EditTodoPageState

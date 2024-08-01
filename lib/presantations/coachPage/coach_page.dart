@@ -12,7 +12,6 @@ import 'package:motix_app/util/components/custom_app_bar.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
-
 import '../../data/entity/userImageEntity.dart';
 
 class CoachPage extends StatefulWidget {
@@ -20,18 +19,17 @@ class CoachPage extends StatefulWidget {
 
   @override
   State<CoachPage> createState() => _CoachPageState();
-}
+} //end class CoachPage
 
 class _CoachPageState extends State<CoachPage> {
   final Gemini gemini = Gemini.instance;
   List<ChatMessage> messages = [];
 
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
-  ChatUser geminiUser = ChatUser(id: "1", firstName: "MotAI", profileImage: MotixImage.coachProfileImage);
+  ChatUser geminiUser = ChatUser(
+      id: "1", firstName: "MotAI", profileImage: MotixImage.coachProfileImage);
 
-  //GeminiUser progileimage ile resim verilebilir., Aynı şekilde current user'a da
-
-  //İmage için
+  //for image,
   final User? user = Auth().currentUser;
 
   @override
@@ -40,15 +38,12 @@ class _CoachPageState extends State<CoachPage> {
     context.read<Imagecubit>().getUserImage(user?.email ?? "");
 
     ChatMessage initalMessage = ChatMessage(
-      user: geminiUser ,
-      createdAt: DateTime.now(),
-      text: "Bugün neler yapıyorsun ? Yardım edebileceğim bir şey var mı ?"
-    );
+        user: geminiUser,
+        createdAt: DateTime.now(),
+        text: "Bugün neler yapıyorsun ? Yardım edebileceğim bir şey var mı ?");
     setState(() {
-      messages =[initalMessage,...messages];
+      messages = [initalMessage, ...messages];
     });
-
-
   }
 
   @override
@@ -59,7 +54,7 @@ class _CoachPageState extends State<CoachPage> {
         if (userImageList.isNotEmpty) {
           imageUrl = userImageList.first.profileIcon;
         } else {
-          imageUrl = CoachPageStrings.noProfileImagePlaceholder; 
+          imageUrl = CoachPageStrings.noProfileImagePlaceholder;
         }
 
         return Scaffold(
@@ -110,15 +105,17 @@ class _CoachPageState extends State<CoachPage> {
                 borderSide: BorderSide.none,
               ),
               contentPadding:
-              EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             ),
-            inputTextStyle: const TextStyle(color: MotixColor.mainColorDarkGrey),
+            inputTextStyle:
+                const TextStyle(color: MotixColor.mainColorDarkGrey),
           ),
           scrollToBottomOptions: ScrollToBottomOptions(
             disabled: false,
             scrollToBottomBuilder: (scrollController) {
               return IconButton(
-                icon: Icon(Icons.keyboard_arrow_down, color: MotixColor.mainColorWhite),
+                icon: Icon(Icons.keyboard_arrow_down,
+                    color: MotixColor.mainColorWhite),
                 onPressed: () {
                   scrollController.animateTo(
                     scrollController.position.maxScrollExtent,
@@ -136,6 +133,7 @@ class _CoachPageState extends State<CoachPage> {
   }
 
   void _sendMessage(ChatMessage chatMassage) {
+    // To send prompts to AI,
     setState(() {
       messages = [chatMassage, ...messages];
     });
@@ -150,7 +148,7 @@ class _CoachPageState extends State<CoachPage> {
         if (lastMassage != null && lastMassage.user == geminiUser) {
           lastMassage = messages.removeAt(0);
           String response = event.content?.parts?.fold(
-              "", (previous, current) => "$previous ${current.text}") ??
+                  "", (previous, current) => "$previous ${current.text}") ??
               "";
           lastMassage.text += response;
           setState(() {
@@ -158,7 +156,7 @@ class _CoachPageState extends State<CoachPage> {
           });
         } else {
           String response = event.content?.parts?.fold(
-              "", (previous, current) => "$previous ${current.text}") ??
+                  "", (previous, current) => "$previous ${current.text}") ??
               "";
           ChatMessage message = ChatMessage(
               user: geminiUser, createdAt: DateTime.now(), text: response);
@@ -170,9 +168,10 @@ class _CoachPageState extends State<CoachPage> {
     } catch (e) {
       print(e);
     }
-  }
+  } // end void _sendMessage
 
   void _sendMediaMessage() async {
+    //To send prompts with media to AI,
     ImagePicker picker = ImagePicker();
     XFile? file = await picker.pickImage(
       source: ImageSource.gallery,
@@ -187,5 +186,5 @@ class _CoachPageState extends State<CoachPage> {
           ]);
       _sendMessage(chatMessage);
     }
-  }
-}
+  } //end void _sendMediaMessage
+} // end class _CoachPageState

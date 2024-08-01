@@ -15,7 +15,7 @@ class TodoPage extends StatefulWidget {
 
   @override
   State<TodoPage> createState() => _TodoPageState();
-}
+} //end class TodoPage
 
 class _TodoPageState extends State<TodoPage> {
   DateTime _selectedDate = DateTime.now();
@@ -36,6 +36,7 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   Future<void> _loadToDoList() async {
+    //To load todos
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? toDoListString = prefs.getString('toDoList');
     if (toDoListString != null) {
@@ -43,43 +44,49 @@ class _TodoPageState extends State<TodoPage> {
         _tasks = List<Map<String, dynamic>>.from(json.decode(toDoListString));
       });
     }
-  }
+  } //end Future _loadToDoList
 
   Future<void> _saveToDoList() async {
+    //to save todos
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('toDoList', json.encode(_tasks));
-  }
+  } //end  Future _saveToDoList
 
   void _addTask(Map<String, dynamic> task) {
+    //to add task
     setState(() {
       _tasks.add(task);
     });
     _saveToDoList();
     _showSnackbar(TodoPageStrings.taskAddedMessage);
-  }
+  } //end void _addTask
 
   void _deleteTask(int index) {
+    //to delete task
     setState(() {
       _tasks.removeAt(index);
     });
     _saveToDoList();
-  }
+  } //end void _deleteTask
 
   void _toggleTaskComplete(int index, bool? value) {
+    //To change Task Completed
     setState(() {
       _tasks[index]['completed'] = value ?? false;
     });
     _saveToDoList();
-  }
+  } // end void _toggleTaskComplete
 
   void _editTask(int index, String newTaskName) {
+    //to edit task
     setState(() {
       _tasks[index]['title'] = newTaskName;
     });
     _saveToDoList();
-  }
+  } // end void _editTask
 
   void _showSnackbar(String message) {
+    //to show sncakbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: const Color.fromARGB(255, 21, 21, 21),
@@ -88,9 +95,10 @@ class _TodoPageState extends State<TodoPage> {
                 color: MotixColor.mainColorWhite, fontSize: 16)),
       ),
     );
-  }
+  } //end void _showSnackbar
 
   void _navigateToAddTodoPage() async {
+    //to go to the Add ToDoPage screen,
     final result = await Navigator.push<Map<String, dynamic>>(
       context,
       MaterialPageRoute(
@@ -105,8 +113,9 @@ class _TodoPageState extends State<TodoPage> {
     if (result != null) {
       _addTask(result);
     }
-  }
+  } //end void _navigateToAddTodoPage
 
+  //Greeting the user by time,
   String getGreeting() {
     final hour = DateTime.now().hour;
     if (hour >= 6 && hour < 12) {
@@ -249,4 +258,4 @@ class _TodoPageState extends State<TodoPage> {
       ),
     );
   }
-}
+} // end class _TodoPageState

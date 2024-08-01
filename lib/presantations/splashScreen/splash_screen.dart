@@ -12,6 +12,7 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   Future<Widget> _getNextScreen() async {
+    // to move to the next page,
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool hasSeenOnboarding = prefs.getBool('onBoard') ?? false;
     final authenticated = Auth().checkIfUserSignIn();
@@ -22,7 +23,7 @@ class SplashScreen extends StatelessWidget {
     } else {
       return const LoginPage();
     }
-  }
+  } // end Future _getNextScreen
 
   @override
   Widget build(BuildContext context) {
@@ -74,4 +75,4 @@ class SplashScreen extends StatelessWidget {
       },
     );
   }
-}
+} // end class SplashScreen

@@ -5,7 +5,6 @@ import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../authPage/login_page.dart';
 
 class ConcentricAnimationOnboarding extends StatelessWidget {
@@ -48,8 +47,9 @@ class ConcentricAnimationOnboarding extends StatelessWidget {
       ),
     );
   }
-}
+} // end class ConcentricAnimationOnboarding
 
+//Page data entity
 class PageData {
   final String? title;
   final Color bgColor;
@@ -64,7 +64,7 @@ class PageData {
     this.animationPath,
     this.description,
   });
-}
+} // end class PageData
 
 class _Page extends StatelessWidget {
   final PageData page;
@@ -145,8 +145,9 @@ class _Page extends StatelessWidget {
 
     return spans;
   }
-}
+} // end class _Page
 
+// Data of onBoarding pages
 final List<PageData> pages = [
   const PageData(
     title: OnboardingStrings.titlePage1,

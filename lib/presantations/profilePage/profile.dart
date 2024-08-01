@@ -16,7 +16,7 @@ class ProfilePage extends StatefulWidget {
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
-}
+} // end class ProfilePage
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
@@ -28,12 +28,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _logout() async {
+    //To log out and redirect to the login screen
     await Auth().signOut();
-    // Oturumu kapattıktan sonra oturum açmaya veya başka bir uygun sayfaya yönlendir
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return const LoginPage();
     }));
-  }
+  } // end void _logout
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Icons.exit_to_app,
                 color: MotixColor.mainColorWhite,
               ),
-              iconSize: screenWidth * 0.08, // Ekran genişliğine göre boyut
+              iconSize: screenWidth * 0.08, // Size relative to screen width
               onPressed: _logout,
             ),
           ),
@@ -164,10 +164,11 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
-}
+} // end class _ProfilePageState
 
 class Ellipse3 extends StatelessWidget {
   final String imageUrl;
+
   const Ellipse3({required this.imageUrl, super.key});
 
   @override
@@ -190,10 +191,11 @@ class Ellipse3 extends StatelessWidget {
       ),
     );
   }
-}
+} // end class Ellipse3
 
 class UserName extends StatelessWidget {
   final String name;
+
   const UserName({required this.name, super.key});
 
   @override
@@ -215,10 +217,11 @@ class UserName extends StatelessWidget {
       ),
     );
   }
-}
+} // end class UserName
 
 class UserMail extends StatelessWidget {
   final String email;
+
   const UserMail({required this.email, super.key});
 
   @override
@@ -240,10 +243,11 @@ class UserMail extends StatelessWidget {
       ),
     );
   }
-}
+} // end class UserMail
 
 class PostLine extends StatelessWidget {
   final int postCount;
+
   const PostLine({required this.postCount, super.key});
 
   @override
@@ -268,10 +272,11 @@ class PostLine extends StatelessWidget {
       ],
     );
   }
-}
+} // end class PostLine
 
 class PostCard extends StatelessWidget {
   final Post post;
+
   const PostCard({required this.post, super.key});
 
   @override
@@ -357,4 +362,4 @@ class PostCard extends StatelessWidget {
       },
     );
   }
-}
+} // end class PostCard
