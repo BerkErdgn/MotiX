@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class MotixColor {
@@ -9,6 +7,7 @@ class MotixColor {
   static const Color mainColorDarkGrey = Color(0xFF454545);
   static const Color mainColorGrey = Color(0xFFB4B4B8);
   static const Color mainColorLightGray = Color(0xFFF2EFE5);
+  static const Color slidableDelete = Colors.red;
 
   static Color CoachYellow = Colors.orange.shade200;
 
@@ -18,4 +17,12 @@ class MotixColor {
 
   static const Color profileGradient1 = Color(0xFFFFC396);
   static const Color profileGradient2 = Color.fromARGB(0, 254, 138, 71);
+  static const Color onboardingHighlightColor =
+      Color.fromARGB(255, 250, 214, 130);
+
+  static const Color blue = Color(0xFF86B6F6);
+
+
+
+      
 }

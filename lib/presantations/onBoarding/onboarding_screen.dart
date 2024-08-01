@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:concentric_transition/concentric_transition.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
@@ -60,8 +59,8 @@ class PageData {
 
   const PageData({
     this.title,
-    this.bgColor = Colors.white,
-    this.textColor = Colors.black,
+    this.bgColor = MotixColor.mainColorWhite,
+    this.textColor = MotixColor.mainColorDarkGrey,
     this.animationPath,
     this.description,
   });
@@ -112,7 +111,7 @@ class _Page extends StatelessWidget {
   }
 
   List<TextSpan> _getSpannedText(String text, Color textColor) {
-    const highlightColor = Color.fromARGB(255, 250, 214, 130);
+    const highlightColor = MotixColor.onboardingHighlightColor;
     final List<TextSpan> spans = [];
     final List<String> highlightWords = [
       OnboardingStrings.highlightText1,

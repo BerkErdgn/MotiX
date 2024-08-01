@@ -4,10 +4,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:motix_app/presantations/toDo/todo_list.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
+import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:lottie/lottie.dart';
 import 'add_todo_page.dart';
 
 class TodoPage extends StatefulWidget {
@@ -84,7 +84,8 @@ class _TodoPageState extends State<TodoPage> {
       SnackBar(
         backgroundColor: const Color.fromARGB(255, 21, 21, 21),
         content: Text(message,
-            style: const TextStyle(color: Colors.white, fontSize: 16)),
+            style: const TextStyle(
+                color: MotixColor.mainColorWhite, fontSize: 16)),
       ),
     );
   }
@@ -132,12 +133,11 @@ class _TodoPageState extends State<TodoPage> {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 35),
           Container(
-            height: 90,
+            height: 100,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Color(0xFFED7D31),
+              color: MotixColor.mainColorOrange,
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: Radius.circular(20.0),
@@ -154,7 +154,7 @@ class _TodoPageState extends State<TodoPage> {
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFFAF8ED),
+                          color: MotixColor.mainColorWhite,
                         ),
                       ),
                     ),
@@ -164,7 +164,7 @@ class _TodoPageState extends State<TodoPage> {
                   onPressed: _navigateToAddTodoPage,
                   icon: const Icon(
                     Icons.add,
-                    color: Color(0xFFFAF8ED),
+                    color: MotixColor.mainColorWhite,
                     size: 34,
                   ),
                 ),
@@ -176,11 +176,11 @@ class _TodoPageState extends State<TodoPage> {
             height: 100,
             width: 80,
             initialSelectedDate: DateTime.now(),
-            selectionColor: const Color(0xFFFAF8ED),
-            selectedTextColor: Colors.black,
-            dateTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
-            dayTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
-            monthTextStyle: TextStyle(color: Color(0xFFFAF8ED)),
+            selectionColor: MotixColor.mainColorWhite,
+            selectedTextColor: MotixColor.mainColorDarkGrey,
+            dateTextStyle: TextStyle(color: MotixColor.mainColorWhite),
+            dayTextStyle: TextStyle(color: MotixColor.mainColorWhite),
+            monthTextStyle: TextStyle(color: MotixColor.mainColorWhite),
             locale: 'tr_TR',
             onDateChange: (date) {
               setState(() {
@@ -188,20 +188,23 @@ class _TodoPageState extends State<TodoPage> {
               });
             },
           ),
-          const SizedBox(height: 20),
           Expanded(
             child: filteredTasks.isEmpty
                 ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Lottie.asset(
-                          MotixLottieJson.todoJson,
-                          width: 300,
-                          height: 300,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Text(TodoPageStrings.noTasksMessage)
+                          child: Image.asset(
+                        MotixImage.noTaskImage,
+                        width: 120,
+                        height: 120,
+                      )),
+                      TextButton(
+                          onPressed: _navigateToAddTodoPage,
+                          child: Text(
+                            TodoPageStrings.noTasksMessage,
+                            style: TextStyle(color: MotixColor.blue),
+                          ))
                     ],
                   )
                 : ListView.builder(
@@ -224,11 +227,13 @@ class _TodoPageState extends State<TodoPage> {
                       );
 
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 2),
                         child: TodoItem(
                           taskName: taskName,
                           taskCompleted: taskCompleted,
-                          onChanged: (value) => _toggleTaskComplete(index, value),
+                          onChanged: (value) =>
+                              _toggleTaskComplete(index, value),
                           deleteFunction: (context) => _deleteTask(index),
                           editFunction: (context, newTaskName) =>
                               _editTask(index, newTaskName),

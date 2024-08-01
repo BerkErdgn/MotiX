@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 
 enum ProfileLable{
   bear('bear', "assets/animalIcon/bear.svg"),

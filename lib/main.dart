@@ -9,7 +9,6 @@ import 'package:motix_app/cubit/registerCubit.dart';
 import 'package:motix_app/cubit/socialMediaCubit.dart';
 import 'package:motix_app/presantations/notesPage/note_provider.dart';
 import 'package:motix_app/presantations/splashScreen/splash_screen.dart';
-import 'package:motix_app/presantations/toDo/local_notification_service.dart';
 import 'package:motix_app/util/consts/consts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,7 +17,6 @@ void main() async {
   Gemini.init(apiKey: GEMINI_API_KEY);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await LocalNotificationService.init();  
   runApp(
     ChangeNotifierProvider(
       create: (context) => NoteProvider(),

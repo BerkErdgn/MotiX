@@ -46,6 +46,7 @@ class NoteAddStrings {
   static const String categoryLabel = 'Kategori';
   static const String pickColorLabel = 'Renk Seçin';
   static const String noteSavedMessage = 'Not kaydedildi';
+
 }
 
 class NotesStrings {
@@ -108,7 +109,7 @@ class AddTodoPageStrings {
   static const String titleValidator = 'Lütfen başlık giriniz';
   static const String noteValidator = 'Lütfen not giriniz';
   static const String dateValidator = 'Lütfen tarih seçiniz';
-  static const String addTodo = 'Yapılacaklar Ekle';
+  static const String addTodo = 'Görev Oluştur';
   static const String errorMessage =
       'Bir hata oluştu, lütfen uygulamayı tekrar açınız';
 }

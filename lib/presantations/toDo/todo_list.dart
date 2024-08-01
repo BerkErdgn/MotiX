@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:motix_app/presantations/toDo/edit_todo_page.dart';
+import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 
 class TodoItem extends StatefulWidget {
@@ -69,7 +70,7 @@ class _TodoItemState extends State<TodoItem> {
             SlidableAction(
               onPressed: widget.deleteFunction,
               icon: Icons.delete,
-              backgroundColor: Colors.red,
+              backgroundColor: MotixColor.slidableDelete,
               borderRadius: BorderRadius.circular(15),
               label: TodoItemStrings.deleteAction,
             ),
@@ -80,18 +81,19 @@ class _TodoItemState extends State<TodoItem> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                backgroundColor: const Color(0xFFCDE8E5),
+                backgroundColor: MotixColor.mainColorWhite,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       TodoItemStrings.taskDetailsTitle,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: MotixColor.mainColorDarkGrey),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.black),
+                      icon: const Icon(Icons.edit,
+                          color: MotixColor.mainColorDarkGrey),
                       onPressed: () {
-                        Navigator.pop(context);  
+                        Navigator.pop(context);
                         _editTask(context);
                       },
                     ),
@@ -157,21 +159,26 @@ class TodoItemContainer extends StatelessWidget {
     return Container(
       padding: TodoItemPadding.containerPadding,
       decoration: BoxDecoration(
-        color: const Color(0xFFFAF8ED),
+        color: MotixColor.mainColorWhite,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.pink.withOpacity(0.4),
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        boxShadow: [],
       ),
       child: Row(
         children: [
           Checkbox(
             value: taskCompleted,
             onChanged: onChanged,
+
+            checkColor: MotixColor.mainColorWhite, // Okey işareti rengi beyaz
+            activeColor: MotixColor
+                .mainColorOrange, // Kutunun işaretleninceki rengi turuncu
+            fillColor: WidgetStateProperty.resolveWith<Color?>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
+                return MotixColor.mainColorOrange; // İşaretlenmişse turuncu
+              }
+              return MotixColor.mainColorWhite; // İşaretlenmemişse beyaz
+            }),
           ),
           Expanded(
             child: Text(
@@ -179,11 +186,11 @@ class TodoItemContainer extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.black,
+                color: MotixColor.mainColorDarkGrey,
                 decoration: taskCompleted
                     ? TextDecoration.lineThrough
                     : TextDecoration.none,
-                decorationColor: Colors.black,
+                decorationColor: MotixColor.mainColorDarkGrey,
                 decorationThickness: 2,
               ),
             ),
@@ -194,11 +201,11 @@ class TodoItemContainer extends StatelessWidget {
             children: [
               Text(
                 DateFormat('dd-MM-yyyy').format(date),
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(color: MotixColor.mainColorDarkGrey),
               ),
               Text(
                 '${startTime.format(context)} - ${endTime.format(context)}',
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(color: MotixColor.mainColorDarkGrey),
               ),
             ],
           ),
@@ -256,11 +263,22 @@ class _TodoItemDialogState extends State<TodoItemDialog> {
             Checkbox(
               value: _taskCompleted,
               onChanged: _handleCheckboxChange,
+              checkColor: MotixColor.mainColorWhite, // Okey işareti rengi beyaz
+              activeColor: MotixColor
+                  .mainColorOrange, // Kutunun işaretleninceki rengi turuncu
+              fillColor: WidgetStateProperty.resolveWith<Color?>(
+                  (Set<WidgetState> states) {
+                if (states.contains(WidgetState.selected)) {
+                  return MotixColor.mainColorOrange; // İşaretlenmişse turuncu
+                }
+                return MotixColor.mainColorWhite; // İşaretlenmemişse beyaz
+              }),
             ),
             Expanded(
               child: Text(
                 widget.taskName,
                 style: TextStyle(
+                  color: MotixColor.mainColorDarkGrey,
                   decoration:
                       _taskCompleted ? TextDecoration.lineThrough : null,
                 ),
@@ -271,11 +289,11 @@ class _TodoItemDialogState extends State<TodoItemDialog> {
         const SizedBox(height: 10),
         Text(
           DateFormat('dd-MM-yyyy').format(widget.date),
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: MotixColor.mainColorDarkGrey),
         ),
         Text(
           '${widget.startTime.format(context)} - ${widget.endTime.format(context)}',
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: MotixColor.mainColorDarkGrey),
         ),
       ],
     );

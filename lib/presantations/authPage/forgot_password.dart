@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/data/auth/Auth.dart';
 import 'package:motix_app/util/consts/motix_alert_messages.dart';
 import 'package:motix_app/util/components/input_field.dart';
-import 'package:motix_app/util/components/register_button.dart';
+import 'package:motix_app/util/components/custom_button.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
+import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -66,7 +66,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     SizedBox(
                       height: 20,
                     ),
-                    RegisterButton(
+                    CustomButton(
+                      buttonBackgroundColor: MotixColor.mainColorLightGray,
                       buttonText: ForgetPasswordStrings.sendEmailButtonText,
                       functionEmailAndPassword: sendEmail,
                     ),

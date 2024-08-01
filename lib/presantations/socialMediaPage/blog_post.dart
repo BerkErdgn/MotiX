@@ -23,7 +23,7 @@ class BlogPostCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: Colors.grey[700],
+        color: MotixColor.mainColorGrey,
         margin: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +78,8 @@ class BlogPostCard extends StatelessWidget {
                     .map((category) => Chip(
                           label: Text(category),
                           backgroundColor: MotixColor.mainColorGrey,
-                          labelStyle: const TextStyle(color: MotixColor.mainColorWhite),
+                          labelStyle:
+                              const TextStyle(color: MotixColor.mainColorWhite),
                         ))
                     .toList(),
               ),
@@ -111,12 +112,13 @@ class BlogPostDetailPage extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color: MotixColor.mainColorWhite),
             ),
             const SizedBox(height: 10),
             Text(
               post.postDescription,
-              style: const TextStyle(fontSize: 16, color: Colors.white),
+              style: const TextStyle(
+                  fontSize: 16, color: MotixColor.mainColorWhite),
             ),
           ],
         ),

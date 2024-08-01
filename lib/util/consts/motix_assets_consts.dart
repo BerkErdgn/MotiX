@@ -1,6 +1,10 @@
 class MotixImage {
-  static const String genericBacgroundImage = 'assets/background1.jpg';
-  static const String coachProfileImage = 'assets/motixProfile.jpeg';
+  static const String genericBacgroundImage =
+      'assets/background/background1.jpg';
+  static const String coachProfileImage = 'assets/importantImage/motixProfile.jpeg';
+    static const String noTaskImage = 'assets/importantImage/no-task.png';
+
+
 }
 
 class MotixLottieJson {

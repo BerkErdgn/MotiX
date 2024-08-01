@@ -107,6 +107,8 @@ flutter:
    - assets/categoryIcons/
    - assets/animations/
    - assets/logo/
+   - assets/background/
+
 
   #   - images/a_dot_ham.jpeg
 

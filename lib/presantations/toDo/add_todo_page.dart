@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:motix_app/util/components/custom_button.dart';
+import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 
 class AddTodoPage extends StatefulWidget {
@@ -75,7 +77,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
     }
   }
 
-  void _submitTask() {
+  Future<void> _submitTask() async {
     if (_formKey.currentState!.validate()) {
       widget.onAddTask({
         'title': _titleController.text,
@@ -94,40 +96,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            height: 120,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Color(0xFFED7D31),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(20.0),
-                bottomRight: Radius.circular(20.0),
-              ),
-            ),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.keyboard_backspace_outlined),
-                  color: Colors.white,
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AddTodoPageStrings.addTodo,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildHeader(),
           const SizedBox(height: 20),
           Expanded(
             child: Padding(
@@ -136,13 +105,50 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 key: _formKey,
                 child: ListView(
                   children: [
-                    _buildTitleField(),
+                    _buildTextField(
+                      controller: _titleController,
+                      labelText: AddTodoPageStrings.titleLabel,
+                      validatorText: AddTodoPageStrings.titleValidator,
+                    ),
                     const SizedBox(height: 24),
-                    _buildNoteField(),
+                    _buildTextField(
+                      controller: _noteController,
+                      labelText: AddTodoPageStrings.noteLabel,
+                      validatorText: AddTodoPageStrings.noteValidator,
+                    ),
                     const SizedBox(height: 24),
-                    _buildDateField(),
+                    _buildTextField(
+                      controller: _dateController,
+                      labelText: AddTodoPageStrings.dateLabel,
+                      validatorText: AddTodoPageStrings.dateValidator,
+                      isReadOnly: true,
+                      onTap: _pickDate,
+                      icon: Icons.calendar_today,
+                    ),
                     const SizedBox(height: 24),
-                    _buildTimeFields(),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
+                            controller: _startTimeController,
+                            labelText: AddTodoPageStrings.startTimeLabel,
+                            isReadOnly: true,
+                            onTap: () => _pickTime(_startTimeController),
+                            icon: Icons.access_time,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: _endTimeController,
+                            labelText: AddTodoPageStrings.endTimeLabel,
+                            isReadOnly: true,
+                            onTap: () => _pickTime(_endTimeController),
+                            icon: Icons.access_time,
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 30),
                     _buildSubmitButton(),
                   ],
@@ -155,156 +161,90 @@ class _AddTodoPageState extends State<AddTodoPage> {
     );
   }
 
-  Widget _buildTitleField() {
-    return TextFormField(
-      controller: _titleController,
-      decoration: InputDecoration(
-        labelText: AddTodoPageStrings.titleLabel,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.white),
+  Widget _buildHeader() {
+    return Container(
+      height: 100,
+      padding: const EdgeInsets.only(right: 36, top: 16, bottom: 16),
+      decoration: BoxDecoration(
+        color: MotixColor.mainColorOrange,
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(20.0),
+          bottomRight: Radius.circular(20.0),
         ),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return AddTodoPageStrings.titleValidator;
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _buildNoteField() {
-    return TextFormField(
-      controller: _noteController,
-      decoration: InputDecoration(
-        labelText: AddTodoPageStrings.noteLabel,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Color(0xFFFF7043)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return AddTodoPageStrings.noteValidator;
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _buildDateField() {
-    return TextFormField(
-      controller: _dateController,
-      readOnly: true,
-      onTap: _pickDate,
-      decoration: InputDecoration(
-        labelText: AddTodoPageStrings.dateLabel,
-        labelStyle: TextStyle(color: Color(0xFFFAF8ED)),
-        suffixIcon: Icon(Icons.calendar_today, color: Color(0xFFFFFD95)),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Color(0xFFFF7043)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return AddTodoPageStrings.dateValidator;
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _buildTimeFields() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: _startTimeController,
-            readOnly: true,
-            onTap: () => _pickTime(_startTimeController),
-            decoration: InputDecoration(
-              labelText: AddTodoPageStrings.startTimeLabel,
-              suffixIcon: Icon(Icons.access_time, color: Color(0xFFFFFD95)),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-                borderSide: BorderSide(color: Colors.white),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.keyboard_backspace_outlined),
+              color: MotixColor.mainColorWhite,
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text(
+                AddTodoPageStrings.addTodo,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: MotixColor.mainColorWhite,
+                ),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    String? validatorText,
+    bool isReadOnly = false,
+    Function()? onTap,
+    IconData? icon,
+  }) {
+    return TextFormField(
+      controller: controller,
+      readOnly: isReadOnly,
+      onTap: onTap,
+      decoration: InputDecoration(
+        labelText: labelText,
+        suffixIcon: icon != null
+            ? Icon(icon, color: MotixColor.mainColorLightGray)
+            : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: TextFormField(
-            controller: _endTimeController,
-            readOnly: true,
-            onTap: () => _pickTime(_endTimeController),
-            decoration: InputDecoration(
-              labelText: AddTodoPageStrings.endTimeLabel,
-              suffixIcon: Icon(Icons.access_time, color: Color(0xFFFFFD95)),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-                borderSide: BorderSide(color: Colors.white),
-              ),
-            ),
-          ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: MotixColor.mainColorOrange),
         ),
-      ],
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: MotixColor.mainColorWhite),
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return validatorText;
+        }
+        return null;
+      },
     );
   }
 
   Widget _buildSubmitButton() {
-    return ElevatedButton(
-      onPressed: _submitTask,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFFED7D31),
-        padding: EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-      ),
-      child: Center(
-        child: Text(
-          AddTodoPageStrings.addTaskButton,
-          style: TextStyle(fontSize: 16, color: Colors.white),
-        ),
-      ),
+    return CustomButton(
+      functionEmailAndPassword: _submitTask,
+      buttonText: AddTodoPageStrings.addTaskButton,
+      buttonBackgroundColor: MotixColor.mainColorOrange,
+      saveButtonTextColor: MotixColor.mainColorWhite,
     );
   }
 }

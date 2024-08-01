@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: CircularProgressIndicator(
                             strokeWidth: 8.0,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                                Color(0xFFed7d32)),
+                                MotixColor.mainColorOrange),
                           ),
                         ),
                       ),
@@ -143,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF141414).withOpacity(0.3),
+                  color: MotixColor.mainColorDarkGrey.withOpacity(0.3),
                   spreadRadius: 5,
                   blurRadius: 15,
                 ),
@@ -179,7 +179,7 @@ class Ellipse3 extends StatelessWidget {
       height: imageSize,
       decoration: const ShapeDecoration(
         shape: CircleBorder(
-          side: BorderSide(width: 6, color: Colors.white),
+          side: BorderSide(width: 6, color: MotixColor.mainColorWhite),
         ),
       ),
       child: ClipOval(
@@ -313,7 +313,8 @@ class PostCard extends StatelessWidget {
                                 const SnackBar(
                                   backgroundColor: Color(0xFF1c1c22),
                                   content: Text(ProfileStrings.postDeleted,
-                                      style: TextStyle(color: MotixColor.mainColorWhite)),
+                                      style: TextStyle(
+                                          color: MotixColor.mainColorWhite)),
                                   duration: Duration(seconds: 2),
                                 ),
                               );
@@ -337,7 +338,7 @@ class PostCard extends StatelessWidget {
                             fontSize: screenWidth * 0.045,
                             fontWeight: FontWeight.bold,
                           ),
-                          overflow: TextOverflow.ellipsis, 
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: screenWidth * 0.01),
                         Text(
@@ -346,7 +347,7 @@ class PostCard extends StatelessWidget {
                             fontSize: screenWidth * 0.035,
                             color: MotixColor.mainColorWhite,
                           ),
-                          overflow: TextOverflow.ellipsis, 
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:motix_app/data/entity/note.dart';
+import 'package:motix_app/util/components/custom_button.dart';
+import 'package:motix_app/util/consts/motix_alert_messages.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +70,54 @@ class _AddNotePageState extends State<AddNotePage> {
     );
   }
 
+  Future<void> noteAdd() async {
+    final title = _titleController.text;
+    final subtitle = _noteController.text;
+
+    if (title.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            MotixAlertMessages().filltheBlanksMessage,
+            style: TextStyle(color: MotixColor.mainColorWhite),
+          ),
+          backgroundColor: MotixColor.onboardingBlack,
+        ),
+      );
+      return;
+    }
+
+    if (widget.note == null) {
+      context.read<NoteProvider>().addNote(
+            title,
+            subtitle,
+            _currentColor,
+            _selectedCategory ?? 'Others',
+          );
+    } else {
+      context.read<NoteProvider>().updateNote(
+            widget.note!.copyWith(
+              title: title,
+              subtitle: subtitle,
+              color: _currentColor,
+              category: _selectedCategory ?? 'Others',
+            ),
+          );
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          NoteAddStrings.noteSavedMessage,
+          style: TextStyle(color: MotixColor.mainColorWhite),
+        ),
+        backgroundColor: MotixColor.onboardingBlack,
+      ),
+    );
+
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +140,7 @@ class _AddNotePageState extends State<AddNotePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0), //
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 TextField(
@@ -139,7 +189,8 @@ class _AddNotePageState extends State<AddNotePage> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 60),
                                   child: TextField(
-                                    style: TextStyle(color: MotixColor.mainColorDarkGrey),
+                                    style: TextStyle(
+                                        color: MotixColor.mainColorDarkGrey),
                                     maxLines: null,
                                     controller: _noteController,
                                     decoration: const InputDecoration(
@@ -182,50 +233,10 @@ class _AddNotePageState extends State<AddNotePage> {
                       ),
                     )),
                 const SizedBox(height: 30),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final title = _titleController.text;
-                      final subtitle = _noteController.text;
-
-                      if (widget.note == null) {
-                        context.read<NoteProvider>().addNote(
-                              title,
-                              subtitle,
-                              _currentColor,
-                              _selectedCategory ?? 'Others',
-                            );
-                      } else {
-                        context.read<NoteProvider>().updateNote(
-                              widget.note!.copyWith(
-                                title: title,
-                                subtitle: subtitle,
-                                color: _currentColor,
-                                category: _selectedCategory ?? 'Others',
-                              ),
-                            );
-                      }
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(NoteAddStrings.noteSavedMessage),
-                        ),
-                      );
-
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: MotixColor.mainColorGrey,
-                    ),
-                    child: const Text(
-                      NoteAddStrings.saveButtonText,
-                      style: TextStyle(
-                          color: MotixColor.mainColorDarkGrey, fontSize: 18),
-                    ),
-                  ),
-                ),
+                CustomButton(
+                    functionEmailAndPassword: noteAdd,
+                    buttonText: NoteAddStrings.saveButtonText,
+                    buttonBackgroundColor: MotixColor.CoachYellow)
               ],
             ),
           ),

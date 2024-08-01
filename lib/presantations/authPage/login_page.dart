@@ -6,7 +6,7 @@ import 'package:motix_app/main_screen.dart';
 import 'package:motix_app/presantations/authPage/register_page.dart';
 import 'package:motix_app/util/consts/motix_alert_messages.dart';
 import 'package:motix_app/util/components/input_field.dart';
-import 'package:motix_app/util/components/register_button.dart';
+import 'package:motix_app/util/components/custom_button.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
@@ -84,11 +84,16 @@ class _LoginPageState extends State<LoginPage> {
                                         const ForgetPassword(),
                                   ));
                             },
-                            child: Text(LoginStrings.forgotPasswordText, style: TextStyle(color: MotixColor.mainColorWhite),)),
+                            child: Text(
+                              LoginStrings.forgotPasswordText,
+                              style:
+                                  TextStyle(color: MotixColor.mainColorWhite),
+                            )),
                       ),
                     ),
                     const SizedBox(height: 25),
-                    RegisterButton(
+                    CustomButton(
+                      buttonBackgroundColor: MotixColor.mainColorLightGray,
                         functionEmailAndPassword: signInWithEmailAndPassword,
                         buttonText: LoginStrings.loginButtonText),
                     const SizedBox(height: 50),

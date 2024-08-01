@@ -9,7 +9,7 @@ import 'package:motix_app/cubit/registerCubit.dart';
 import 'package:motix_app/presantations/authPage/login_page.dart';
 import 'package:motix_app/util/consts/motix_alert_messages.dart';
 import 'package:motix_app/util/components/input_field.dart';
-import 'package:motix_app/util/components/register_button.dart';
+import 'package:motix_app/util/components/custom_button.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
@@ -134,7 +134,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(32.0),
-                        child: RegisterButton(
+                        child: CustomButton(
+                          buttonBackgroundColor: MotixColor.mainColorLightGray,
                           buttonText: RegisterStrings.registerButtonText,
                           functionEmailAndPassword: signInWithEmailAndPassword,
                         ),
@@ -212,7 +213,6 @@ class _InputArea5State extends State<InputArea5> {
             side: const BorderSide(width: 4, color: Colors.transparent),
             borderRadius: BorderRadius.circular(8),
           ),
-          
         ),
         child: DropdownMenu<ProfileLable>(
           menuHeight: 200,
@@ -246,6 +246,7 @@ class _InputArea5State extends State<InputArea5> {
     );
   }
 }
+
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({Key? key}) : super(key: key);
 
