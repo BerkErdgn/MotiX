@@ -68,7 +68,7 @@
 
 MotiX offers a comprehensive solution for users to stay organized in their daily lives and focus on personal development. With `note-taking` and `organizing features`, users can easily plan their tasks and steps towards their goals with `AI-powered coaching services`. Additionally, the application provides a `blog platform` for sharing success stories and motivational content, allowing users to inspire and support each other. MotiX also includes `social media features` that enable interaction within the community, helping users take more motivated and conscious steps every day.
 
-<img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/mock_up/mockup1_kavisli.png?raw=true"  >
+<img src="https://github.com/azizexb/MotiX/blob/main/bootcampFiles/mock_up/mockup1.png?raw=true"  >
 
 
 ## 🌟 Application Features
