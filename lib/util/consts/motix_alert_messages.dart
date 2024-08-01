@@ -9,4 +9,4 @@ class MotixAlertMessages {
   final String characterWrongMessage =
       'Şifre en az 6 karakterden oluşturulmalıdır.';
   final String alreadyExistsMessage = 'Bu e-mail ile zaten kaydolunmuş.';
-}
+} //end class MotixAlertMessages

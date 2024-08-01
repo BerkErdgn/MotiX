@@ -21,8 +21,4 @@ class MotixColor {
       Color.fromARGB(255, 250, 214, 130);
 
   static const Color blue = Color(0xFF86B6F6);
-
-
-
-      
-}
+} // end class MotixColor

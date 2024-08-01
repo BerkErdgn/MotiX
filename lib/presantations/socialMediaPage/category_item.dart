@@ -3,10 +3,11 @@ import 'package:motix_app/util/consts/motix_color_consts.dart';
 
 class CategoryItem extends StatelessWidget {
   final String label;
-  final String  icon;
+  final String icon;
   final bool isSelected;
 
-  const CategoryItem({super.key, 
+  const CategoryItem({
+    super.key,
     required this.label,
     required this.icon,
     this.isSelected = false,
@@ -21,10 +22,14 @@ class CategoryItem extends StatelessWidget {
           height: 65,
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
-            color: isSelected ?  MotixColor.mainColorOrange : MotixColor.mainColorWhite,
+            color: isSelected
+                ? MotixColor.mainColorOrange
+                : MotixColor.mainColorWhite,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: isSelected ?  MotixColor.mainColorOrange :  MotixColor.mainColorGrey,
+              color: isSelected
+                  ? MotixColor.mainColorOrange
+                  : MotixColor.mainColorGrey,
             ),
           ),
           child: Column(
@@ -32,7 +37,9 @@ class CategoryItem extends StatelessWidget {
             children: [
               ImageIcon(
                 AssetImage(icon),
-                color: isSelected ?  MotixColor.mainColorWhite :  MotixColor.mainColorDarkGrey,
+                color: isSelected
+                    ? MotixColor.mainColorWhite
+                    : MotixColor.mainColorDarkGrey,
                 size: 34,
               )
             ],
@@ -44,7 +51,9 @@ class CategoryItem extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 16,
-              color: isSelected ?  MotixColor.mainColorWhite :  MotixColor.mainColorWhite,
+              color: isSelected
+                  ? MotixColor.mainColorWhite
+                  : MotixColor.mainColorWhite,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
@@ -52,4 +61,4 @@ class CategoryItem extends StatelessWidget {
       ],
     );
   }
-}
+} //end class CategoryItem

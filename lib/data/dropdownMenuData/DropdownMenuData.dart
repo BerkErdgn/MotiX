@@ -1,6 +1,5 @@
-
-
-enum ProfileLable{
+// Data for use in the drowdownmenu on the Register page,
+enum ProfileLable {
   bear('bear', "assets/animalIcon/bear.svg"),
   cat('cat', "assets/animalIcon/cat.svg"),
   chick('chick', "assets/animalIcon/chick.svg"),
@@ -14,9 +13,8 @@ enum ProfileLable{
   tiger('tiger', "assets/animalIcon/tiger.svg"),
   whale('whale', "assets/animalIcon/whale.svg");
 
-
   const ProfileLable(this.label, this.icon);
-  final String label;
-  final dynamic  icon;
-}
 
+  final String label;
+  final dynamic icon;
+}

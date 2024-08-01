@@ -89,7 +89,7 @@ class BlogPostCard extends StatelessWidget {
       ),
     );
   }
-}
+} // end class BlogPostCard
 
 class BlogPostDetailPage extends StatelessWidget {
   final Post post;
@@ -125,4 +125,4 @@ class BlogPostDetailPage extends StatelessWidget {
       ),
     );
   }
-}
+} // class BlogPostDetailPage

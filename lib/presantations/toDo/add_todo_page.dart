@@ -11,7 +11,7 @@ class AddTodoPage extends StatefulWidget {
 
   @override
   _AddTodoPageState createState() => _AddTodoPageState();
-}
+} // end class AddTodoPage
 
 class _AddTodoPageState extends State<AddTodoPage> {
   final _formKey = GlobalKey<FormState>();
@@ -50,6 +50,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
   }
 
   Future<void> _pickDate() async {
+    //to get date
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -62,9 +63,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
         _dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
       });
     }
-  }
+  } //end Future _pickDate
 
   Future<void> _pickTime(TextEditingController controller) async {
+    //to get time
     TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -75,9 +77,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
         controller.text = _formatTime(pickedTime);
       });
     }
-  }
+  } //end Future _pickTime
 
   Future<void> _submitTask() async {
+    //to submit Time,
     if (_formKey.currentState!.validate()) {
       widget.onAddTask({
         'title': _titleController.text,
@@ -89,7 +92,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
 
       Navigator.pop(context);
     }
-  }
+  } //end Future _pickTime
 
   @override
   Widget build(BuildContext context) {
@@ -247,4 +250,4 @@ class _AddTodoPageState extends State<AddTodoPage> {
       saveButtonTextColor: MotixColor.mainColorWhite,
     );
   }
-}
+} // end class _AddTodoPageState

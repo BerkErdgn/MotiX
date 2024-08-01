@@ -8,25 +8,24 @@ import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 
-import '../../util/consts/motix_color_consts.dart';
-
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
 
   @override
   State<ForgetPassword> createState() => _ForgetPasswordState();
-}
+} //end class ForgetPassword
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final TextEditingController _controllerForgetPasswordEmail =
       TextEditingController();
 
   Future<void> sendEmail() async {
+    // to send an email,
     await Auth().sendPasswordResetLink(_controllerForgetPasswordEmail.text);
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(MotixAlertMessages().sendEmailMessage)));
     Navigator.pop(context);
-  }
+  } //end Future sendEmail
 
   @override
   Widget build(BuildContext context) {
@@ -51,24 +50,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               ),
             ),
             Positioned(
-              top: 180,
-              left: 35,
-              child:Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    ForgetPasswordStrings.promptText,
-                    style: GoogleFonts.quicksand(
-                      textStyle: TextStyle(
-                        color: MotixColor.mainColorOrange,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                top: 180,
+                left: 35,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ForgetPasswordStrings.promptText,
+                      style: GoogleFonts.quicksand(
+                        textStyle: TextStyle(
+                          color: MotixColor.mainColorOrange,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ),
+                  ],
+                )),
             Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
@@ -101,4 +99,4 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       ),
     );
   }
-}
+} //end class _ForgetPasswordState

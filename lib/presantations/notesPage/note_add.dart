@@ -7,7 +7,6 @@ import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-
 import 'note_provider.dart';
 
 class AddNotePage extends StatefulWidget {
@@ -17,7 +16,7 @@ class AddNotePage extends StatefulWidget {
 
   @override
   _AddNotePageState createState() => _AddNotePageState();
-}
+} // end class AddNotePage
 
 class _AddNotePageState extends State<AddNotePage> {
   final _titleController = TextEditingController();
@@ -25,6 +24,7 @@ class _AddNotePageState extends State<AddNotePage> {
   Color _currentColor = MotixColor.mainColorLightGray;
   String? _selectedCategory;
 
+  // category data,
   final List<String> _categories = [
     NotesStrings.workCategory,
     NotesStrings.personalCategory,
@@ -46,6 +46,7 @@ class _AddNotePageState extends State<AddNotePage> {
   }
 
   void _pickColor() {
+    //for user to choose color
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -68,9 +69,10 @@ class _AddNotePageState extends State<AddNotePage> {
         ],
       ),
     );
-  }
+  } // end void _pickColor
 
   Future<void> noteAdd() async {
+    //to add the user's note
     final title = _titleController.text;
     final subtitle = _noteController.text;
 
@@ -85,7 +87,7 @@ class _AddNotePageState extends State<AddNotePage> {
         ),
       );
       return;
-    }
+    } // end Future noteAdd
 
     if (widget.note == null) {
       context.read<NoteProvider>().addNote(
@@ -116,7 +118,7 @@ class _AddNotePageState extends State<AddNotePage> {
     );
 
     Navigator.pop(context);
-  }
+  } // end Future noteAdd()
 
   @override
   Widget build(BuildContext context) {
@@ -189,8 +191,8 @@ class _AddNotePageState extends State<AddNotePage> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 60),
                                   child: TextField(
-                                    
-                                    style: TextStyle(color: MotixColor.mainColorWhite),
+                                    style: TextStyle(
+                                        color: MotixColor.mainColorWhite),
                                     maxLines: null,
                                     controller: _noteController,
                                     decoration: const InputDecoration(
@@ -244,4 +246,4 @@ class _AddNotePageState extends State<AddNotePage> {
       ),
     );
   }
-}
+} // end class _AddNotePageState

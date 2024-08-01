@@ -21,7 +21,7 @@ class InputField extends StatefulWidget {
 
   @override
   _InputFieldState createState() => _InputFieldState();
-}
+} //end class InputField
 
 class _InputFieldState extends State<InputField> {
   late bool obscureText;
@@ -90,4 +90,4 @@ class _InputFieldState extends State<InputField> {
       ),
     );
   }
-}
+} //end class _InputFieldState

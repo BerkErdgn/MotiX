@@ -108,6 +108,7 @@ flutter:
    - assets/animations/
    - assets/logo/
    - assets/background/
+   - assets/importantImage/
 
 
   #   - images/a_dot_ham.jpeg

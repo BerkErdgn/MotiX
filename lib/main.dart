@@ -23,7 +23,7 @@ void main() async {
       child: MyApp(),
     ),
   );
-}
+} //end void main
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark(
           useMaterial3: true,
         ),
-        locale: Locale('tr', ''), 
+        locale: Locale('tr', ''),
         supportedLocales: [
-          const Locale('en', ''), 
-          const Locale('tr', ''), 
+          const Locale('en', ''),
+          const Locale('tr', ''),
         ],
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -58,4 +58,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
+} //end class MyApp

@@ -14,14 +14,10 @@ import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 
-void main() {
-  runApp(RegisterPage());
-}
-
 class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegisterPageState();
-}
+} //end class RegisterPage
 
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _controllerName = TextEditingController();
@@ -32,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _iconController = TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
+    // register user with user email and password,
     try {
       if (_controllerEmail.text.isNotEmpty &&
           _controllerName.text.isNotEmpty &&
@@ -53,12 +50,14 @@ class _RegisterPageState extends State<RegisterPage> {
             return MainScreen();
           }));
         } else {
+          // for error message
           setState(() {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(MotixAlertMessages().doesntMatchMessage)));
           });
         }
       } else {
+        // for error message
         setState(() {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(MotixAlertMessages().filltheBlanksMessage)));
@@ -68,23 +67,26 @@ class _RegisterPageState extends State<RegisterPage> {
       print(e.message);
       if (e.message == "The email address is badly formatted.") {
         setState(() {
+          // for error message
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(MotixAlertMessages().emailCorrectFormatMessage)));
         });
       } else if (e.message == "Password should be at least 6 characters") {
         setState(() {
+          // for error message
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(MotixAlertMessages().characterWrongMessage)));
         });
       } else if (e.message ==
           "The email address is already in use by another account.") {
         setState(() {
+          // for error message
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(MotixAlertMessages().alreadyExistsMessage)));
         });
       }
     }
-  }
+  } // end Future signInWithEmailAndPassword
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +154,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-}
+} // end class _RegisterPageState
 
 class SignUpText extends StatelessWidget {
   const SignUpText({Key? key}) : super(key: key);
@@ -186,7 +188,7 @@ class SignUpText extends StatelessWidget {
       ),
     );
   }
-}
+} // end class SignUpText
 
 class InputArea5 extends StatefulWidget {
   final TextEditingController controller;
@@ -195,7 +197,7 @@ class InputArea5 extends StatefulWidget {
 
   @override
   _InputArea5State createState() => _InputArea5State();
-}
+} //end class InputArea5
 
 class _InputArea5State extends State<InputArea5> {
   ProfileLable? selectedIcon;
@@ -245,7 +247,7 @@ class _InputArea5State extends State<InputArea5> {
       ),
     );
   }
-}
+} // end class _InputArea5State
 
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({Key? key}) : super(key: key);
@@ -271,7 +273,7 @@ class AlreadyHaveAccount extends StatelessWidget {
       ],
     );
   }
-}
+} //end class AlreadyHaveAccount
 
 class RegisterPadding {
   static EdgeInsets inputPaddingSymmetric =
@@ -282,4 +284,4 @@ class RegisterPadding {
 
   static EdgeInsets signUpTextBetweenPadding =
       const EdgeInsets.only(bottom: 10);
-}
+} // end class RegisterPadding

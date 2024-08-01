@@ -8,6 +8,7 @@ class Imagecubit extends Cubit<List<UserImageEntity>> {
   var collectionUsers = FirebaseFirestore.instance.collection("Users");
 
   Future<void> getUserImage(String email) async {
+    // To get user's photo
     collectionUsers
         .where("userEmail", isEqualTo: email)
         .snapshots()
@@ -24,5 +25,5 @@ class Imagecubit extends Cubit<List<UserImageEntity>> {
 
       emit(userImageList);
     });
-  }
-}
+  } //end Future getUserImage
+} // end class Imagecubit

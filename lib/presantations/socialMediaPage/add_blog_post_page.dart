@@ -22,13 +22,15 @@ class AddBlogPostPage extends StatefulWidget {
 
   @override
   _AddBlogPostPageState createState() => _AddBlogPostPageState();
-}
+} // end class AddBlogPostPage
 
 class _AddBlogPostPageState extends State<AddBlogPostPage> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   String? _selectedCategory;
+
+  // category data
   final List<String> _categories = [
     'Başarı',
     'Kariyer',
@@ -72,8 +74,8 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide:
-                        const BorderSide(color: MotixColor.mainColorOrange, width: 2.0),
+                    borderSide: const BorderSide(
+                        color: MotixColor.mainColorOrange, width: 2.0),
                   ),
                 ),
                 validator: (value) {
@@ -94,8 +96,8 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide:
-                        const BorderSide(color: MotixColor.mainColorOrange, width: 2.0),
+                    borderSide: const BorderSide(
+                        color: MotixColor.mainColorOrange, width: 2.0),
                   ),
                 ),
                 maxLines: 3,
@@ -130,7 +132,8 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                     value: category,
                     child: Text(
                       category,
-                      style: const TextStyle(color: MotixColor.mainColorWhite, fontSize: 18),
+                      style: const TextStyle(
+                          color: MotixColor.mainColorWhite, fontSize: 18),
                     ),
                   );
                 }).toList(),
@@ -165,8 +168,8 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                   }
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      WidgetStateProperty.all<Color>(MotixColor.mainColorOrange),
+                  backgroundColor: WidgetStateProperty.all<Color>(
+                      MotixColor.mainColorOrange),
                   shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -181,7 +184,8 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
                 ),
                 child: Text(
                   AddBlogPostStrings.addButtonText,
-                  style: const TextStyle(fontSize: 18, color: MotixColor.mainColorWhite),
+                  style: const TextStyle(
+                      fontSize: 18, color: MotixColor.mainColorWhite),
                 ),
               ),
             ],
@@ -190,4 +194,4 @@ class _AddBlogPostPageState extends State<AddBlogPostPage> {
       ),
     );
   }
-}
+} // end class _AddBlogPostPageState

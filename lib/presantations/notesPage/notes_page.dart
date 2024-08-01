@@ -15,7 +15,7 @@ class NotesPage extends StatefulWidget {
 
   @override
   State<NotesPage> createState() => _NotesPageState();
-}
+} //end class NotesPage
 
 class _NotesPageState extends State<NotesPage> {
   final User? user = Auth().currentUser;
@@ -34,7 +34,8 @@ class _NotesPageState extends State<NotesPage> {
         .watch<NoteProvider>()
         .notes
         .where((note) =>
-            _selectedCategory == NotesStrings.allCategory || note.category == _selectedCategory)
+            _selectedCategory == NotesStrings.allCategory ||
+            note.category == _selectedCategory)
         .toList();
 
     return BlocBuilder<Imagecubit, List<UserImageEntity>>(
@@ -83,7 +84,8 @@ class _NotesPageState extends State<NotesPage> {
                       }),
                   FilterChip(
                       label: const Text(NotesStrings.personalCategory),
-                      selected: _selectedCategory == NotesStrings.personalCategory,
+                      selected:
+                          _selectedCategory == NotesStrings.personalCategory,
                       onSelected: (bool value) {
                         setState(() {
                           _selectedCategory = NotesStrings.personalCategory;
@@ -99,7 +101,8 @@ class _NotesPageState extends State<NotesPage> {
                       }),
                   FilterChip(
                       label: const Text(NotesStrings.sportsCategory),
-                      selected: _selectedCategory == NotesStrings.sportsCategory,
+                      selected:
+                          _selectedCategory == NotesStrings.sportsCategory,
                       onSelected: (bool value) {
                         setState(() {
                           _selectedCategory = NotesStrings.sportsCategory;
@@ -186,4 +189,4 @@ class _NotesPageState extends State<NotesPage> {
       );
     });
   }
-}
+} // end class _NotesPageState
