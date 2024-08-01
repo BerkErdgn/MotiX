@@ -488,7 +488,7 @@ This Sprint culminated in the `product delivery` and the team made significant p
 
 ## 🌟 Behance Portfolio
 
-<a href="https://www.behance.net/embed/project/204548643?ilo0=1">
+<a href="https://www.behance.net/gallery/204548643/MotiX-App">
   <img src="https://cdn-icons-png.freepik.com/512/3536/3536806.png?ga=GA1.1.1785275782.1707253719" alt="Behance Project" style="width: 70px; height: auto;">
 </a>
 
