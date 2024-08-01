@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:concentric_transition/concentric_transition.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motix_app/util/consts/motix_assets_consts.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../authPage/login_page.dart';
 
 class ConcentricAnimationOnboarding extends StatelessWidget {
@@ -40,16 +42,16 @@ class ConcentricAnimationOnboarding extends StatelessWidget {
           itemBuilder: (index) {
             final page = pages[index % pages.length];
             return SafeArea(
-              child: _Page(page: page),
+              child: _Page(page: page, index: index),
             );
           },
         ),
       ),
     );
   }
-} // end class ConcentricAnimationOnboarding
+}//end class ConcentricAnimationOnboarding
 
-//Page data entity
+// PageData
 class PageData {
   final String? title;
   final Color bgColor;
@@ -59,26 +61,31 @@ class PageData {
 
   const PageData({
     this.title,
-    this.bgColor = MotixColor.mainColorWhite,
-    this.textColor = MotixColor.mainColorDarkGrey,
+    this.bgColor = Colors.white,
+    this.textColor = Colors.black,
     this.animationPath,
     this.description,
   });
-} // end class PageData
+}
 
 class _Page extends StatelessWidget {
   final PageData page;
+  final int index;
 
-  const _Page({Key? key, required this.page}) : super(key: key);
+  const _Page({Key? key, required this.page, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isLastPage = index == pages.length - 1;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         if (page.animationPath != null)
           Padding(
-            padding: EdgeInsets.only(top: 16.0, bottom: 10.0),
+            padding: isLastPage
+                ? EdgeInsets.only(top: 16.0, bottom: 10.0, left: 30.0)
+                : EdgeInsets.only(top: 16.0, bottom: 10.0),
             child: Lottie.asset(page.animationPath!),
           ),
         Text(
@@ -111,7 +118,7 @@ class _Page extends StatelessWidget {
   }
 
   List<TextSpan> _getSpannedText(String text, Color textColor) {
-    const highlightColor = MotixColor.onboardingHighlightColor;
+    const highlightColor = Color.fromARGB(255, 250, 214, 130);
     final List<TextSpan> spans = [];
     final List<String> highlightWords = [
       OnboardingStrings.highlightText1,
@@ -145,9 +152,9 @@ class _Page extends StatelessWidget {
 
     return spans;
   }
-} // end class _Page
+}//end class _Page
 
-// Data of onBoarding pages
+//Page data
 final List<PageData> pages = [
   const PageData(
     title: OnboardingStrings.titlePage1,
