@@ -130,6 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         labelText: RegisterStrings.verifyPasswordLabel,
                         obscureText: true,
                         controller: _controllerVerifyPassword,
+                        customKeyboardTypes: TextInputType.visiblePassword,
                       ),
                       InputArea5(
                         controller: _iconController,

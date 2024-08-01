@@ -16,7 +16,7 @@ class AddNotePage extends StatefulWidget {
 
   @override
   _AddNotePageState createState() => _AddNotePageState();
-} // end class AddNotePage
+}
 
 class _AddNotePageState extends State<AddNotePage> {
   final _titleController = TextEditingController();
@@ -24,7 +24,6 @@ class _AddNotePageState extends State<AddNotePage> {
   Color _currentColor = MotixColor.mainColorLightGray;
   String? _selectedCategory;
 
-  // category data,
   final List<String> _categories = [
     NotesStrings.workCategory,
     NotesStrings.personalCategory,
@@ -46,7 +45,6 @@ class _AddNotePageState extends State<AddNotePage> {
   }
 
   void _pickColor() {
-    //for user to choose color
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -69,10 +67,18 @@ class _AddNotePageState extends State<AddNotePage> {
         ],
       ),
     );
-  } // end void _pickColor
+  }
+
+  Color _getTextColor(Color backgroundColor) {
+    int brightness = ((backgroundColor.red * 299) +
+            (backgroundColor.green * 587) +
+            (backgroundColor.blue * 114)) ~/
+        1000;
+
+    return brightness >= 128 ? Colors.black : Colors.white;
+  }
 
   Future<void> noteAdd() async {
-    //to add the user's note
     final title = _titleController.text;
     final subtitle = _noteController.text;
 
@@ -87,7 +93,7 @@ class _AddNotePageState extends State<AddNotePage> {
         ),
       );
       return;
-    } // end Future noteAdd
+    }
 
     if (widget.note == null) {
       context.read<NoteProvider>().addNote(
@@ -118,7 +124,7 @@ class _AddNotePageState extends State<AddNotePage> {
     );
 
     Navigator.pop(context);
-  } // end Future noteAdd()
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,14 +198,16 @@ class _AddNotePageState extends State<AddNotePage> {
                                   padding: const EdgeInsets.only(bottom: 60),
                                   child: TextField(
                                     style: TextStyle(
-                                        color: MotixColor.mainColorWhite),
+                                      color: _getTextColor(_currentColor),
+                                    ),
                                     maxLines: null,
                                     controller: _noteController,
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: NoteAddStrings.noteHintText,
                                       hintStyle: TextStyle(
-                                        color: MotixColor.mainColorDarkGrey,
+                                        color: _getTextColor(_currentColor)
+                                            .withOpacity(0.6),
                                       ),
                                     ),
                                   ),
@@ -215,16 +223,16 @@ class _AddNotePageState extends State<AddNotePage> {
                                   IconButton(
                                     icon: Icon(
                                       Icons.color_lens,
-                                      color: MotixColor.mainColorWhite,
+                                      color: _getTextColor(_currentColor),
                                       size: 34,
                                     ),
                                     onPressed: _pickColor,
                                   ),
                                   Text(
                                     "${DateFormat('dd MMMM yyyy', 'tr_TR').format(DateTime.now())}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 14,
-                                      color: MotixColor.mainColorWhite,
+                                      color: _getTextColor(_currentColor),
                                     ),
                                   ),
                                 ],
@@ -238,7 +246,7 @@ class _AddNotePageState extends State<AddNotePage> {
                 CustomButton(
                     functionEmailAndPassword: noteAdd,
                     buttonText: NoteAddStrings.saveButtonText,
-                    buttonBackgroundColor: MotixColor.CoachYellow)
+                    buttonBackgroundColor: MotixColor.mainColorOrange)
               ],
             ),
           ),
@@ -246,4 +254,4 @@ class _AddNotePageState extends State<AddNotePage> {
       ),
     );
   }
-} // end class _AddNotePageState
+}
