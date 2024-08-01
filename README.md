@@ -235,7 +235,7 @@ Based on the experience and feedback from the first sprint, we plan to complete 
 
 
 
-<details><summary><h1>Second Sprint</h1></summary></details>
+<details close><summary><h1>Second Sprint</h1></summary>
 
 ## 🚀 Sprint Notes
 
@@ -397,3 +397,98 @@ Based on the experiences and feedback from the second sprint, we plan to:
 
 - `Design Decisions:` Allocate more time for finalizing design decisions at early stages to make the design process more efficient and smooth.
 - `Task Estimation and Management:` Adopt a more meticulous approach in task estimation and management to minimize potential deviations during the sprint.
+</details>
+
+<details><summary><h1>Third Sprint 🚀</h1></summary></details>
+
+## 🚀 Sprint Notes
+
+At the beginning of the sprint, we held a `sprint planning meeting` with our team. During this meeting, we detailed the `tasks` necessary for product delivery and outlined the areas for general fixes and improvements. We defined the `main goals` for this sprint and assigned `responsibilities` for each task, along with creating a `timeline`. This planning process ensured that the sprint was conducted efficiently and effectively.
+
+## 📊 Estimated Completion Points
+
+`200 points`
+
+## 🔢 Point Completion Logic
+
+During the sprint, each team member worked according to their assigned tasks. The `point system` was applied as follows:
+
+- `Points` were assigned based on the complexity and workload of tasks.
+- Upon completing a task, the designated `points` for that task were earned.
+- `Task status` was reviewed in `daily Scrum meetings`, and progress was tracked.
+
+## 📅 Daily Scrum
+
+In this sprint, we held our `Daily Scrum` meetings continuously on `Discord`, considering the team members' busy schedules. During these meetings, the team members collaborated on development tasks together, making progress on the project. This approach allowed team members to communicate flexibly and enhance their collaborative efforts.
+
+### Daily Scrum Screenshots
+
+| ![Daily Scrum 1](https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint3/daily_scrum/DailyScrum.png?raw=true) | ![Daily Scrum 2](https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint3/daily_scrum/DailyScrum2.png?raw=true) |
+|:--:|:--:|
+| Daily Scrum 1 | Daily Scrum 2 |
+
+## 🖼️ Sprint Board Screenshots
+
+| ![Sprint Board](https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint3/sprint_board_screenshot/SprintBoard.png?raw=true) |
+|:--:|
+| Sprint Board |
+
+## 📱 App Screenshots
+
+| ![App Screenshots](https://github.com/azizexb/MotiX/blob/main/bootcampFiles/Sprint3/app_screenshot/app_screenshot.png?raw=true) |
+|:--:|
+| App Screenshots |
+
+
+
+## 🏆 Sprint Review
+
+This Sprint culminated in the `product delivery` and the team made significant progress towards the set goals.
+
+1. **Product Delivery:**
+   - At the end of the sprint, the delivery of the `MotiX application` was successfully completed. The delivery included the implementation of all `planned features` and functionalities.
+
+2. **Bug Fixes:**
+   - Team members meticulously fixed all `bugs` that arose before product delivery. Critical bugs were prioritized based on `user feedback` and `test results`.
+
+3. **Design Improvements:**
+   - `Design improvements` focused on enhancing `user experience`. The team made various adjustments to improve the design both aesthetically and functionally.
+
+4. **Performance and Stability:**
+   - Intensive work was done on the application's `performance` and `stability`. Performance issues were optimized, and the overall user experience was improved.
+
+5. **Feedback and User Testing:**
+   - `User testing` was conducted, and necessary adjustments were made based on feedback. This process ensured that the application met user needs.
+
+**Outcome:** Sprint 3 successfully completed a significant phase of the MotiX application. The team corrected bugs encountered during delivery and improved the design, enhancing the overall quality of the application. These efforts ensured the application was `user-friendly` and `high-performing`.
+
+## 🔄 Sprint Retrospective
+
+**👍 What Went Well:**
+
+- **Successful `Bug Fixes`:** The team quickly and effectively addressed `bugs` that emerged during the sprint, improving the quality of the product and enhancing `user experience`.
+- **Good `Coordination` and `Communication`:** Strong coordination and communication among team members ensured that `design` and `development` processes proceeded smoothly.
+- **`Design Improvements`:** The design enhancements significantly improved the `aesthetics` and `usability` of the application. `User feedback` was effectively evaluated and integrated into the application.
+
+**🛠️ Areas for Improvement:**
+
+- **Balance Between `Design` and `Functionality`:** During design improvements, a sufficient balance between `functionality` and `aesthetics` was not always achieved. Some design changes negatively impacted `functionality`.
+
+**📚 Lessons Learned:**
+
+- **`Early Testing` is Crucial:** Conducting more comprehensive `tests` early in the development process can help prevent last-minute issues.
+- **`Design` and `Development` Collaboration:** More frequent collaboration between `design` and `development` teams can better assess the impact of design changes on `functionality`.
+- **`Realistic Planning`:** Making more realistic time estimates during `sprint planning` and considering potential `risks` can reduce issues during the delivery process.
+
+**💡 Improvement Suggestions:**
+
+- **More Frequent `Testing` and `Review`:** Conduct more tests early in the sprint to quickly identify and resolve potential issues.
+- **`Design-Development` Integration:** When making design changes, obtain early feedback on their impact on `functionality` to strengthen the integration of `design` and `development` processes.
+- **`Planning` and `Risk Management`:** Make time estimates more carefully during `sprint planning` and identify potential `risks` to make the delivery process more predictable and smooth.
+
+## 🌟 Behance Portfolio
+
+<a href="https://www.behance.net/embed/project/204548643?ilo0=1">
+  <img src="https://cdn-icons-png.freepik.com/512/3536/3536806.png?ga=GA1.1.1785275782.1707253719" alt="Behance Project" style="width: 70px; height: auto;">
+</a>
+
