@@ -113,7 +113,6 @@ class _LoginPageState extends State<LoginPage> {
 
 class _HeadLineText extends StatelessWidget {
   const _HeadLineText({
-    super.key,
     required this.signText,
   });
 

@@ -22,69 +22,74 @@ class BlogPostCard extends StatelessWidget {
           ),
         );
       },
-      child: Card(
-        color: MotixColor.mainColorGrey,
-        margin: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTile(
-              leading: Container(
-                width: 50,
-                height: 50,
-                child: ClipOval(
-                  child: SvgPicture.asset(
-                    "assets/animalIcon/${post.postOwnerProfileIcon}.svg",
-                    fit: BoxFit.cover,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          elevation: 3,
+          shadowColor: MotixColor.mainColorGrey,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  child: ClipOval(
+                    child: SvgPicture.asset(
+                      "assets/animalIcon/${post.postOwnerProfileIcon}.svg",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+                title: Text(
+                  post.postOwnerName,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: MotixColor.mainColorWhite),
+                ),
+                subtitle: Text(
+                  formattedDate,
+                  style: const TextStyle(color: MotixColor.mainColorWhite),
+                ),
               ),
-              title: Text(
-                post.postOwnerName,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: MotixColor.mainColorWhite),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  post.postTitle,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: MotixColor.mainColorWhite),
+                ),
               ),
-              subtitle: Text(
-                formattedDate,
-                style: const TextStyle(color: MotixColor.mainColorWhite),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  post.postDescription.length > 100
+                      ? '${post.postDescription.substring(0, 100)}...'
+                      : post.postDescription,
+                  style: const TextStyle(color: MotixColor.mainColorWhite),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                post.postTitle,
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: MotixColor.mainColorWhite),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  spacing: 6.0,
+                  children: post.postCategories
+                      .map((category) => Chip(
+                            label: Text(category),
+                            backgroundColor: MotixColor.mainColorDarkGrey,
+                            labelStyle: const TextStyle(
+                                color: MotixColor.mainColorWhite),
+                          ))
+                      .toList(),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                post.postDescription.length > 100
-                    ? '${post.postDescription.substring(0, 100)}...'
-                    : post.postDescription,
-                style: const TextStyle(color: MotixColor.mainColorWhite),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Wrap(
-                spacing: 6.0,
-                children: post.postCategories
-                    .map((category) => Chip(
-                          label: Text(category),
-                          backgroundColor: MotixColor.mainColorGrey,
-                          labelStyle:
-                              const TextStyle(color: MotixColor.mainColorWhite),
-                        ))
-                    .toList(),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:motix_app/util/consts/motix_color_consts.dart';
 import 'package:motix_app/util/consts/motix_text_consts.dart';
@@ -29,7 +28,8 @@ class _InputFieldState extends State<InputField> {
   @override
   void initState() {
     super.initState();
-    obscureText = widget.labelText == LoginStrings.passwordLabel;
+    obscureText = widget.labelText == LoginStrings.passwordLabel ||
+        widget.labelText == RegisterStrings.verifyPasswordLabel;
   }
 
   @override

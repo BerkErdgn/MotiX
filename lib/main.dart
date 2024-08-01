@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark(
           useMaterial3: true,
         ),
-        locale: Locale('tr', ''),
+        locale: Locale('tr', 'TR'),
         supportedLocales: [
-          const Locale('en', ''),
-          const Locale('tr', ''),
+          const Locale('en', 'EN'),
+          const Locale('tr', 'TR'),
         ],
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
